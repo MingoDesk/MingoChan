@@ -1,14 +1,9 @@
 import { MongoClient, Db as mongoDb, Collection } from "mongodb";
-import { collections } from "./config";
+import { collections } from "../config/config";
 
 interface IConfig {
   URI: string;
   name: string;
-}
-
-interface ICollections {
-  users: string;
-  threads: string;
 }
 
 export class Db {
@@ -28,7 +23,7 @@ export class Db {
     return new Promise<this>((resolve, reject) => {
       this.rootClient.connect((err, client) => {
         if (err) return reject(`Failed to connect to database. Err: ${err}`);
-        console.log(`Connected to databse: ${this.db_name}`);
+        console.info(`Connected to databse: ${this.db_name}`);
 
         this.db = client.db(this.db_name);
         this.users = this.db.collection(collections.users);
