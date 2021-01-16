@@ -10,6 +10,7 @@ import { checkEnvVars } from "./util/checkEnvVars";
 import express from "express";
 const RedisStore: connectRedis = connectRedis(session);
 import { v4 as uuid } from "uuid";
+import { setupRoutes } from "./routes/setup";
 
 const init = async (app: Application): Promise<void> => {
   console.log("are we here?");
@@ -43,7 +44,8 @@ const init = async (app: Application): Promise<void> => {
     })
   );
 
-  app.listen(process.env.PORT, () => console.log(`Listening on http://localhost:${process.env.PORT}`));
+  await setupRoutes(app);
+  app.listen(process.env.PORT, () => console.info(`Listening on http://localhost:${process.env.PORT}`));
 };
 
 export { init };
