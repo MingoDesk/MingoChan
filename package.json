@@ -23,8 +23,9 @@
   },
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "start": "tsc -p tsconfig.json && node dist/app.ts",
-    "deploy": "node dist/app.ts"
+    "start": "tsc -p tsconfig.json && node dist/app.js",
+    "build": "tsc -p tsconfig.json",
+    "deploy": "node dist/app.js"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
