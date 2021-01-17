@@ -12,6 +12,8 @@ services:
     container_name: "redis_mingo-chan_data_container"
     volumes:
       - redis_mingo-chan_data_volume:/redis/data/db
+      - ./config/redis.conf:/redis.conf
+    command: ["redis-server", "/redis.conf"]
     environment:
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
       - ALLOW_EMPTY_PASSWORD=yes
@@ -19,15 +21,15 @@ services:
     ports:
       - 6379:6379
   database:
-    image: mongo:latest
+    image: mongo:4.4
     container_name: "mongodb_mingo-chan_data_container"
     volumes:
       - mongodb_mingo-chan_data_volume:/mongodb/data/db
-    environment:
+
       - ALLOW_EMPTY_PASSWORD=yes
       #- MONGO_INITDB_ROOT_USERNAME=root
       #- MONGO_INITDB_ROOT_PASSWORD=rootpassword
-      - MONGO_INITDB_DATABSE=TODO-DB
+      - MONGO_INITDB_DATABSE=${DB_NAME}
     ports:
       - 27017:27017
 volumes:

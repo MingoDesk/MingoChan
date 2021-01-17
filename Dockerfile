@@ -6,18 +6,22 @@ COPY package*.json ./
 COPY yarn.lock ./
 COPY tsconfig.json ./
 COPY src /usr/src/app/src
-RUN ls -a
+
 
 RUN yarn install
-RUN yarn global add pm2 typescript
+RUN yarn global add typescript
 RUN yarn build
 
 
 ARG PORT
+ARG DB_NAME
 EXPOSE ${PORT}
+EXPOSE ${DB_NAME}
 
 COPY . ./
 
+
 VOLUME ["/usr/src/app/store"]
+RUN ls -a
 
 CMD [ "yarn", "deploy" ]
