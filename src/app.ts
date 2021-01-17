@@ -10,7 +10,7 @@ import { checkEnvVars } from "./util/checkEnvVars";
 import express from "express";
 const RedisStore: RedisStore = connectRedis(session);
 import { v4 as uuid } from "uuid";
-import { setupRoutes } from "./routes/setup";
+import { setupRoutes } from "./routes/routes";
 
 const init = async (app: Application): Promise<void> => {
   // Check that all env variables are set
@@ -35,7 +35,11 @@ const init = async (app: Application): Promise<void> => {
       secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: true,
-      cookie: { maxAge: parseInt(process.env.SESSION_LIFETIME), sameSite: IS_PROD, secure: IS_PROD },
+      cookie: {
+        maxAge: parseInt(process.env.SESSION_LIFETIME),
+        sameSite: IS_PROD,
+        secure: IS_PROD,
+      },
       genid: function () {
         return uuid();
       },
@@ -43,7 +47,9 @@ const init = async (app: Application): Promise<void> => {
   );
 
   await setupRoutes(app);
-  app.listen(process.env.PORT, () => console.info(`Listening on http://localhost:${process.env.PORT}`));
+  app.listen(process.env.PORT, () =>
+    console.info(`Listening on http://localhost:${process.env.PORT}`)
+  );
 };
 
 export { init };
