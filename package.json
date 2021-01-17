@@ -13,8 +13,9 @@
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-session": "^1.17.1",
+    "express-session": "1.17.1",
     "helmet": "^4.3.1",
+    "libphonenumber-js": "^1.9.8",
     "mongodb": "^3.6.3",
     "pino": "^6.10.0",
     "redis": "^3.0.2",
@@ -22,6 +23,7 @@
     "yup": "^0.32.8"
   },
   "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
     "@types/connect-redis": "^0.0.16",
     "@types/cookie-parser": "^1.4.2",
     "@types/dotenv": "^8.2.0",

@@ -11,7 +11,17 @@
     "sourceMap": false,
     "removeComments": false,
     "experimentalDecorators": true,
-    "types": ["node", "express", "dotenv", "mongodb", "redis", "connect-redis", "cookie-parser", "express-session"],
+    "types": [
+      "node",
+      "express",
+      "dotenv",
+      "mongodb",
+      "redis",
+      "connect-redis",
+      "cookie-parser",
+      "express-session",
+      "bcrypt"
+    ],
     "declaration": true,
     "resolveJsonModule": true
   },
