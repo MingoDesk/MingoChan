@@ -1,19 +1,25 @@
-import parsePhoneNumberFromString, { PhoneNumber } from "libphonenumber-js";
+import parsePhoneNumberFromString, { E164Number, PhoneNumber } from "libphonenumber-js";
 import { getDB } from "../../../database/db";
 
 const emailReg: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-export interface IReturnError {
-  error: string;
-  message: string;
+export interface IPhoneData {
+  country: string;
+  phoneNumber: E164Number;
+  isValid: boolean;
 }
 
-interface IReturnPassword {
+export interface IReturnError {
+  error: string;
+  msg: string;
+}
+
+export interface IReturnPassword {
   password: string;
   error: null;
 }
 
-interface IReturnEmail {
+export interface IReturnEmail {
   email: string;
   error: null;
 }
@@ -22,43 +28,36 @@ export interface IReturnRegistrationInput {
   email: string;
   name: string;
   password: string;
-  phoneNumber: PhoneNumber;
+  phoneData: IPhoneData;
 }
 
 export interface IReturnRegistrationInputError {
   email: null;
   name: null;
   password: null;
-  phoneNumber: null;
+  phoneData: null;
 }
 
-const verifyPassword = (_password: string): Promise<IReturnError | IReturnPassword> => {
+export const verifyPassword = (_password: string): Promise<IReturnError | IReturnPassword> => {
   return new Promise((resolve, reject) => {
     const password = _password.trim();
     if (password.length < 6 || password.length > 128)
       return reject({
         error: "Password failed validation",
-        message: "Password must be at least 6 characters long and a maximum of 128 characters",
+        msg: "Password must be at least 6 characters long and a maximum of 128 characters",
       });
     resolve({ password, error: null });
   });
 };
 
-const verifyEmail = (_email: string): Promise<IReturnError | IReturnEmail> => {
+export const verifyEmail = (_email: string): Promise<IReturnError | IReturnEmail> => {
   return new Promise(async (resolve, reject) => {
     const email = _email.toLocaleLowerCase().trim();
-    const emailExist = await getDB().users.findOne({ email });
-
-    if (emailExist)
-      return reject({
-        error: "Email already exists",
-        message: "There is already an account with that email.",
-      });
 
     if (emailReg.test(email) !== true || email.length < 3) {
       return reject({
         error: "Email failed validation",
-        message: "Email wasn't valid, please try again.",
+        msg: "Email wasn't valid, please try again.",
       });
     }
 
@@ -78,16 +77,22 @@ const verifyRegistrationInput = async (
     if (!phoneNumber)
       reject({
         error: "Phone number failed validation",
-        message: "Please enter a valid phone number",
+        msg: "Please enter a valid phone number",
       });
+
+    const phoneData: IPhoneData = {
+      country: phoneNumber.country,
+      phoneNumber: phoneNumber.number,
+      isValid: phoneNumber.isValid(),
+    };
 
     try {
       const email = await verifyEmail(_email);
       const password = await verifyPassword(_password);
       if (name.length < 1)
-        return reject({ error: "Name failed validation", message: "Please enter a valid name" });
+        return reject({ error: "Name failed validation", msg: "Please enter a valid name" });
       // @ts-ignore
-      resolve({ email: email.email, name, password: password.password, phoneNumber });
+      resolve({ email: email.email, name, password: password.password, phoneData });
     } catch (error) {
       console.error(error);
       reject(error);
