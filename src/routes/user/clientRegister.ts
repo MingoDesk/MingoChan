@@ -16,7 +16,7 @@ interface IUserInput {
   phoneNumber: string;
 }
 
-// @TODO Add email verification
+// TODO: Add email verification with
 
 router.post("/client/register", async (req: Request, res: Response) => {
   const { email, password, name, phoneNumber }: IUserInput = req.body;
@@ -29,6 +29,17 @@ router.post("/client/register", async (req: Request, res: Response) => {
       phoneNumber
     );
 
+    // @ts-ignore
+    const inputEmail = input.email.email;
+    const emailExist = await getDB().users.findOne({ email: inputEmail });
+
+    if (emailExist)
+      return res.status(400).send({
+        success: false,
+        error: "Email already exists",
+        msg: "There is already an account with that email.",
+      });
+
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(input.password, salt);
 
@@ -36,17 +47,17 @@ router.post("/client/register", async (req: Request, res: Response) => {
       name: input.name,
       password: hashPassword,
       email: input.email,
-      phoneNumber: input.phoneNumber,
+      phone: input.phoneData,
       emailVerified: false,
       verifiedCustomer: false,
     });
 
     return res.status(200).send({
       success: true,
-      message: `Sucess, you have now registered! We will verify these details and your account shortly ${
+      msg: `Sucess, you're now registered! We will verify your account and details shortly ${
         newUser.ops[0].name.split(" ")[0]
-      }.`,
-      user: {
+      }!`,
+      data: {
         email: newUser.ops[0].email,
         name: newUser.ops[0].name,
       },
