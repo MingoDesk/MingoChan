@@ -1,7 +1,7 @@
-import { Request } from "express";
-import { Session } from "express-session";
-import { ObjectId } from "mongodb";
-import { IPhoneData } from "../routes/user/helpers/verifyUserInput";
+import { Request } from 'express';
+import { Session } from 'express-session';
+import { ObjectId } from 'mongodb';
+import { IPhoneData } from '../routes/user/helpers/verifyUserInput';
 
 interface userSession extends Session {
   user?: {

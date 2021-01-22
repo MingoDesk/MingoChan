@@ -1,11 +1,11 @@
-import { getDB } from "../../database/db";
-import { Router, Request, Response } from "express";
-import bcrypt from "bcrypt";
+import { getDB } from '../../database/db';
+import { Router, Request, Response } from 'express';
+import bcrypt from 'bcrypt';
 import {
   verifyRegistrationInput,
   IReturnRegistrationInput,
   IReturnError,
-} from "./helpers/verifyUserInput";
+} from './helpers/verifyUserInput';
 
 const router = Router();
 
@@ -18,11 +18,11 @@ interface IUserInput {
 
 // TODO: Add email verification with
 
-router.post("/client/register", async (req: Request, res: Response) => {
+router.post('/client/register', async (req: Request, res: Response) => {
   const { email, password, name, phoneNumber }: IUserInput = req.body;
 
   try {
-    const input: IReturnRegistrationInput | IReturnError = await verifyRegistrationInput(
+    const input: IReturnRegistrationInput = await verifyRegistrationInput(
       email,
       password,
       name,
@@ -36,8 +36,8 @@ router.post("/client/register", async (req: Request, res: Response) => {
     if (emailExist)
       return res.status(400).send({
         success: false,
-        error: "Email already exists",
-        msg: "There is already an account with that email.",
+        error: 'Email already exists',
+        msg: 'There is already an account with that email.',
       });
 
     const salt = await bcrypt.genSalt(10);
@@ -55,7 +55,7 @@ router.post("/client/register", async (req: Request, res: Response) => {
     return res.status(200).send({
       success: true,
       msg: `Sucess, you're now registered! We will verify your account and details shortly ${
-        newUser.ops[0].name.split(" ")[0]
+        newUser.ops[0].name.split(' ')[0]
       }!`,
       data: {
         email: newUser.ops[0].email,

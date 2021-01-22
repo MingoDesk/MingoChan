@@ -1,10 +1,10 @@
-import { Response, NextFunction } from "express";
-import { ReqCtx } from "../@types/res";
+import { Response, NextFunction } from 'express';
+import { ReqCtx } from '../@types/res';
 
 const verifyUser = (req: ReqCtx, res: Response, next: NextFunction) => {
-  if (!req.session.user)
+  if (!req.session.user || !req.session)
     return res.status(400).send({
-      error: "Not logged in",
+      error: 'Not logged in',
       msg: "It appears you're not logged in. Please login and try aagin!",
     });
   return next();

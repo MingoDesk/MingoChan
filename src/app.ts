@@ -1,21 +1,21 @@
-import { Application } from "express";
-import session from "express-session";
-import cookieParser from "cookie-parser";
-import redis, { RedisClient } from "redis";
-import helmet from "helmet";
-import "reflect-metadata";
-import { setupDB } from "./database/db";
-import connectRedis, { RedisStore } from "connect-redis";
-import { checkEnvVars } from "./util/checkEnvVars";
-import express from "express";
+import { Application } from 'express';
+import session from 'express-session';
+import cookieParser from 'cookie-parser';
+import redis, { RedisClient } from 'redis';
+import helmet from 'helmet';
+import 'reflect-metadata';
+import { setupDB } from './database/db';
+import connectRedis, { RedisStore } from 'connect-redis';
+import { checkEnvVars } from './util/checkEnvVars';
+import express from 'express';
 const RedisStore: RedisStore = connectRedis(session);
-import { v4 as uuid } from "uuid";
-import { setupRoutes } from "./routes/routes";
+import { v4 as uuid } from 'uuid';
+import { setupRoutes } from './routes/routes';
 
 const init = async (app: Application): Promise<void> => {
   // Check that all env variables are set
   await checkEnvVars();
-  const IS_PROD = process.env.NODE_ENV === "production";
+  const IS_PROD = process.env.NODE_ENV === 'production';
 
   // Setup mongo and redis
   await setupDB({ URI: process.env.MONGO_URI, name: process.env.DB_NAME });
@@ -23,7 +23,7 @@ const init = async (app: Application): Promise<void> => {
 
   // Application configuration
 
-  app.use(express.json({ limit: "100kb", strict: true, type: "application/json" }));
+  app.use(express.json({ limit: '100kb', strict: true, type: 'application/json' }));
   app.use(helmet());
   app.use(cookieParser());
 
