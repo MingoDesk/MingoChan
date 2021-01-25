@@ -1,12 +1,12 @@
-import { Router } from "express";
-import { getDB } from "../../database/db";
-import bcrypt from "bcrypt";
-import { verifyLoginInput } from "./helpers/verifyLoginInput";
-import { ReqCtx } from "../../@types/res";
+import { Router } from 'express';
+import { getDB } from '../../database/db';
+import bcrypt from 'bcrypt';
+import { verifyLoginInput } from './helpers/verifyLoginInput';
+import { Request, Response } from 'express';
 
 const router = Router();
 
-router.post("/login", async (req: ReqCtx, res) => {
+router.post('/login', async (req: Request, res: Response) => {
   const { email, password }: { email: string; password: string } = req.body;
 
   try {
@@ -15,26 +15,25 @@ router.post("/login", async (req: ReqCtx, res) => {
     const data = await getDB().users.findOne({ email: input.email });
     if (!data)
       return res.status(400).send({
-        error: "Email or password was incorrect",
-        msg: "Email or password was incorrect",
+        error: 'Email or password was incorrect',
+        msg: 'Email or password was incorrect',
       });
 
     const validPass = await bcrypt.compare(input.password, data.password);
     if (!validPass)
       return res.status(400).send({
-        error: "Email or password was incorrect",
-        msg: "Email or password was incorrect",
+        error: 'Email or password was incorrect',
+        msg: 'Email or password was incorrect',
       });
-
     req.session.user = { isLoggedIn: true, ...data };
     return res
       .status(200)
-      .send({ success: true, msg: `Welcome ${req.session.user.name.split(" ")[0]}!` });
+      .send({ success: true, msg: `Welcome ${req.session.user!.name.split(' ')[0]}!` });
   } catch (error) {
     console.error(error);
     return res.status(400).send({
-      error: "Email or password was incorrect",
-      msg: "Email or password was incorrect",
+      error: 'Email or password was incorrect',
+      msg: 'Email or password was incorrect',
     });
   }
 });

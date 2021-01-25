@@ -1,15 +1,14 @@
-import { Response, Router } from "express";
-import { verifyUser } from "../../middleware/verifyUser";
-import { ReqCtx } from "../../@types/res";
+import { Response, Router, Request } from 'express';
+import { verifyUser } from '../../middleware/verifyUser';
 
 const router = Router();
 
-router.post("/logout", verifyUser, async (req: ReqCtx, res: Response) => {
+router.post('/logout', verifyUser, async (req: Request, res: Response) => {
   req.session.destroy((err) => {
     if (err) {
       return res
         .status(500)
-        .send({ success: false, msg: "Failed to logout, please try again!", err });
+        .send({ success: false, msg: 'Failed to logout, please try again!', err });
     }
     return res
       .clearCookie(process.env.SID)

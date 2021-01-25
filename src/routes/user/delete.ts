@@ -1,12 +1,11 @@
-import { ReqCtx } from '../../@types/res';
-import { Router, Response } from 'express';
+import { Router, Response, Request } from 'express';
 import { verifyUser } from '../../middleware/verifyUser';
 import { getDB } from '../../database/db';
 import { ObjectId } from 'mongodb';
 
 const router = Router();
 
-router.delete('/delete', verifyUser, async (req: ReqCtx, res: Response) => {
+router.delete('/delete', verifyUser, async (req: Request, res: Response) => {
   const deleteUser = await getDB().users.findOneAndDelete({
     _id: new ObjectId(req.session.user!._id),
   });

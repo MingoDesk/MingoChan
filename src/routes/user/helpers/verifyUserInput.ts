@@ -38,7 +38,7 @@ export interface IReturnRegistrationInputError {
   phoneData: null;
 }
 
-export const verifyPassword = (_password: string): Promise<IReturnError | IReturnPassword> => {
+export const verifyPassword = (_password: string): Promise<IReturnPassword> => {
   return new Promise((resolve, reject) => {
     const password = _password.trim();
     if (password.length < 6 || password.length > 128)

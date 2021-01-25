@@ -1,5 +1,6 @@
 import { MongoClient, Db as mongoDb, Collection } from 'mongodb';
 import { collections } from '../config/config';
+import { IUser } from '../@types/user';
 
 interface IConfig {
   URI: string;
@@ -29,7 +30,7 @@ export class Db {
         console.info(`Connected to databse: ${this.db_name}`);
 
         this.db = client.db(this.db_name);
-        this.users = this.db.collection(collections.users);
+        this.users = this.db.collection<IUser>(collections.users);
         this.threads = this.db.collection(collections.threads);
         resolve(this);
       });
