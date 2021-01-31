@@ -25,7 +25,6 @@ services:
     container_name: "mongodb_mingo-chan_data_container"
     volumes:
       - mongodb_mingo-chan_data_volume:/mongodb/data/db
-
       - ALLOW_EMPTY_PASSWORD=yes
       #- MONGO_INITDB_ROOT_USERNAME=root
       #- MONGO_INITDB_ROOT_PASSWORD=rootpassword
