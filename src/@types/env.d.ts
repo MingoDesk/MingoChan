@@ -8,5 +8,9 @@ declare namespace NodeJS {
     SESSION_LIFETIME: string;
     SID: string;
     REDIS_URI: string;
+    SECRET: string;
+    ISSUERBASEURL: string;
+    CLIENTID: string;
+    BASEURL: string;
   }
 }

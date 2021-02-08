@@ -1,12 +1,18 @@
-import { isBuffer } from 'util';
-import { IUser } from './user';
+import { Profile } from "passport-auth0";
 
-interface sessionUser extends IUser {
+interface sessionUser extends Profile {
   isLoggedIn: boolean;
 }
 
-declare module 'express-session' {
+declare module "express-session" {
   interface SessionData {
     user: sessionUser;
+    returnTo: string;
+  }
+}
+
+declare global {
+  namespace Express {
+    interface Request {}
   }
 }

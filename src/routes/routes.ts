@@ -1,20 +1,20 @@
-import { Application } from 'express';
-import clientRegisterRouter from './user/clientRegister';
-import userLoginRouter from './user/login';
-import userLogoutRouter from './user/logout';
-import userDeleteRouter from './user/delete';
-import userEditRouter from './user/edit';
+import { Application } from "express";
+import { Request, Router } from "express";
+import callbackRouter from "./auth/callback";
+import loginRouter from "./auth/login";
+import logoutRouter from "./auth/logout";
+
+const router = Router();
 
 const setupRoutes = async (app: Application): Promise<void> => {
   app.use(
-    '/api/users',
-    clientRegisterRouter,
-    userLoginRouter,
-    userLogoutRouter,
-    userDeleteRouter,
-    userEditRouter
+    router.get("/", (req: Request, res) => {
+      console.log(req.user);
+      return res.send({ isLoggedIn: req.user ? true : false });
+    })
   );
-  //app.use("/api/threads");
+
+  app.use("/", loginRouter, callbackRouter, logoutRouter);
 };
 
 export { setupRoutes };
