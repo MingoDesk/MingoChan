@@ -9,9 +9,10 @@
     "moduleResolution": "node",
     "baseUrl": "./src",
     "esModuleInterop": true,
-    "sourceMap": false,
+    "sourceMap": true,
     "removeComments": false,
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "types": [
       "node",
       "express",
