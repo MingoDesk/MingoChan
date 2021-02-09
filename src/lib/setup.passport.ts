@@ -1,14 +1,13 @@
 import { Application } from "express";
-import Auth0Strategy, { ExtraVerificationParams, Profile } from "passport-auth0";
 import passport from "passport";
 import session from "express-session";
 import connectRedis, { RedisStore } from "connect-redis";
 import redis, { RedisClient, ClientOpts } from "redis";
 import { v4 as uuid } from "uuid";
 import { auth0Serialize, auth0Deserialize } from "./serialize";
-import { getDB } from "../../database/db";
+import { setupStrategy } from "./passport.strategy";
 
-export async function intaltizeAuth(app: Application): Promise<void> {
+async function intaltizeAuth(app: Application): Promise<void> {
   const RedisStore: RedisStore = connectRedis(session);
   const IS_PROD = process.env.NODE_ENV === "production";
 
@@ -33,34 +32,11 @@ export async function intaltizeAuth(app: Application): Promise<void> {
     })
   );
 
-  const strategy = new Auth0Strategy(
-    {
-      domain: process.env.ISSUERBASEURL,
-      clientID: process.env.CLIENTID,
-      clientSecret: process.env.SECRET,
-      callbackURL: `${process.env.BASEURL}/callback`,
-    },
-    async function (
-      accessToken: string,
-      refreshToken: string,
-      extraParams: ExtraVerificationParams,
-      profile,
-      done: any
-    ): Promise<any> {
-      getDB().users.findOneAndUpdate(
-        { _id: profile.id },
-        { $set: { ...profile._json } },
-        { upsert: true, returnOriginal: false },
-        (err, res) => {
-          if (err) return done(err);
-          return done(null, res.value);
-        }
-      );
-    }
-  );
-  passport.use(strategy);
+  passport.use(setupStrategy());
   passport.serializeUser(auth0Serialize);
   passport.deserializeUser(auth0Deserialize);
   app.use(passport.initialize());
   app.use(passport.session());
 }
+
+export { intaltizeAuth };

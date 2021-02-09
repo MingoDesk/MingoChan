@@ -1,4 +1,4 @@
-import { getDB } from "../../database/db";
+import { getDB } from "../database/db";
 
 function auth0Serialize(user, done) {
   done(null, user._id);

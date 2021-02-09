@@ -5,7 +5,7 @@ import { setupDB } from "./database/db";
 import { checkEnvVars } from "./util/checkEnvVars";
 import express from "express";
 import { setupRoutes } from "./routes/routes";
-import { intaltizeAuth } from "./routes/auth/setup.passport";
+import { intaltizeAuth } from "./lib/setup.passport";
 
 const init = async (app: Application): Promise<void> => {
   // Check that all env variables are set
