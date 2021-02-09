@@ -4,12 +4,12 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 COPY yarn.lock ./
-COPY tsconfig.json ./
-COPY src /usr/src/app/src
 
 
 RUN yarn install
 RUN yarn global add typescript
+COPY src /usr/src/app/src
+COPY tsconfig.json ./
 RUN yarn build
 
 

@@ -7,16 +7,19 @@ interface IConfig {
 }
 
 export class Db {
-  private db_name: string;
-  private uri: string;
+  private db_name?: string;
+  private uri?: IConfig["URI"];
   private rootClient: MongoClient;
-  public db: mongoDb;
-  public users: Collection;
-  public threads: Collection;
-  constructor(private config: IConfig) {
+  public db!: mongoDb;
+  public users!: Collection;
+  public threads!: Collection;
+  constructor(public config: IConfig) {
     this.db_name = config.name;
     this.uri = config.URI;
-    this.rootClient = new MongoClient(this.uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    this.rootClient = new MongoClient(this.uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
   }
 
   public async connect(): Promise<this> {
@@ -28,7 +31,6 @@ export class Db {
         this.db = client.db(this.db_name);
         this.users = this.db.collection(collections.users);
         this.threads = this.db.collection(collections.threads);
-
         resolve(this);
       });
     });
