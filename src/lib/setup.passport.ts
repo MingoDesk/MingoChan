@@ -8,7 +8,7 @@ import { auth0Serialize, auth0Deserialize } from "./serialize";
 import { setupStrategy } from "./passport.strategy";
 
 async function intaltizeAuth(app: Application): Promise<void> {
-  const RedisStore: RedisStore = connectRedis(session);
+  const redisStore: RedisStore = connectRedis(session);
   const IS_PROD = process.env.NODE_ENV === "production";
 
   // Sessions ann auth
@@ -21,7 +21,7 @@ async function intaltizeAuth(app: Application): Promise<void> {
   app.use(
     session({
       name: process.env.SID,
-      store: new RedisStore({ client: redisClient }),
+      store: new redisStore({ client: redisClient }),
       secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: true,

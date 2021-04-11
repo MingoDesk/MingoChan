@@ -7,7 +7,7 @@ const setupStrategy = () => {
       domain: process.env.ISSUERBASEURL,
       clientID: process.env.CLIENTID,
       clientSecret: process.env.SECRET,
-      callbackURL: `${process.env.BASEURL}/callback`,
+      callbackURL: `${process.env.BASEURL}/api/callback`,
     },
     async function (
       accessToken: string,
