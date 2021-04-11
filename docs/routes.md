@@ -1,4 +1,4 @@
-# Currently, in development. Please see the dev branch (and others)
+# Routes documentation
 
 ### Data returned should always include:
 
@@ -116,7 +116,7 @@ This route is intended to update the ticket with a new message/reply (this can b
       },
       {
         "authorId": "github|16852656",
-        "text": "Hi, \nIs there any update on this matter,it&#x27;s quite urgent for us!"
+        "text": "Hi, \nIs there any update on this matter, it&#x27;s quite urgent for us!"
       }
     ],
     "notes": [],
@@ -124,6 +124,74 @@ This route is intended to update the ticket with a new message/reply (this can b
       {
         "authorId": "github|16852656",
         "text": "Hi!\n I Need assistance with adding some configs, as I as appear to be receiving the attached error when doing so!"
+      }
+    ]
+  }
+}
+```
+
+# `api/tickets/notes/new`
+
+**HTTP method**: POST
+
+**Description**:
+
+This route is intended for staff user only and requieres the user to be authenticated and ofc have staff permissions.
+
+**Example JSON request body**:
+
+```json
+{
+  "id": "6073501d39a99c001d155208",
+  "authorId": "github|16852656",
+  "text": "Seems like a tricky ticket!"
+}
+```
+
+**Example JSON response body**:
+
+```json
+{
+  "success": true,
+  "errors": null,
+  "data": {
+    "_id": "6073501d39a99c001d155208",
+    "authorId": "github|16852656",
+    "author": "github|16852656",
+    "assignee": null,
+    "createdAt": "2021-04-11T19:38:05.961Z",
+    "isStarred": false,
+    "tags": [],
+    "labels": [],
+    "rating": null,
+    "isUpdated": true,
+    "messages": [
+      {
+        "authorId": "github|16852656",
+        "text": "Hi!\n I Need assistance with adding some configs, as I as appear to be receiving the attached error when doing so!",
+        "author": "github|16852656"
+      }
+    ],
+    "notes": [
+      {
+        "authorId": "github|16852656",
+        "text": "Seems like a tricky ticket!",
+        "isNote": true
+      }
+    ],
+    "personnelView": [
+      {
+        "authorId": "github|16852656",
+        "text": "Hi!\n I Need assistance with adding some configs, as I as appear to be receiving the attached error when doing so!"
+      },
+      {
+        "authorId": "github|16852656",
+        "text": "Hi,\nIs there any update on this matter, it&#x27;s quite urgent for us!"
+      },
+      {
+        "authorId": "github|16852656",
+        "text": "Seems like a tricky ticket!",
+        "isNote": true
       }
     ]
   }
