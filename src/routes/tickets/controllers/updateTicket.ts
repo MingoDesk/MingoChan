@@ -11,14 +11,16 @@ const updateTicket = async (req, res) => {
     return res.status(400).send({ success: false, msg: "Bad request", errors: errors.array() });
   }
 
-  const _id = new ObjectId(req.body.id);
+  const _id = new ObjectId(data.id);
 
   const updatedData = await getDB().tickets.findOneAndUpdate(
     { _id },
     {
       $push: {
-        messages: { authorId: data.authorId, text: data.text },
-        personnelView: { authorId: data.authorId, text: data.text },
+        personnelView: {
+          authorId: data.authorId,
+          text: data.text,
+        },
       },
     },
     {
