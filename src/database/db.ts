@@ -12,7 +12,7 @@ export class Db {
   private rootClient: MongoClient;
   public db!: mongoDb;
   public users!: Collection;
-  public threads!: Collection;
+  public tickets!: Collection;
   constructor(public config: IConfig) {
     this.db_name = config.name;
     this.uri = config.URI;
@@ -30,7 +30,7 @@ export class Db {
 
         this.db = client.db(this.db_name);
         this.users = this.db.collection(collections.users);
-        this.threads = this.db.collection(collections.threads);
+        this.tickets = this.db.collection(collections.tickets);
         resolve(this);
       });
     });
