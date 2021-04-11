@@ -1,11 +1,11 @@
 interface ICollections {
   users: string;
-  threads: string;
+  tickets: string;
 }
 
 const collections: ICollections = {
   users: "Users",
-  threads: "Threads",
+  tickets: "Tickets",
 };
 
 const envFilter: string[] = [
