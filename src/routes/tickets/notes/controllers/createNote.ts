@@ -22,6 +22,11 @@ const createNote = async (req, res) => {
           text: data.text,
           isNote: true,
         },
+        notes: {
+          authorId: data.authorId,
+          text: data.text,
+          isNote: true,
+        },
       },
     },
     {
