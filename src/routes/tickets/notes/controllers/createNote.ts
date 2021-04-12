@@ -1,7 +1,8 @@
 import { getDB } from "../../../../database/db";
-import { validationResult } from "express-validator/check";
+import { validationResult } from "express-validator";
 import { matchedData } from "express-validator";
 import { ObjectId } from "mongodb";
+import { v4 as uuid } from "uuid";
 
 const createNote = async (req, res) => {
   const errors = validationResult(req);
@@ -12,17 +13,20 @@ const createNote = async (req, res) => {
   }
 
   const _id = new ObjectId(data.id);
+  const noteId = uuid();
 
   const updatedData = await getDB().tickets.findOneAndUpdate(
     { _id },
     {
       $push: {
         personnelView: {
+          id: noteId,
           authorId: data.authorId,
           text: data.text,
           isNote: true,
         },
         notes: {
+          id: noteId,
           authorId: data.authorId,
           text: data.text,
           isNote: true,
