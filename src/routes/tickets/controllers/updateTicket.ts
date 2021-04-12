@@ -1,5 +1,5 @@
 import { getDB } from "../../../database/db";
-import { validationResult } from "express-validator/check";
+import { validationResult } from "express-validator";
 import { matchedData } from "express-validator";
 import { ObjectId } from "mongodb";
 
@@ -17,6 +17,10 @@ const updateTicket = async (req, res) => {
     { _id },
     {
       $push: {
+        messages: {
+          authorId: data.authorId,
+          text: data.text,
+        },
         personnelView: {
           authorId: data.authorId,
           text: data.text,
