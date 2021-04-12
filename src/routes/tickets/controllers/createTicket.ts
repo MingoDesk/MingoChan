@@ -1,5 +1,5 @@
 import { getDB } from "../../../database/db";
-import { validationResult } from "express-validator/check";
+import { validationResult } from "express-validator";
 import { matchedData } from "express-validator";
 
 // TODO: Make sure to incorporate diffirent callbacks depending on user permissions
