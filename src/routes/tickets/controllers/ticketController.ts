@@ -1,16 +1,17 @@
 import { body } from "express-validator";
 
 export interface IMessage {
-  author: string;
+  authorId: string;
   text: string;
-  createdAt: string;
-  editedAt: string;
-  editedBy: string;
+  createdAt: Date;
 }
 
-export interface INotes extends IMessage {
+export interface INoteData extends IMessage {
   isNote: true;
+  id: string;
 }
+
+export interface IPersonnelView extends IMessage, INoteData {}
 
 export interface ITicket {
   authorId: string;
@@ -20,17 +21,11 @@ export interface ITicket {
   isStarred: boolean;
   tags: string[];
   labels: string[];
-  rating: Number | null;
-  isUpdated?: boolean;
-  messages?: IMessage[];
-  notes?: INotes[];
-  personnelView: INotes[] | IMessage[];
-}
-
-export interface INewTicket {
-  text: string;
-  author: string;
-  createdAt?: Date;
+  rating: number | null;
+  isUpdated: boolean;
+  messages: IMessage[];
+  notes?: INoteData[];
+  personnelView: IPersonnelView[];
 }
 
 const validate = (method: string) => {
@@ -41,7 +36,7 @@ const validate = (method: string) => {
         body("text", "Field text failed validation").exists().isString().notEmpty().escape(),
       ];
     }
-    case "updateTicket": {
+    case "replyTicket": {
       return [
         body("id", "Field id failed validation").exists().isString().notEmpty().escape(),
         body("authorId", "Field authorId failed validation").exists().isString().notEmpty().escape(),

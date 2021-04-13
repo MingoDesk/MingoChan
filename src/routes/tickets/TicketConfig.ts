@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { createTicket } from "./controllers/createTicket";
 import { getTicket } from "./controllers/getTicket";
-import { updateTicket } from "./controllers/updateTicket";
+import { replyTicket } from "./controllers/replyTicket";
 import { validate } from "./controllers/ticketController";
 
 import noteRouter from "./notes/noteConfig";
@@ -12,7 +12,7 @@ const router = Router();
 router.post("/new", validate("createTicket"), createTicket);
 
 //@ts-ignore
-router.patch("/reply", validate("updateTicket"), updateTicket);
+router.patch("/reply", validate("replyTicket"), replyTicket);
 
 router.get("/:id", getTicket);
 

@@ -2,8 +2,10 @@ import { getDB } from "../../../database/db";
 import { validationResult } from "express-validator";
 import { matchedData } from "express-validator";
 import { ObjectId } from "mongodb";
+import { populateNotes } from "../util/populatePersonnelView";
+import { ITicket } from "./ticketController";
 
-const updateTicket = async (req, res) => {
+const replyTicket = async (req, res): Promise<ITicket> => {
   const errors = validationResult(req);
   const data = matchedData(req);
 
@@ -36,7 +38,11 @@ const updateTicket = async (req, res) => {
     return res.status(400).send({ errors: "Bad request", success: false, msg: "Failed to update ticket" });
   }
 
-  return res.status(200).send({ success: true, errors: null, data: updatedData.value });
+  return res.status(200).send({
+    success: true,
+    errors: null,
+    data: { ...updatedData.value, personnelView: populateNotes(data.notes, data.personnelView) },
+  });
 };
 
-export { updateTicket };
+export { replyTicket };
