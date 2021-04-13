@@ -1,0 +1,79 @@
+{
+  "success": true,
+  "errors": null,
+  "data": {
+    "_id": "6074a5f2c2fbd1001da76366",
+    "authorId": "github|16852656",
+    "author": "github|16852656",
+    "assignee": null,
+    "createdAt": "2021-04-12T19:56:34.885Z",
+    "isStarred": false,
+    "tags": [],
+    "labels": [],
+    "rating": null,
+    "isUpdated": true,
+    "messages": [
+      {
+        "authorId": "github|16852656",
+        "text": "Hi!\n I Need assistance with adding some configs, as I as appear to be receiving the attached error when doing so!",
+        "author": "github|16852656"
+      },
+      {
+        "authorId": "github|16852656",
+        "text": "Hi,\nJvs is helping me solve this issue!"
+      }
+    ],
+    "notes": [
+      {
+        "id": "50a94bda-284f-4524-a953-d87d173b05a7",
+        "authorId": "github|16852656",
+        "text": "Trick or treat?",
+        "isNote": true,
+        "history": [
+          {
+            "text": "Seems like a tricky ticket!",
+            "createdAt": "2021-04-12T19:58:47.551Z"
+          },
+          {
+            "createdAt": "2021-04-12T20:06:41.002Z",
+            "text": "Is this a tricky ticket?"
+          },
+          {
+            "createdAt": "2021-04-12T20:43:49.847Z",
+            "text": "Trick or treat?"
+          }
+        ]
+      },
+      {
+        "id": "1eff307b-c25c-4c43-83c0-1752b2ebd7c2",
+        "authorId": "github|16852656",
+        "text": "Seems like a trickity trick ticket!",
+        "isNote": true,
+        "history": [
+          {
+            "text": "Seems like a trickity trick ticket!",
+            "createdAt": "2021-04-12T19:59:08.137Z"
+          }
+        ]
+      }
+    ],
+    "personnelView": [
+      {
+        "authorId": "github|16852656",
+        "text": "Hi!\n I Need assistance with adding some configs, as I as appear to be receiving the attached error when doing so!"
+      },
+      {
+        "authorId": "github|16852656",
+        "text": "Hi,\nJvs is helping me solve this issue!"
+      },
+      {
+        "id": "50a94bda-284f-4524-a953-d87d173b05a7",
+        "isNote": true
+      },
+      {
+        "id": "1eff307b-c25c-4c43-83c0-1752b2ebd7c2",
+        "isNote": true
+      }
+    ]
+  }
+}
