@@ -9,7 +9,7 @@ const router = Router();
 router.post("/new", validate("note"), createNote);
 
 //@ts-ignore
-
+// E
 router.patch("/edit", validate("editNote"), editNote);
 
 export default router;

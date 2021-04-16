@@ -25,7 +25,11 @@ async function intaltizeAuth(app: Application): Promise<void> {
       secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: true,
-      cookie: { maxAge: parseInt(process.env.SESSION_LIFETIME), sameSite: IS_PROD, secure: IS_PROD },
+      cookie: {
+        maxAge: parseInt(process.env.SESSION_LIFETIME),
+        sameSite: IS_PROD,
+        secure: IS_PROD,
+      },
       genid: function () {
         return uuid();
       },

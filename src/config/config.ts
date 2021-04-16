@@ -1,11 +1,15 @@
+import { systemSettings } from "../routes/system/controllers/systemsController";
+
 interface ICollections {
   users: string;
   tickets: string;
+  settings: string;
 }
 
 const collections: ICollections = {
   users: "Users",
   tickets: "Tickets",
+  settings: "Settings",
 };
 
 const envFilter: string[] = [
@@ -23,4 +27,17 @@ const envFilter: string[] = [
   "SESSION_LIFETIME",
 ];
 
-export { collections, envFilter };
+const systemConfigdefaults: systemSettings = {
+  tags: [],
+  ratings: true,
+  snoozing: true,
+  allowNotesEdit: true,
+  allowUserSeeTicketStatus: true,
+  defaultTheme: "light",
+  groups: [],
+  avgUserSatisfaction: null,
+  avgRespTime: null,
+  prefDataType: "JSON",
+};
+
+export { collections, envFilter, systemConfigdefaults };

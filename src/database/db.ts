@@ -13,6 +13,7 @@ export class Db {
   public db!: mongoDb;
   public users!: Collection;
   public tickets!: Collection;
+  public settings!: Collection;
   constructor(public config: IConfig) {
     this.db_name = config.name;
     this.uri = config.URI;
@@ -31,6 +32,7 @@ export class Db {
         this.db = client.db(this.db_name);
         this.users = this.db.collection(collections.users);
         this.tickets = this.db.collection(collections.tickets);
+        this.settings = this.db.collection(collections.tickets);
         resolve(this);
       });
     });
