@@ -35,7 +35,7 @@ const systemConfigdefaults: systemSettings = {
   allowUserSeeTicketStatus: true,
   defaultTheme: "light",
   groups: [],
-  avgUserSatisfaction: null,
+  avgUserSatisfaction: "Awesome 🤩",
   avgRespTime: null,
   prefDataType: "JSON",
 };

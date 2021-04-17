@@ -24,7 +24,7 @@ export interface systemSettings {
   allowNotesEdit: boolean;
   allowUserSeeTicketStatus: boolean;
   groups: group[];
-  avgUserSatisfaction: "Good 👍" | "Bad 😬" | "Awesome 🤩" | null;
+  avgUserSatisfaction: "Good 👍" | "Bad 😬" | "Awesome 🤩";
   avgRespTime: string | null;
   prefDataType: "JSON" | "CSV";
 }

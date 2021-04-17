@@ -8,6 +8,8 @@ export interface ICreateSystemsDefaultRes {
   data?: systemSettings;
 }
 
+// TODO: ADD the ID here as a parameter coming from the session
+
 const createSystemSettingsDefault = async (data, updated: Date = new Date()): Promise<ICreateSystemsDefaultRes> => {
   const create = await getDB().settings.findOneAndUpdate(
     { _id: "1eff307b-c25c-4c43-83c0-1752b2ebd7c2" },
