@@ -12,7 +12,7 @@ interface template {}
 interface group {
   name: string;
   members: string[];
-  tier: "t1" | "t2" | "t3" | "T4";
+  tier: "T1" | "T2" | "T3" | "T4";
   star: boolean;
 }
 
@@ -24,7 +24,7 @@ export interface systemSettings {
   allowNotesEdit: boolean;
   allowUserSeeTicketStatus: boolean;
   groups: group[];
-  avgUserSatisfaction: "Good 👍" | "Bad 😬" | "Awesome 🤩";
+  avgUserSatisfaction: 1 | 2 | 3;
   avgRespTime: string | null;
   prefDataType: "JSON" | "CSV";
 }
