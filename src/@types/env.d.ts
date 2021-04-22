@@ -12,5 +12,6 @@ declare namespace NodeJS {
     ISSUERBASEURL: string;
     CLIENTID: string;
     BASEURL: string;
+    DOMAIN: string;
   }
 }

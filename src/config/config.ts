@@ -25,6 +25,7 @@ const envFilter: string[] = [
   "SECRET",
   "BASEURL",
   "SESSION_LIFETIME",
+  "DOMAIN",
 ];
 
 const systemConfigdefaults: systemSettings = {
@@ -35,7 +36,7 @@ const systemConfigdefaults: systemSettings = {
   allowUserSeeTicketStatus: true,
   defaultTheme: "light",
   groups: [],
-  avgUserSatisfaction: "Awesome 🤩",
+  avgUserSatisfaction: 3,
   avgRespTime: null,
   prefDataType: "JSON",
 };
