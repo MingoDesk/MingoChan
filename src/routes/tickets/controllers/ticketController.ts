@@ -4,10 +4,11 @@ export interface IMessage {
   authorId: string;
   text: string;
   createdAt: Date;
+  id: string;
 }
 
 export interface INoteData extends IMessage {
-  isNote: true;
+  isNote?: true;
   id: string;
 }
 

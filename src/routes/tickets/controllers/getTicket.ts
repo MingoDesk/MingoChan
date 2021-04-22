@@ -1,6 +1,6 @@
 import { getDB } from "../../../database/db";
 import { ObjectId } from "mongodb";
-import { populateNotes } from "../util/populatePersonnelView";
+import { populatePersonnelView } from "../util/populatePersonnelView";
 
 const getTicket = async (req, res) => {
   if (!req.params.id)
@@ -17,13 +17,14 @@ const getTicket = async (req, res) => {
       .status(400)
       .send({ sucess: false, error: "Bad request ID", msg: "Either no id was passed or the id was invalid" });
 
-  return res
-    .status(200)
-    .send({
-      success: true,
-      errors: null,
-      data: { ...data, personnelView: populateNotes(data.notes, data.personnelView) },
-    });
+  return res.status(200).send({
+    success: true,
+    errors: null,
+    data: {
+      ...data,
+      personnelView: populatePersonnelView(data.notes, data.personnelView, data.messages),
+    },
+  });
 };
 
 export { getTicket };

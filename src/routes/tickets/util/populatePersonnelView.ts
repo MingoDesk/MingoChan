@@ -1,15 +1,25 @@
-import { IPersonnelView, INoteData } from "../controllers/ticketController";
+import { IPersonnelView, INoteData, IMessage } from "../controllers/ticketController";
 
-const populateNotes = (notes: INoteData[], messages: IPersonnelView[]): IPersonnelView[] => {
-  messages.forEach((message, index) => {
+const populatePersonnelView = (
+  notes: INoteData[],
+  personnelData: IPersonnelView[],
+  messages: IMessage[]
+): IPersonnelView[] => {
+  personnelData.forEach((data, index) => {
     for (let note of notes) {
-      if (note.id != message.id) continue;
-      messages[index] = { ...note };
+      if (note.id != data.id) continue;
+      personnelData[index] = { ...note };
+      return;
+    }
+
+    for (let message of messages) {
+      if (message.id != data.id) continue;
+      personnelData[index] = { ...message };
       return;
     }
   });
 
-  return messages;
+  return personnelData;
 };
 
-export { populateNotes };
+export { populatePersonnelView };

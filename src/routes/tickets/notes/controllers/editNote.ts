@@ -4,6 +4,7 @@ import { matchedData } from "express-validator";
 import { ObjectId } from "mongodb";
 import { version as uuidVersion } from "uuid";
 import { validate as uuidValidate } from "uuid";
+import { populatePersonnelView } from "../../util/populatePersonnelView";
 
 function uuidValidateV4(uuid) {
   return uuidValidate(uuid) && uuidVersion(uuid) === 4;
@@ -43,7 +44,18 @@ const editNote = async (req, res) => {
     return res.status(400).send({ errors: "Bad request", success: false, msg: "Failed to update ticket" });
   }
 
-  return res.status(200).send({ success: true, errors: null, data: updatedData.value });
+  return res.status(200).send({
+    success: true,
+    errors: null,
+    data: {
+      ...updatedData.value,
+      personnelView: populatePersonnelView(
+        updatedData.value.notes,
+        updatedData.value.personnelView,
+        updatedData.value.messages
+      ),
+    },
+  });
 };
 
 export { editNote };

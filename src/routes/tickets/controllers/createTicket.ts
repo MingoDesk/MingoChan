@@ -2,12 +2,14 @@ import { getDB } from "../../../database/db";
 import { validationResult } from "express-validator";
 import { matchedData } from "express-validator";
 import { ITicket } from "./ticketController";
+import { v4 as uuid } from "uuid";
 
 // TODO: Make sure to incorporate diffirent callbacks depending on user permissions
 
 // TODO: Add userinfo such as createdBy/author and user icon from session data instead of from the request body (This can only be done one auth is implemented again) and Add more userdata to each message
 
 const createTicket = async (req, res): Promise<ITicket> => {
+  console.log(req.user);
   const errors = validationResult(req);
   const data = matchedData(req);
 
@@ -16,6 +18,7 @@ const createTicket = async (req, res): Promise<ITicket> => {
   }
 
   const createdAt = new Date();
+  const ticketId = uuid();
 
   const newTicket = await getDB().tickets.insertOne({
     authorId: data.authorId,
@@ -27,9 +30,9 @@ const createTicket = async (req, res): Promise<ITicket> => {
     labels: [],
     rating: null,
     isUpdated: true,
-    messages: [{ ...data, author: data.authorId, createdAt }],
+    messages: [{ ...data, author: data.authorId, createdAt, id: ticketId }],
     notes: [],
-    personnelView: [{ ...data, createdAt }],
+    personnelView: [{ id: ticketId }],
   });
 
   if (!newTicket) {

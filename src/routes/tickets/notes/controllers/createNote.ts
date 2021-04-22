@@ -3,6 +3,7 @@ import { validationResult } from "express-validator";
 import { matchedData } from "express-validator";
 import { ObjectId } from "mongodb";
 import { v4 as uuid } from "uuid";
+import { populatePersonnelView } from "../../util/populatePersonnelView";
 
 const createNote = async (req, res) => {
   const errors = validationResult(req);
@@ -41,7 +42,18 @@ const createNote = async (req, res) => {
     return res.status(400).send({ errors: "Bad request", success: false, msg: "Failed to update ticket" });
   }
 
-  return res.status(200).send({ success: true, errors: null, data: updatedData.value });
+  return res.status(200).send({
+    success: true,
+    errors: null,
+    data: {
+      ...updatedData.value,
+      personnelView: populatePersonnelView(
+        updatedData.value.notes,
+        updatedData.value.personnelView,
+        updatedData.value.messages
+      ),
+    },
+  });
 };
 
 export { createNote };

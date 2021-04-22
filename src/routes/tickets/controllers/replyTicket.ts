@@ -2,7 +2,7 @@ import { getDB } from "../../../database/db";
 import { validationResult } from "express-validator";
 import { matchedData } from "express-validator";
 import { ObjectId } from "mongodb";
-import { populateNotes } from "../util/populatePersonnelView";
+import { populatePersonnelView } from "../util/populatePersonnelView";
 import { ITicket } from "./ticketController";
 
 const replyTicket = async (req, res): Promise<ITicket> => {
@@ -41,7 +41,14 @@ const replyTicket = async (req, res): Promise<ITicket> => {
   return res.status(200).send({
     success: true,
     errors: null,
-    data: { ...updatedData.value, personnelView: populateNotes(data.notes, data.personnelView) },
+    data: {
+      ...updatedData.value,
+      personnelView: populatePersonnelView(
+        updatedData.value.notes,
+        updatedData.value.personnelView,
+        updatedData.value.messages
+      ),
+    },
   });
 };
 
