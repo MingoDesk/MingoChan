@@ -32,7 +32,7 @@ export class Db {
         this.db = client.db(this.db_name);
         this.users = this.db.collection(collections.users);
         this.tickets = this.db.collection(collections.tickets);
-        this.settings = this.db.collection(collections.tickets);
+        this.settings = this.db.collection(collections.settings);
         resolve(this);
       });
     });
