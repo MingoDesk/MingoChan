@@ -3,6 +3,7 @@ import { createTicket } from "./controllers/createTicket";
 import { getTicket } from "./controllers/getTicket";
 import { replyTicket } from "./controllers/replyTicket";
 import { validate } from "./controllers/ticketController";
+// import { secured as validateSession } from "../../middleware/validateSession"; This is the auth middleware enable this once we're ready for it
 
 import noteRouter from "./notes/noteConfig";
 
