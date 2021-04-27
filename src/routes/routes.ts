@@ -8,7 +8,7 @@ import systemRouter from "./system/systemConfig";
 
 const router = Router();
 
-const setupRoutes = async (app: Application): Promise<void> => {
+const setupRoutes = (app: Application): void => {
   app.use(
     router.get("/", (req: Request, res) => {
       return res.send({ isLoggedIn: req.user ? true : false });
