@@ -1,15 +1,15 @@
 import { body } from "express-validator";
 
-interface tag {
+interface ITag {
   name: string;
   color: string;
   backgrundColor: string;
 }
 
 // TODO: Figure out how the hell we should do templates
-interface template {}
+interface ITemplate {}
 
-interface group {
+interface IGroup {
   name: string;
   members: string[];
   tier: "T1" | "T2" | "T3" | "T4";
@@ -17,13 +17,13 @@ interface group {
 }
 
 export interface systemSettings {
-  tags?: tag[];
+  tags?: ITag[];
   ratings: boolean;
   snoozing: boolean;
   defaultTheme: "light" | "dark";
   allowNotesEdit: boolean;
   allowUserSeeTicketStatus: boolean;
-  groups?: group[];
+  groups?: IGroup[];
   avgUserSatisfaction: 1 | 2 | 3;
   avgRespTime: string | null;
   prefDataType: "JSON" | "CSV";
