@@ -1,6 +1,6 @@
 import { getDB } from "../../../database/db";
 import { Request, Response } from "express";
-import { updateSystemSettnigs as createSystemSettingsDefault } from "../util/createSystemSettingsDefault";
+import { updateSystemSettings as createSystemSettingsDefault } from "../util/createSystemSettingsDefault";
 import { systemConfigdefaults } from "../../../config/config";
 
 const getSystemSettings = async (req: Request, res: Response) => {
