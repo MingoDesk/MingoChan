@@ -19,6 +19,7 @@ services:
       - ALLOW_EMPTY_PASSWORD=yes
       - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
     ports:
+      # TODO: PROTECT THE DAMN PORT IN THE FIREWALL ON VPS'S!
       - 6379:6379
   database:
     image: mongo:4.4
@@ -30,6 +31,7 @@ services:
       #- MONGO_INITDB_ROOT_PASSWORD=rootpassword
       - MONGO_INITDB_DATABSE=${DB_NAME}
     ports:
+      # TODO: PROTECT THE DAMN PORT IN THE FIREWALL ON VPS'S!
       - 27017:27017
 volumes:
   redis_mingo-chan_data_volume:
