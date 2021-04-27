@@ -6,7 +6,7 @@ interface IDatabaseCollections {
   settings: string;
 }
 
-const collections: IDatabaseCollections = {
+const datbaseCollections: IDatabaseCollections = {
   users: "Users",
   tickets: "Tickets",
   settings: "Settings",
@@ -39,4 +39,4 @@ const systemConfigdefaults: systemSettings = {
   prefDataType: "JSON",
 };
 
-export { collections, envFilter, systemConfigdefaults };
+export { datbaseCollections, envFilter, systemConfigdefaults };

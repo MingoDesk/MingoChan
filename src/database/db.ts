@@ -1,5 +1,5 @@
 import { MongoClient, Db as mongoDb, Collection } from "mongodb";
-import { collections } from "../config/config";
+import { datbaseCollections } from "../config/config";
 
 interface IConfig {
   URI: string;
@@ -30,9 +30,9 @@ export class Db {
         console.info(`Connected to databse: ${this.db_name}`);
 
         this.db = client.db(this.db_name);
-        this.users = this.db.collection(collections.users);
-        this.tickets = this.db.collection(collections.tickets);
-        this.settings = this.db.collection(collections.settings);
+        this.users = this.db.collection(datbaseCollections.users);
+        this.tickets = this.db.collection(datbaseCollections.tickets);
+        this.settings = this.db.collection(datbaseCollections.settings);
         resolve(this);
       });
     });
