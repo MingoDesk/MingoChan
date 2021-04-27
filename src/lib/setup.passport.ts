@@ -7,7 +7,7 @@ import { v4 as uuid } from "uuid";
 import { auth0Serialize, auth0Deserialize } from "./serialize";
 import { setupStrategy } from "./passport.strategy";
 
-async function initializeAuth(app: Application): Promise<void> {
+function initializeAuth(app: Application): void {
   const redisStore: RedisStore = connectRedis(session);
   const IS_PROD = process.env.NODE_ENV === "production";
 
