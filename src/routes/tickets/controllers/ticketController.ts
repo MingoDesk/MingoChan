@@ -8,8 +8,8 @@ export interface IMessage {
 }
 
 export interface INoteData extends IMessage {
-  isNote?: true;
   id: string;
+  isNote: true;
 }
 
 export interface IPersonnelView extends IMessage, INoteData {}
