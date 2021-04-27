@@ -10,7 +10,7 @@ export interface ICreateSystemsDefaultRes {
 
 // TODO: ADD the ID here as a parameter coming from the session
 
-const updateSystemSettnigs = async (data, updated: Date = new Date()): Promise<ICreateSystemsDefaultRes> => {
+const updateSystemSettings = async (data, updated: Date = new Date()): Promise<ICreateSystemsDefaultRes> => {
   const create = await getDB().settings.findOneAndUpdate(
     { _id: "1eff307b-c25c-4c43-83c0-1752b2ebd7c2" },
     { $set: { ...data, updated } },
@@ -33,4 +33,4 @@ const updateSystemSettnigs = async (data, updated: Date = new Date()): Promise<I
   };
 };
 
-export { updateSystemSettnigs };
+export { updateSystemSettings };

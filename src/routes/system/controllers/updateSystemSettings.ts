@@ -1,11 +1,11 @@
 import { validationResult } from "express-validator";
 import { matchedData } from "express-validator";
 import { Request, Response } from "express";
-import { updateSystemSettnigs } from "../util/createSystemSettingsDefault";
+import { updateSystemSettings } from "../util/createSystemSettingsDefault";
 
 // TODO: Attach the system's id on the users session by adding an identifier to the session
 
-const updateSystemSettings = async (req: Request, res: Response) => {
+const updateSystemSettingsRoute = async (req: Request, res: Response) => {
   const errors = validationResult(req);
   const data = matchedData(req);
 
@@ -15,11 +15,11 @@ const updateSystemSettings = async (req: Request, res: Response) => {
 
   const updated = new Date();
 
-  const updateSettings = await updateSystemSettnigs(data, updated);
+  const updateSettings = await updateSystemSettings(data, updated);
 
   if (!updateSettings.success) return res.status(500).send(updateSettings);
 
   return res.status(200).send(updateSettings);
 };
 
-export { updateSystemSettings };
+export { updateSystemSettingsRoute };
