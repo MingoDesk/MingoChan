@@ -29,13 +29,11 @@ const envFilter: string[] = [
 ];
 
 const systemConfigdefaults: systemSettings = {
-  tags: [],
   ratings: true,
   snoozing: true,
   allowNotesEdit: true,
   allowUserSeeTicketStatus: true,
   defaultTheme: "light",
-  groups: [],
   avgUserSatisfaction: 3,
   avgRespTime: null,
   prefDataType: "JSON",

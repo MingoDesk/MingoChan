@@ -17,13 +17,13 @@ interface group {
 }
 
 export interface systemSettings {
-  tags: tag[];
+  tags?: tag[];
   ratings: boolean;
   snoozing: boolean;
   defaultTheme: "light" | "dark";
   allowNotesEdit: boolean;
   allowUserSeeTicketStatus: boolean;
-  groups: group[];
+  groups?: group[];
   avgUserSatisfaction: 1 | 2 | 3;
   avgRespTime: string | null;
   prefDataType: "JSON" | "CSV";
