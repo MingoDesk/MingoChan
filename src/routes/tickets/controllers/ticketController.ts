@@ -22,7 +22,7 @@ export interface ITicket {
   isStarred: boolean;
   tags: string[];
   labels: string[];
-  rating: number | null;
+  rating?: number;
   isUpdated: boolean;
   messages: IMessage[];
   notes?: INoteData[];
