@@ -1,12 +1,12 @@
 import { systemSettings } from "../routes/system/controllers/systemsController";
 
-interface ICollections {
+interface IDatabaseCollections {
   users: string;
   tickets: string;
   settings: string;
 }
 
-const collections: ICollections = {
+const collections: IDatabaseCollections = {
   users: "Users",
   tickets: "Tickets",
   settings: "Settings",
