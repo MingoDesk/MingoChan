@@ -9,7 +9,7 @@ import { initializeAuth } from "./lib/setup.passport";
 
 const init = async (app: Application): Promise<void> => {
   // Check that all env variables are set
-  await checkEnvVars();
+  checkEnvVars();
 
   // Setup mongo and redis
   await setupDB({ URI: process.env.MONGO_URI, name: process.env.DB_NAME });
