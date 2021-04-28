@@ -22,7 +22,7 @@
     "passport-auth0": "^1.4.0",
     "pino": "^6.10.0",
     "query-string": "^6.13.8",
-    "redis": "^3.0.2",
+    "redis": "^3.1.1",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
