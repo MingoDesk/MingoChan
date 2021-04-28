@@ -1,4 +1,4 @@
-import { systemSettings } from "../routes/system/controllers/systemsController";
+import { systemSettings, Themes, PrefDataType } from "../routes/system/controllers/systemsController";
 
 interface IDatabaseCollections {
   users: string;
@@ -33,10 +33,9 @@ const systemConfigdefaults: systemSettings = {
   snoozing: true,
   allowNotesEdit: true,
   allowUserSeeTicketStatus: true,
-  defaultTheme: "light",
+  defaultTheme: Themes.light,
   avgUserSatisfaction: 3,
-  avgRespTime: null,
-  prefDataType: "JSON",
+  prefDataType: PrefDataType.json,
 };
 
 export { datbaseCollections, envFilter, systemConfigdefaults };

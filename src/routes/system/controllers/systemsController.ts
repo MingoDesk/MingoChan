@@ -9,25 +9,25 @@ interface ITag {
 // TODO: Figure out how the hell we should do templates
 interface ITemplate {}
 
-enum Tier {
+export enum Tier {
   t1 = "T1",
   t2 = "T2",
   t3 = "T3",
   t4 = "T4",
 }
 
-enum PrefDataType {
+export enum PrefDataType {
   json = "JSON",
   csv = "CSV",
 }
 
-enum AvgUserSatisfaction {
+export enum AvgUserSatisfaction {
   bad = 1,
   okay,
   awesome,
 }
 
-enum Themes {
+export enum Themes {
   light = "light",
   dark = "dark",
 }
