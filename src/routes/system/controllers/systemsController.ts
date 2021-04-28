@@ -9,10 +9,33 @@ interface ITag {
 // TODO: Figure out how the hell we should do templates
 interface ITemplate {}
 
+enum Tier {
+  t1 = "T1",
+  t2 = "T2",
+  t3 = "T3",
+  t4 = "T4",
+}
+
+enum PrefDataType {
+  json = "JSON",
+  csv = "CSV",
+}
+
+enum AvgUserSatisfaction {
+  bad = 1,
+  okay,
+  awesome,
+}
+
+enum Themes {
+  light = "light",
+  dark = "dark",
+}
+
 interface IGroup {
   name: string;
   members: string[];
-  tier: "T1" | "T2" | "T3" | "T4";
+  tier: Tier;
   star: boolean;
 }
 
@@ -20,13 +43,13 @@ export interface systemSettings {
   tags?: ITag[];
   ratings: boolean;
   snoozing: boolean;
-  defaultTheme: "light" | "dark";
+  defaultTheme: Themes;
   allowNotesEdit: boolean;
   allowUserSeeTicketStatus: boolean;
   groups?: IGroup[];
-  avgUserSatisfaction: 1 | 2 | 3;
-  avgRespTime: string | null;
-  prefDataType: "JSON" | "CSV";
+  avgUserSatisfaction: AvgUserSatisfaction;
+  avgRespTime?: string;
+  prefDataType: PrefDataType;
 }
 
 const validate = (method: string) => {
