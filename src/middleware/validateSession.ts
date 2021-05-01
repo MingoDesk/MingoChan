@@ -1,12 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 
 function secured(req: Request, res: Response, next: NextFunction) {
-  console.log(`${process.env.DOMAIN}/api/login`);
+  console.log(req.user);
   if (req.user) {
     return next();
   }
-  req.session.returnTo = req.originalUrl;
-  res.redirect(`${process.env.DOMAIN}/api/login`);
+  return res.status(400).send({ erorr: "Bad request", msg: "You're not logged in! Please login", success: false });
 }
 
 export { secured };
