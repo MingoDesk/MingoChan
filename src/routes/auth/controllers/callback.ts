@@ -9,7 +9,7 @@ router.get("/callback", async (req: Request, res: Response, next: NextFunction) 
     if (!user) return res.redirect("/login");
     req.logIn(user, (err) => {
       if (err) return next(err);
-      res.redirect("/");
+      res.redirect(process.env.BASE_REDIRECT_URL);
     });
   })(req, res, next);
 });

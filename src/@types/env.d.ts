@@ -13,5 +13,6 @@ declare namespace NodeJS {
     CLIENTID: string;
     BASEURL: string;
     DOMAIN: string;
+    BASE_REDIRECT_URL: string;
   }
 }
