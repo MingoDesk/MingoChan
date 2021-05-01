@@ -10,7 +10,7 @@ import noteRouter from "./notes/noteConfig";
 const router = Router();
 
 //@ts-ignore
-router.post("/new", validate("createTicket"), createTicket);
+router.post("/new", validateSession, validate("createTicket"), createTicket);
 //@ts-ignore
 router.patch("/reply", validate("replyTicket"), replyTicket);
 router.get("/:id", validateSession, getTicket);
