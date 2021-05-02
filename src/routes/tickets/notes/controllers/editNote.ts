@@ -22,8 +22,8 @@ const editNote = async (req, res) => {
     return res.status(400).send({ error: "Bad request", msg: "Field id failed validation", success: false });
   }
 
-  const _id = new ObjectId(data.id);
-  const date = new Date();
+  const _id = new ObjectId(data.ticketId);
+  const now = new Date();
 
   const updatedData = await getDB().tickets.findOneAndUpdate(
     { _id, "notes.id": data.noteId },
@@ -31,7 +31,7 @@ const editNote = async (req, res) => {
       $set: {
         "notes.$.text": data.text,
       },
-      $push: { "notes.$.history": { createdAt: date, text: data.text } },
+      $push: { "notes.$.history": { createdAt: now, text: data.text } },
     },
     {
       returnOriginal: false,

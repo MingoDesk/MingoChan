@@ -21,7 +21,8 @@ const createTicket = async (req, res): Promise<ITicket> => {
   const ticketId = uuid();
 
   const newTicket = await getDB().tickets.insertOne({
-    authorId: data.authorId,
+    authorId: req.user.sub,
+    author: req.user.name,
     assignee: null,
     createdAt,
     // TODO: Check if customer group is marked as "starred"
@@ -30,7 +31,7 @@ const createTicket = async (req, res): Promise<ITicket> => {
     labels: [],
     rating: null,
     isUpdated: true,
-    messages: [{ ...data, author: data.authorId, createdAt, id: ticketId }],
+    messages: [{ ...data, author: req.user.name, authorId: req.user.sub, createdAt, id: ticketId }],
     notes: [],
     personnelView: [{ id: ticketId }],
   });

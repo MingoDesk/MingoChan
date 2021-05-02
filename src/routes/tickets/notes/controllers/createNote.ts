@@ -13,7 +13,7 @@ const createNote = async (req, res) => {
     return res.status(400).send({ success: false, msg: "Bad request", errors: errors.array() });
   }
 
-  const _id = new ObjectId(data.id);
+  const _id = new ObjectId(data.ticketId);
   const noteId = uuid();
   const date = new Date();
   const updatedData = await getDB().tickets.findOneAndUpdate(
@@ -26,7 +26,8 @@ const createNote = async (req, res) => {
         },
         notes: {
           id: noteId,
-          authorId: data.authorId,
+          authorId: req.user.sub,
+          author: req.user.name,
           text: data.text,
           isNote: true,
           history: [{ text: data.text, createdAt: date }],

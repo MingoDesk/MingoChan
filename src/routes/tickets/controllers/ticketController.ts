@@ -32,15 +32,11 @@ export interface ITicket {
 const validate = (method: string) => {
   switch (method) {
     case "createTicket": {
-      return [
-        body("authorId", "Field authorId failed validation").exists().isString().notEmpty().escape(),
-        body("text", "Field text failed validation").exists().isString().notEmpty().escape(),
-      ];
+      return [body("text", "Field text failed validation").exists().isString().notEmpty().escape()];
     }
     case "replyTicket": {
       return [
         body("id", "Field id failed validation").exists().isString().notEmpty().escape(),
-        body("authorId", "Field authorId failed validation").exists().isString().notEmpty().escape(),
         body("text", "Field text failed validation").exists().isString().notEmpty().escape(),
       ];
     }

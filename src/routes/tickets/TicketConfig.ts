@@ -12,7 +12,7 @@ const router = Router();
 //@ts-ignore
 router.post("/new", validateSession, validate("createTicket"), createTicket);
 //@ts-ignore
-router.patch("/reply", validate("replyTicket"), replyTicket);
+router.patch("/reply", validateSession, validate("replyTicket"), replyTicket);
 router.get("/:id", validateSession, getTicket);
 router.use("/notes", noteRouter);
 

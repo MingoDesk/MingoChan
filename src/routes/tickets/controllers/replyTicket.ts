@@ -14,18 +14,23 @@ const replyTicket = async (req, res): Promise<ITicket> => {
   }
 
   const _id = new ObjectId(data.id);
+  const now = new Date();
 
   const updatedData = await getDB().tickets.findOneAndUpdate(
     { _id },
     {
       $push: {
         messages: {
-          authorId: data.authorId,
+          authorId: req.user.sub,
+          author: req.user.name,
           text: data.text,
+          createdAt: now,
         },
         personnelView: {
-          authorId: data.authorId,
+          authorId: data.req.user.sub,
+          author: req.user.name,
           text: data.text,
+          createdAt: now,
         },
       },
     },
