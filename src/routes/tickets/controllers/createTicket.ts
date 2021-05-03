@@ -9,7 +9,6 @@ import { v4 as uuid } from "uuid";
 // TODO: Add userinfo such as createdBy/author and user icon from session data instead of from the request body (This can only be done one auth is implemented again) and Add more userdata to each message
 
 const createTicket = async (req, res): Promise<ITicket> => {
-  console.log(req.user);
   const errors = validationResult(req);
   const data = matchedData(req);
 

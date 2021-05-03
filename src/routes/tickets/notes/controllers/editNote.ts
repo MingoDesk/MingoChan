@@ -38,8 +38,6 @@ const editNote = async (req, res) => {
     }
   );
 
-  console.log(updatedData);
-
   if (updatedData.ok !== 1 || !updatedData.value) {
     return res.status(400).send({ errors: "Bad request", success: false, msg: "Failed to update ticket" });
   }

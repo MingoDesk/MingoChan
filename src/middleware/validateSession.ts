@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
 function secured(req: Request, res: Response, next: NextFunction) {
-  console.log(req.user);
   if (req.user) {
     return next();
   }
