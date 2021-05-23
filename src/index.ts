@@ -6,6 +6,7 @@ dotenv.config();
 const app: Application = express();
 
 const start = async () => {
+  // comment
   await init(app);
 };
 
