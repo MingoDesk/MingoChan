@@ -1,36 +1,36 @@
-import { getDB } from "../../../database/db";
-import { validationResult } from "express-validator";
-import { matchedData } from "express-validator";
-import { ObjectId } from "mongodb";
-import { populatePersonnelView } from "../util/populatePersonnelView";
-import { ITicket } from "./ticketController";
+import { getDB } from '../../../database/db';
+import { validationResult } from 'express-validator';
+import { matchedData } from 'express-validator';
+import { ObjectId } from 'mongodb';
+import { populatePersonnelView } from '../util/populatePersonnelView';
+import { ITicket } from './ticketController';
+import { v4 as uuid } from 'uuid';
 
 const replyTicket = async (req, res): Promise<ITicket> => {
   const errors = validationResult(req);
   const data = matchedData(req);
 
   if (!errors.isEmpty()) {
-    return res.status(400).send({ success: false, msg: "Bad request", errors: errors.array() });
+    return res.status(400).send({ success: false, msg: 'Bad request', errors: errors.array() });
   }
 
-  const _id = new ObjectId(data.id);
+  const _id = new ObjectId(data.ticketId);
   const now = new Date();
+  const replyId = uuid();
 
   const updatedData = await getDB().tickets.findOneAndUpdate(
     { _id },
     {
       $push: {
         messages: {
+          id: replyId,
           authorId: req.user.sub,
           author: req.user.name,
           text: data.text,
           createdAt: now,
         },
         personnelView: {
-          authorId: data.req.user.sub,
-          author: req.user.name,
-          text: data.text,
-          createdAt: now,
+          id: replyId,
         },
       },
     },
@@ -40,7 +40,7 @@ const replyTicket = async (req, res): Promise<ITicket> => {
   );
 
   if (updatedData.ok !== 1 || !updatedData.value) {
-    return res.status(400).send({ errors: "Bad request", success: false, msg: "Failed to update ticket" });
+    return res.status(400).send({ errors: 'Bad request', success: false, msg: 'Failed to update ticket' });
   }
 
   return res.status(200).send({
