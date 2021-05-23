@@ -1,16 +1,16 @@
-import { Router } from "express";
-import { createNote } from "./controllers/createNote";
-import { editNote } from "./controllers/editNote";
-import { validate } from "./controllers/noteController";
-import { secured as validateSession } from "../../../middleware/validateSession";
+import { Router } from 'express';
+import { createNote } from './controllers/createNote';
+import { editNote } from './controllers/editNote';
+import { validate } from './controllers/noteController';
+import { secured as validateSession } from '../../../middleware/validateSession';
 
 const router = Router();
 
 //@ts-ignore
-router.post("/new", validateSession, validate("note"), createNote);
+router.patch('/new', validateSession, validate('note'), createNote);
 
 //@ts-ignore
 // E
-router.patch("/edit", validateSession, validate("editNote"), editNote);
+router.patch('/edit', validateSession, validate('editNote'), editNote);
 
 export default router;
