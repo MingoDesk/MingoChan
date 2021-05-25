@@ -1,4 +1,4 @@
-import { body } from "express-validator";
+import { body } from 'express-validator';
 
 export interface IMessage {
   authorId: string;
@@ -7,12 +7,12 @@ export interface IMessage {
   id: string;
 }
 
-export interface INoteData extends IMessage {
+export interface INote extends IMessage {
   id: string;
   isNote?: true;
 }
 
-export interface IPersonnelView extends IMessage, INoteData {}
+export interface IPersonnelView extends IMessage, INote {}
 
 export interface ITicket {
   authorId: string;
@@ -25,19 +25,19 @@ export interface ITicket {
   rating?: number;
   isUpdated: boolean;
   messages: IMessage[];
-  notes?: INoteData[];
+  notes?: INote[];
   personnelView: IPersonnelView[];
 }
 
 const validate = (method: string) => {
   switch (method) {
-    case "createTicket": {
-      return [body("text", "Field text failed validation").exists().isString().notEmpty().escape()];
+    case 'createTicket': {
+      return [body('text', 'Field text failed validation').exists().isString().notEmpty().escape()];
     }
-    case "replyTicket": {
+    case 'replyTicket': {
       return [
-        body("ticketId", "Field ticketId failed validation").exists().isString().notEmpty().escape(),
-        body("text", "Field text failed validation").exists().isString().notEmpty().escape(),
+        body('ticketId', 'Field ticketId failed validation').exists().isString().notEmpty().escape(),
+        body('text', 'Field text failed validation').exists().isString().notEmpty().escape(),
       ];
     }
   }

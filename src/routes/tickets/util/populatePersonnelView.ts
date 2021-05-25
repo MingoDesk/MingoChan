@@ -1,17 +1,17 @@
-import { IPersonnelView, INoteData, IMessage } from '../controllers/ticketController';
+import { IPersonnelView, INote, IMessage } from '../controllers/ticketController';
 
 /**
  * This function takes the id's from the personnelView and fills them with it's real data such as a note or a reply for sending to the front-end
  *
  * @param notes
- * @param personnelData
+ * @param personnelView
  * @param messages
  * @returns IPersonnelView
  */
 
 const populatePersonnelView = (
-  notes: INoteData[],
-  personnelData: IPersonnelView[],
+  notes: INote[],
+  personnelView: IPersonnelView[],
   messages: IMessage[]
 ): IPersonnelView[] => {
   const map = {};
@@ -24,7 +24,7 @@ const populatePersonnelView = (
     map[message.id] = message;
   });
 
-  return personnelData.map((v) => map[v.id] || v.id);
+  return personnelView.map((v) => map[v.id] || v.id);
 };
 
 export { populatePersonnelView };
