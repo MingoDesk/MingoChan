@@ -9,8 +9,8 @@ declare namespace NodeJS {
     SID: string;
     REDIS_URI: string;
     SECRET: string;
-    ISSUERBASEURL: string;
-    CLIENTID: string;
+    ISSUER_BASEURL: string;
+    CLIENT_ID: string;
     BASEURL: string;
     DOMAIN: string;
     BASE_REDIRECT_URL: string;

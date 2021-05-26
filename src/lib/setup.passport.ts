@@ -20,13 +20,13 @@ function initializeAuth(app: Application): void {
   const redisClient: RedisClient = redis.createClient(redisSettings);
   app.use(
     session({
-      name: process.env.SID,
+      name: process.env.INSTANCE_NAME,
       store: new redisStore({ client: redisClient }),
       secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: true,
       cookie: {
-        maxAge: parseInt(process.env.SESSION_LIFETIME),
+        maxAge: parseInt(process.env.SESSION_LIFETIME) * 60 * 60 * 60,
         sameSite: IS_PROD,
         secure: IS_PROD,
       },
