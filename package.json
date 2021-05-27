@@ -50,6 +50,8 @@
   },
   "scripts": {
     "start-dev": "docker compose build --no-cache mingo-chan && docker compose up",
-    "start": "docker compose up"
+    "start": "docker compose up",
+    "deploy": "node ./dist/index.js",
+    "build": "tsc -p tsconfig.json"
   }
 }
