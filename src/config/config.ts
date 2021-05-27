@@ -1,4 +1,9 @@
-import { systemSettings, Themes, PrefDataType } from '../routes/system/controllers/systemsController';
+import {
+  systemSettings,
+  Themes,
+  PrefDataType,
+  AvgUserSatisfaction,
+} from '../routes/system/controllers/systemsController';
 
 interface IDatabaseCollections {
   users: string;
@@ -18,13 +23,12 @@ const envFilter: string[] = [
   'DB_NAME',
   'SESSION_SECRET',
   'NODE_ENV',
-  'SID',
   'REDIS_URI',
   'CLIENT_ID',
-  'ISSUER_BASEURL',
   'SECRET',
   'BASEURL',
   'SESSION_LIFETIME',
+  'ISSUER_BASEURL',
 ];
 
 const systemConfigdefaults: systemSettings = {
@@ -33,7 +37,7 @@ const systemConfigdefaults: systemSettings = {
   allowNotesEdit: true,
   allowUserSeeTicketStatus: true,
   defaultTheme: Themes.light,
-  avgUserSatisfaction: 3,
+  avgUserSatisfaction: AvgUserSatisfaction.awesome,
   prefDataType: PrefDataType.json,
 };
 

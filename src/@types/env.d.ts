@@ -6,7 +6,6 @@ declare namespace NodeJS {
     SESSION_SECRET: string;
     NODE_ENV: string;
     SESSION_LIFETIME: string;
-    SID: string;
     REDIS_URI: string;
     SECRET: string;
     ISSUER_BASEURL: string;
