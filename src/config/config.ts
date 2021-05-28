@@ -1,5 +1,5 @@
 import {
-  systemSettings,
+  ISystemSettings,
   Themes,
   PrefDataType,
   AvgUserSatisfaction,
@@ -31,7 +31,7 @@ const envFilter: string[] = [
   'ISSUER_BASEURL',
 ];
 
-const systemConfigdefaults: systemSettings = {
+const systemConfigdefaults: ISystemSettings = {
   ratings: true,
   snoozing: true,
   allowNotesEdit: true,

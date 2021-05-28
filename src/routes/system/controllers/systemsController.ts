@@ -39,7 +39,7 @@ interface IGroup {
   star: boolean;
 }
 
-export interface systemSettings {
+export interface ISystemSettings {
   tags?: ITag[];
   ratings: boolean;
   snoozing: boolean;
