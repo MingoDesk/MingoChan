@@ -1,5 +1,5 @@
-import { MongoClient, Db as mongoDb, Collection } from "mongodb";
-import { datbaseCollections } from "../config/config";
+import { MongoClient, Db as mongoDb, Collection } from 'mongodb';
+import { datbaseCollections } from '../config/config';
 
 interface IConfig {
   URI: string;
@@ -8,7 +8,7 @@ interface IConfig {
 
 export class Db {
   private db_name?: string;
-  private uri?: IConfig["URI"];
+  private uri?: IConfig['URI'];
   private rootClient: MongoClient;
   public db!: mongoDb;
   public users!: Collection;
