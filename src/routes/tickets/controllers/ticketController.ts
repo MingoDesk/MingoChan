@@ -1,7 +1,14 @@
 import { body } from 'express-validator';
 
+export enum TicketStatus {
+  open = 1,
+  snoozed,
+  closed,
+}
+
 export interface IMessage {
   authorId: string;
+  author: string;
   text: string;
   createdAt: Date;
   id: string;
@@ -12,13 +19,17 @@ export interface INote extends IMessage {
   isNote?: true;
 }
 
-export interface IPersonnelView extends IMessage, INote {}
+export interface IPersonnelView {
+  id: string;
+  isNote?: true;
+}
 
 export interface ITicket {
   authorId: string;
   author: string;
-  assignee: string;
-  creadedAt: Date;
+  status: TicketStatus;
+  assignee?: string;
+  createdAt: Date;
   isStarred: boolean;
   tags: string[];
   labels: string[];
