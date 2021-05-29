@@ -35,7 +35,7 @@ NODE_ENV = DEV
 CLIENT_ID = SiyRIkzp0efZ4JhZgpjfS6USOme1XhJA
 BASEURL = http://localhost:1928
 
-# Long string that can't be easily forced, you can use command openssl rand -hex 32 in the command line to get a suitable string
+# Long string that can't be easily forced, you can use command openssl rand -hex 32 in the command line to get a suitable string or run node -e "console.log(crypto.randomBytes(32).toString('hex'))"
 SECRET = LMgZLR5fKJEkxKr4ndvHXfuRL5MnMbWwkh-kJL0bM80fvwY3W_2bJ5VEemBguXvt
 
 # The URL provided by auth0 under the "applications --> applications --> name of application" in the auth0 portal
