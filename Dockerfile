@@ -14,9 +14,8 @@ RUN yarn build
 
 
 ARG PORT
-ARG DB_NAME
 EXPOSE ${PORT}
-EXPOSE ${DB_NAME}
+
 
 COPY . ./
 
