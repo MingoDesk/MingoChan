@@ -1,10 +1,10 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from 'express';
 
 function secured(req: Request, res: Response, next: NextFunction) {
-  if (req.user) {
-    return next();
-  }
-  return res.status(400).send({ erorr: "Bad request", msg: "You're not logged in! Please login", success: false });
+	if (req.user) {
+		return next();
+	}
+	return res.redirect(`${process.env.BASEURL}/api/login`);
 }
 
 export { secured };
