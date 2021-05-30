@@ -2,25 +2,51 @@ import { getDB } from '../../../database/db';
 import { find } from '@tadashi/mongo-cursor-pagination';
 import { TicketStatus, ITicket } from './ticketController';
 import { IPaginateResult } from '../../../@types/paginate';
+import { getMetadataFromTicket } from '../util/getMetadataFromTicket';
+import { responseGenerator } from 'util/responseGenerator';
+
+/**
+ *
+ * @param req.query.hasNext (boolean)
+ * @returns Metadata from paginated tickets. If it includes "hasNext":true, then you're expected to make a second GET request witht he parameter ?hasNext=true to get the rest of the metadata
+ */
 
 const getUnassignedTickets = async (req, res) => {
 	// Get all tickets that aren't assigned to anyone and that has an open status
+	const hasNext = Boolean(req.query.hasNext);
+	const hasPrevious = Boolean(req.query.hasPrevious);
 
 	const tickets: IPaginateResult<ITicket> = await find(getDB().tickets, {
-		limit: 50,
-		query: { status: TicketStatus.open, $or: [{ assignee: { $type: 'null' } }, { assignee: { $exists: false } }] },
-		next: req.query.hasNext == 'true' ? true : false,
+		limit: parseInt(process.env.PAGINATION_LIMIT),
+		query: {
+			status: TicketStatus.open,
+			$or: [
+				{
+					assignee: { $type: 'null' },
+				},
+				{
+					assignee: { $exists: false },
+				},
+			],
+		},
+		next: hasNext ? req.params.nextHash : null,
+		previous: hasPrevious ? req.params.nextHash : null,
 	});
 
 	if (!Array.isArray(tickets.results) || !tickets.results.length)
-		return res.status(200).send({ sucess: false, error: 'No tickets found', msg: "There aren't any tickets 🥳" });
+		return res.status(200).send({
+			...responseGenerator(200, "There aren't any unnasigned tickets 🥳"),
+		});
 
-	const data = tickets.results.map(({ rating, messages, personnelView, notes, ...metaData }) => metaData);
+	const data = getMetadataFromTicket(tickets.results);
 
 	return res.status(200).send({
-		success: true,
-		errors: null,
+		...responseGenerator(200, "Here's todays tickets!"),
 		data,
+		hasNext: tickets.hasNext,
+		hasPrevious: tickets.hasPrevious,
+		nextHash: tickets.next,
+		previousHash: tickets.previous,
 	});
 };
 

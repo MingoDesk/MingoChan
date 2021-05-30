@@ -10,7 +10,6 @@ const router = Router();
 router.patch('/new', validateSession, validate('note'), createNote);
 
 //@ts-ignore
-// E
 router.patch('/edit', validateSession, validate('editNote'), editNote);
 
 export default router;
