@@ -1,5 +1,5 @@
 import { parseJsonToCsv } from '../util/jsonToCsvParser';
-import { getDB } from '../../../database/db';
+import { getDB } from '../../../../database/db';
 import { responseGenerator } from 'util/responseGenerator';
 
 const exportTicket = async (req, res) => {
