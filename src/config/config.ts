@@ -29,6 +29,7 @@ const envFilter: string[] = [
   'BASEURL',
   'SESSION_LIFETIME',
   'ISSUER_BASEURL',
+  'PAGINATION_LIMIT'
 ];
 
 const systemConfigdefaults: ISystemSettings = {
