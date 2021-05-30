@@ -7,14 +7,13 @@ COPY yarn.lock ./
 
 
 RUN yarn install
-RUN yarn global add typescript
+#RUN yarn global add typescript
 COPY src /usr/src/app/src
 COPY tsconfig.json ./
 RUN yarn build
 
 
-ARG PORT
-EXPOSE ${PORT}
+EXPOSE 1928
 
 
 COPY . ./
