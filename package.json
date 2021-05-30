@@ -24,7 +24,6 @@
     "passport": "^0.4.1",
     "passport-auth0": "^1.4.0",
     "pino": "^6.10.0",
-    "query-string": "^6.13.8",
     "redis": "^3.0.2",
     "uuid": "^8.3.2"
   },
@@ -41,7 +40,6 @@
     "@types/node": "^14.14.21",
     "@types/passport": "^1.0.5",
     "@types/passport-auth0": "^1.0.4",
-    "@types/query-string": "^6.3.0",
     "@types/redis": "^2.8.28",
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.25.0",
