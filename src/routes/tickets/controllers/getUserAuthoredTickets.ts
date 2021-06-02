@@ -9,10 +9,15 @@ const getUserAuthoredTickets = async (req, res) => {
 		return res.status(400).send({ success: false, error: 'Bad request', msg: 'You must provide a userId!' });
 	}
 
+	// Get all tickets that aren't assigned to anyone and that has an open status
+	const hasNext = Boolean(req.query.hasNext);
+	const hasPrevious = Boolean(req.query.hasPrevious);
+
 	const tickets = await find(getDB().tickets, {
-		limit: parseInt(process.env.PAGINATION_LIMIT),
+		limit: parseInt(process.env.PAGINATION_LIMIT, 10),
 		query: { authorId: req.query.userId, status: TicketStatus.open },
-		next: req.query.hasNext == 'true' ? true : false,
+		next: hasNext ? req.params.nextHash : null,
+		previous: hasPrevious ? req.params.nextHash : null,
 	});
 
 	if (!Array.isArray(tickets.results) || !tickets.results.length) {

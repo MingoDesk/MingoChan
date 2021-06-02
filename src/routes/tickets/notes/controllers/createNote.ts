@@ -1,6 +1,5 @@
 import { getDB } from '../../../../database/db';
-import { validationResult } from 'express-validator';
-import { matchedData } from 'express-validator';
+import { validationResult, matchedData } from 'express-validator';
 import { ObjectId } from 'mongodb';
 import { v4 as uuid } from 'uuid';
 import { populatePersonnelView } from '../../util/populatePersonnelView';

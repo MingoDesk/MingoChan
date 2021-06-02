@@ -17,7 +17,7 @@ const getUnassignedTickets = async (req, res) => {
 	const hasPrevious = Boolean(req.query.hasPrevious);
 
 	const tickets: IPaginateResult<ITicket> = await find(getDB().tickets, {
-		limit: parseInt(process.env.PAGINATION_LIMIT),
+		limit: parseInt(process.env.PAGINATION_LIMIT, 10),
 		query: {
 			status: TicketStatus.open,
 			$or: [

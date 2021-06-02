@@ -13,7 +13,7 @@ const getAssignedTickets = async (req, res) => {
 	const hasPrevious = Boolean(req.query.hasPrevious);
 
 	const tickets = await find(getDB().tickets, {
-		limit: parseInt(process.env.PAGINATION_LIMIT),
+		limit: parseInt(process.env.PAGINATION_LIMIT, 10),
 		query: { assignee: req.query.userId, status: TicketStatus.open },
 		next: hasNext ? req.params.nextHash : null,
 		previous: hasPrevious ? req.params.nextHash : null,

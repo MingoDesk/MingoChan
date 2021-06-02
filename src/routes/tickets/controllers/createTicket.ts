@@ -1,8 +1,7 @@
 import { getDB } from '../../../database/db';
 import { matchedData, validationResult } from 'express-validator';
-import { ITicket } from './ticketController';
+import { ITicket, TicketStatus } from './ticketController';
 import { v4 as uuid } from 'uuid';
-import { TicketStatus } from './ticketController';
 import { responseGenerator } from 'util/responseGenerator';
 
 // TODO: Make sure to incorporate diffirent callbacks depending on user permissions
@@ -41,7 +40,7 @@ const createTicket = async (req, res): Promise<ITicket> => {
 		personnelView: [{ id: ticketId }],
 	});
 
-	if (!newTicket) {
+	if (!newTicket.ops.length) {
 		return res.status(500).send({
 			...responseGenerator(500, 'Something went wrong when saving to DB, please try again'),
 		});

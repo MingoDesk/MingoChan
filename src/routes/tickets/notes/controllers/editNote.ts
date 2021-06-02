@@ -1,9 +1,7 @@
 import { getDB } from '../../../../database/db';
-import { validationResult } from 'express-validator';
-import { matchedData } from 'express-validator';
+import { validationResult, matchedData } from 'express-validator';
 import { ObjectId } from 'mongodb';
-import { version as uuidVersion } from 'uuid';
-import { validate as uuidValidate } from 'uuid';
+import { validate as uuidValidate, version as uuidVersion } from 'uuid';
 import { populatePersonnelView } from '../../util/populatePersonnelView';
 import { responseGenerator } from 'util/responseGenerator';
 
