@@ -8,6 +8,7 @@ import { validate } from './controllers/ticketController';
 import { secured as validateSession } from '../../middleware/validateSession';
 import noteRouter from './notes/noteConfig';
 import { getUserAuthoredTickets } from './controllers/getUserAuthoredTickets';
+import { assignTicket } from './controllers/assignTicket';
 
 const router = Router();
 
@@ -18,6 +19,11 @@ router.patch('/reply', validateSession, validate('replyTicket'), replyTicket);
 
 // Get specific ticket
 router.get('/:id', validateSession, getTicket);
+
+// Update assignee
+// eslint-disable-next-line
+// @ts-ignore
+router.patch('/assignee', validate('assignTicket'), assignTicket);
 
 // Feeds
 router.get('/unassigned/feed', validateSession, getUnassignedTickets);

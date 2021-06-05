@@ -51,6 +51,12 @@ const validate = (method: string) => {
 				body('text', 'Field text failed validation').exists().isString().notEmpty().escape(),
 			];
 		}
+		case 'assignTicket': {
+			return [
+				body('ticketId', 'Field userId failed validation').exists().isString().notEmpty().escape(),
+				body('assignTo', 'Field userId failed validation').exists().escape(),
+			];
+		}
 	}
 };
 

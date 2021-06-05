@@ -26,7 +26,7 @@ export class Db {
 	public async connect(): Promise<this> {
 		return new Promise<this>((resolve, reject) => {
 			this.rootClient.connect((err, client) => {
-				// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+				// eslint-disable-next-line
 				if (err) return reject(err);
 				console.info(`Connected to databse: ${this.db_name}`);
 

@@ -6,7 +6,8 @@ function auth0Serialize(user, done) {
 
 function auth0Deserialize(id, done: any) {
 	getDB().users.findOne({ _id: id }, (err, res) => {
-		if (err.message) return done(err);
+		// eslint-disable-next-line
+		if (err) return done(err);
 		done(null, res);
 	});
 }

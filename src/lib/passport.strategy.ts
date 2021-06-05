@@ -18,7 +18,8 @@ const setupStrategy = () => {
 				{ $set: { ...profile._json, country, timezone } },
 				{ upsert: true, returnOriginal: false },
 				(err, res) => {
-					if (err.message) return done(err);
+					// eslint-disable-next-line
+					if (err) return done(err);
 					return done(null, res.value);
 				},
 			);
