@@ -3,7 +3,7 @@ import { find } from '@tadashi/mongo-cursor-pagination';
 import { TicketStatus, ITicket } from './ticketController';
 import { IPaginateResult } from '../../../@types/paginate';
 import { getMetadataFromTicket } from '../util/getMetadataFromTicket';
-import { responseGenerator } from 'util/responseGenerator';
+import { responseGenerator } from '../../../util/responseGenerator';
 
 /**
  *

@@ -2,7 +2,7 @@ import { getDB } from '../../../database/db';
 import { Request, Response } from 'express';
 import { updateSystemSettings as createSystemSettingsDefault } from '../util/createSystemSettingsDefault';
 import { systemConfigdefaults } from '../../../config/config';
-import { responseGenerator } from 'util/responseGenerator';
+import { responseGenerator } from '../../../util/responseGenerator';
 
 const getSystemSettings = async (req: Request, res: Response) => {
 	const getSettings = await getDB().settings.findOne({});

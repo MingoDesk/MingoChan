@@ -1,7 +1,7 @@
 import { getDB } from '../../../database/db';
 import { ObjectId } from 'mongodb';
 import { populatePersonnelView } from '../util/populatePersonnelView';
-import { responseGenerator } from 'util/responseGenerator';
+import { responseGenerator } from '../../../util/responseGenerator';
 
 const getTicket = async (req, res) => {
 	if (!req.params.id) return res.status(400).send({ ...responseGenerator(400, 'Bad ticket id') });

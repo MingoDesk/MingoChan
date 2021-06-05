@@ -1,6 +1,6 @@
 import { parseJsonToCsv } from '../util/jsonToCsvParser';
 import { getDB } from '../../../../database/db';
-import { responseGenerator } from 'util/responseGenerator';
+import { responseGenerator } from '../../../../util/responseGenerator';
 
 const exportTicket = async (req, res) => {
 	const preferences = await getDB().settings.findOne({});

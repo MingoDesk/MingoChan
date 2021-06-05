@@ -3,7 +3,7 @@ import { validationResult, matchedData } from 'express-validator';
 import { ObjectId } from 'mongodb';
 import { validate as uuidValidate, version as uuidVersion } from 'uuid';
 import { populatePersonnelView } from '../../util/populatePersonnelView';
-import { responseGenerator } from 'util/responseGenerator';
+import { responseGenerator } from '../../../../util/responseGenerator';
 
 function uuidValidateV4(uuid) {
 	return uuidValidate(uuid) && uuidVersion(uuid) === 4;

@@ -1,7 +1,7 @@
 import { matchedData, validationResult } from 'express-validator';
 import { Request, Response } from 'express';
 import { updateSystemSettings } from '../util/createSystemSettingsDefault';
-import { responseGenerator } from 'util/responseGenerator';
+import { responseGenerator } from '../../../util/responseGenerator';
 
 // TODO: Attach the system's id on the users session by adding an identifier to the session
 

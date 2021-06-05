@@ -2,7 +2,7 @@ import { getDB } from '../../../database/db';
 import { matchedData, validationResult } from 'express-validator';
 import { ITicket, TicketStatus } from './ticketController';
 import { v4 as uuid } from 'uuid';
-import { responseGenerator } from 'util/responseGenerator';
+import { responseGenerator } from '../../../util/responseGenerator';
 
 // TODO: Make sure to incorporate diffirent callbacks depending on user permissions
 

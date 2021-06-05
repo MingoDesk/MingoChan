@@ -2,7 +2,7 @@ import { getDB } from '../../../database/db';
 import { TicketStatus } from './ticketController';
 import { find } from '@tadashi/mongo-cursor-pagination';
 import { getMetadataFromTicket } from '../util/getMetadataFromTicket';
-import { responseGenerator } from 'util/responseGenerator';
+import { responseGenerator } from '../../../util/responseGenerator';
 
 const getUserAuthoredTickets = async (req, res) => {
 	if (!req.query.userId) {
