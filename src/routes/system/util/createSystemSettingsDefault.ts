@@ -1,7 +1,5 @@
 import { FindAndModifyWriteOpResultObject } from 'mongodb';
-import { responseGenerator } from 'util/responseGenerator';
 import { getDB } from '../../../database/db';
-import { ISystemSettings } from '../controllers/systemsController';
 
 // TODO: ADD the ID here as a parameter coming from the session
 
@@ -15,7 +13,7 @@ const updateSystemSettings = async (
 		{ upsert: true, returnOriginal: false },
 	);
 
-	if (!create || !create.value) {
+	if (!create.value) {
 		return null;
 	}
 

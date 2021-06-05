@@ -6,10 +6,10 @@ import { secured as validateSession } from '../../../middleware/validateSession'
 
 const router = Router();
 
-//@ts-ignore
+// @ts-ignore
 router.patch('/new', validateSession, validate('note'), createNote);
 
-//@ts-ignore
+// @ts-ignore
 router.patch('/edit', validateSession, validate('editNote'), editNote);
 
 export default router;

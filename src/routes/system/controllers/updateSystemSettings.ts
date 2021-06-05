@@ -1,5 +1,4 @@
-import { validationResult } from 'express-validator';
-import { matchedData } from 'express-validator';
+import { matchedData, validationResult } from 'express-validator';
 import { Request, Response } from 'express';
 import { updateSystemSettings } from '../util/createSystemSettingsDefault';
 import { responseGenerator } from 'util/responseGenerator';

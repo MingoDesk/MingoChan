@@ -11,9 +11,9 @@ import { getUserAuthoredTickets } from './controllers/getUserAuthoredTickets';
 
 const router = Router();
 
-//@ts-ignore create a ticket
+// @ts-ignore create a ticket
 router.post('/new', validateSession, validate('createTicket'), createTicket);
-//@ts-ignore reply to a ticket
+// @ts-ignore reply to a ticket
 router.patch('/reply', validateSession, validate('replyTicket'), replyTicket);
 
 // Get specific ticket

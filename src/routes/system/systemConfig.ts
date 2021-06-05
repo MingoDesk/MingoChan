@@ -6,8 +6,9 @@ import { secured as validateSession } from '../../middleware/validateSession';
 
 const router = Router();
 
+// eslint-disable-next-line
 router.get('/', getSystemSettings);
-//@ts-ignore
+// @ts-ignore
 router.patch('/update', validateSession, validate('update'), updateSystemSettingsRoute);
 
 export default router;

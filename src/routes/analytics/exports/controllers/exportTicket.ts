@@ -16,7 +16,7 @@ const exportTicket = async (req, res) => {
 			...responseGenerator(400, 'No ticket was found'),
 		});
 	}
-	if (preferences.prefDataType == 'CSV') {
+	if (preferences.prefDataType === 'CSV') {
 		return parseJsonToCsv(res, 'tickets.csv', {}, data);
 	}
 

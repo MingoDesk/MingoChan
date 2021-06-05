@@ -8,6 +8,9 @@ import { responseGenerator } from 'util/responseGenerator';
 /**
  *
  * @param req.query.hasNext (boolean)
+ * @param req.query.nextHash (string)
+ * @param req.query.hasPrevious (boolean)
+ * @param req.query.previousHash (boolean)
  * @returns Metadata from paginated tickets. If it includes "hasNext":true, then you're expected to make a second GET request witht he parameter ?hasNext=true to get the rest of the metadata
  */
 
@@ -30,7 +33,7 @@ const getUnassignedTickets = async (req, res) => {
 			],
 		},
 		next: hasNext ? req.params.nextHash : null,
-		previous: hasPrevious ? req.params.nextHash : null,
+		previous: hasPrevious ? req.params.previousHash : null,
 	});
 
 	if (!Array.isArray(tickets.results) || !tickets.results.length)
