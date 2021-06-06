@@ -9,6 +9,7 @@ import { secured as validateSession } from '../../middleware/validateSession';
 import noteRouter from './notes/noteConfig';
 import { getUserAuthoredTickets } from './controllers/getUserAuthoredTickets';
 import { assignTicket } from './controllers/assignTicket';
+import { leaveTicketSatisfaction } from './controllers/leaveTicketSatisfaction';
 
 const router = Router();
 
@@ -20,10 +21,13 @@ router.patch('/reply', validateSession, validate('replyTicket'), replyTicket);
 // Get specific ticket
 router.get('/:id', validateSession, getTicket);
 
-// Update assignee
 // eslint-disable-next-line
 // @ts-ignore
 router.patch('/assignee', validate('assignTicket'), assignTicket);
+
+// eslint-disable-next-line
+// @ts-ignore
+router.patch('/satisfaction', validate('ticketSatisfaction'), leaveTicketSatisfaction);
 
 // Feeds
 router.get('/unassigned/feed', validateSession, getUnassignedTickets);

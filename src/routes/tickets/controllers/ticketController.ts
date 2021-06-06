@@ -57,6 +57,12 @@ const validate = (method: string) => {
 				body('assignTo', 'Field userId failed validation').exists().escape(),
 			];
 		}
+		case 'ticketSatisfaction': {
+			return [
+				body('ticketId', 'Field userId failed validation').exists().isString().notEmpty().escape(),
+				body('satisfactionLevel', 'Field satisfactionLevel').exists().isInt().notEmpty().escape(),
+			];
+		}
 	}
 };
 
