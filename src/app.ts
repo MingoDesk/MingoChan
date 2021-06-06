@@ -11,7 +11,7 @@ const init = async (app: Application): Promise<void> => {
 	// Check that all env variables are set
 	checkEnvVars();
 
-	// Setup mongo and redis
+	// Setup mongo
 	await setupDB({ URI: process.env.MONGO_URI, name: process.env.DB_NAME });
 
 	// Application configuration

@@ -11,7 +11,7 @@ function initializeAuth(app: Application): void {
 	const redisStore: RedisStore = connectRedis(session);
 	const IS_PROD = process.env.NODE_ENV === 'production';
 
-	// Sessions ann auth
+	// Sessions, auth, and redis setup
 
 	const redisSettings: ClientOpts = {
 		url: process.env.REDIS_URI,
