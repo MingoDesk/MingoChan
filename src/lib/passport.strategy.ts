@@ -13,6 +13,8 @@ const setupStrategy = () => {
 			// Note that these parameters will only be availbe if the rule "Add country to the user profile" is enabled on the auth0 project. If these values are null, check there.
 			const { 'https://mingochan.com/country': country, 'https://mingochan.com/timezone': timezone } = profile._json;
 
+			console.log(profile);
+
 			getDB().users.findOneAndUpdate(
 				{ _id: profile.id },
 				{ $set: { ...profile._json, country, timezone } },
