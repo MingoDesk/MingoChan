@@ -10,11 +10,21 @@ import noteRouter from './notes/noteConfig';
 import { getUserAuthoredTickets } from './controllers/getUserAuthoredTickets';
 import { assignTicket } from './controllers/assignTicket';
 import { leaveTicketSatisfaction } from './controllers/leaveTicketSatisfaction';
+import { checkSysAdminPermissions } from '../../middleware/permissions';
+import { authorizeAccessToken } from '../../middleware/checkAuthToken';
 
 const router = Router();
 
 // @ts-ignore create a ticket
-router.post('/new', validateSession, validate('createTicket'), createTicket);
+router.post(
+	'/new',
+	validateSession,
+	authorizeAccessToken,
+	checkSysAdminPermissions,
+	// @ts-ignore
+	validate('createTicket'),
+	createTicket,
+);
 // @ts-ignore reply to a ticket
 router.patch('/reply', validateSession, validate('replyTicket'), replyTicket);
 

@@ -47,14 +47,14 @@ const validate = (method: string) => {
 		}
 		case 'replyTicket': {
 			return [
-				body('ticketId', 'Field ticketId failed validation').exists().isString().notEmpty().escape(),
+				body('ticketId', 'Field ticketId failed validation').exists().isMongoId().notEmpty().escape(),
 				body('text', 'Field text failed validation').exists().isString().notEmpty().escape(),
 			];
 		}
 		case 'assignTicket': {
 			return [
-				body('ticketId', 'Field userId failed validation').exists().isString().notEmpty().escape(),
-				body('assignTo', 'Field userId failed validation').exists().escape(),
+				body('ticketId', 'Field userId failed validation').exists().isMongoId().notEmpty().escape(),
+				body('assignTo', 'Field userId failed validation').exists().isString().escape().optional(),
 			];
 		}
 		case 'ticketSatisfaction': {

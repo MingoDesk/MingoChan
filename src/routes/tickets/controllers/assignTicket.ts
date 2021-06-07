@@ -12,6 +12,11 @@ const assignTicket = async (req: Request, res: Response) => {
 		return res.status(400).send({ success: false, msg: 'Bad request', errors: errors.array() });
 	}
 
+	if (data.assignTo) {
+		const userExist = await getDB().users.findOne({ _id: data.assignTo });
+		if (!userExist) return res.status(400).send({ ...responseGenerator(400, 'There is no such user!') });
+	}
+
 	const _id = new ObjectId(data.ticketId);
 
 	const updateAssignee = await getDB().tickets.findOneAndUpdate(
