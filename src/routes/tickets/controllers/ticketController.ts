@@ -60,7 +60,7 @@ const validate = (method: string) => {
 		case 'ticketSatisfaction': {
 			return [
 				body('ticketId', 'Field userId failed validation').exists().isString().notEmpty().escape(),
-				body('satisfactionLevel', 'Field satisfactionLevel').exists().isInt().notEmpty().escape(),
+				body('satisfactionLevel', 'Field satisfactionLevel').exists().isInt({ min: 1, max: 3 }).notEmpty().escape(),
 			];
 		}
 	}
