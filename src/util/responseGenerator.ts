@@ -4,7 +4,7 @@ export const responseGenerator = (httpCode: number, msg?: string) => {
 		case 201:
 			return { success: true, msg, errors: null };
 		case 400:
-			return { success: false, msg: 'Please check and validate the parameters', errors: 'ERR_BAD_REQUEST' };
+			return { success: false, msg: msg || 'Please check and validate the parameters', errors: 'ERR_BAD_REQUEST' };
 		case 401:
 			return { success: false, msg: "You're not logged in!", errors: 'ERR_NOT_AUTHORIZED' };
 		case 403:
@@ -18,7 +18,7 @@ export const responseGenerator = (httpCode: number, msg?: string) => {
 		case 429:
 			return {
 				success: false,
-				msg: "You're beeing ratelimited, please don't spam :)",
+				msg: msg || "You're beeing ratelimited, please don't spam :)",
 				errors: 'ERR_TOO_MANY_REQUESTS',
 			};
 		case 500:
