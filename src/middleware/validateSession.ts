@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request } from 'express';
 
-function secured(req: Request, res: Response, next: NextFunction) {
+function secured(req: Request, res, next) {
 	if (req.user) {
 		return next();
 	}
