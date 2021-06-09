@@ -10,7 +10,13 @@ import noteRouter from './notes/noteConfig';
 import { getUserAuthoredTickets } from './controllers/getUserAuthoredTickets';
 import { assignTicket } from './controllers/assignTicket';
 import { leaveTicketSatisfaction } from './controllers/leaveTicketSatisfaction';
-import { validateStaffPerms } from '../../middleware/validatePermissions';
+import {
+	validateStaffPerms,
+	validateOrgUserPerms,
+	validateUserPerms,
+	validateStaffAdminPerms,
+	validateSysAdminPerms,
+} from '../../middleware/validatePermissions';
 
 const router = Router();
 
@@ -18,30 +24,38 @@ const router = Router();
 
 router.post(
 	'/new',
-	// @ts-ignore
 	validateSession,
+	validateUserPerms,
 	// @ts-ignore
 	...validate('createTicket'),
 	createTicket,
 );
 // @ts-ignore reply to a ticket
-router.patch('/reply', validateSession, validateStaffPerms, validate('replyTicket'), replyTicket);
+router.patch('/reply', validateSession, validateUserPerms, validate('replyTicket'), replyTicket);
 
 // Get specific ticket
-router.get('/:id', validateSession, getTicket);
+router.get('/:id', validateSession, validateUserPerms, getTicket);
 
 // eslint-disable-next-line
 // @ts-ignore
-router.patch('/assignee', validate('assignTicket'), assignTicket);
+router.patch('/assignee', validateSession, validateStaffPerms, validate('assignTicket'), assignTicket);
 
 // eslint-disable-next-line
-// @ts-ignore
-router.patch('/satisfaction', validate('ticketSatisfaction'), leaveTicketSatisfaction);
+router.patch(
+	'/satisfaction',
+	validateSession,
+	validateUserPerms,
+	// @ts-ignore
+	validate('ticketSatisfaction'),
+	leaveTicketSatisfaction,
+);
 
 // Feeds
-router.get('/unassigned/feed', validateSession, getUnassignedTickets);
-router.get('/assigned/feed', validateSession, getAssignedTickets);
-router.get('/authored', validateSession, getUserAuthoredTickets);
+router.get('/unassigned/feed', validateSession, validateStaffPerms, getUnassignedTickets);
+router.get('/assigned/feed', validateSession, validateStaffPerms, getAssignedTickets);
+
+// The tickets you have created
+router.get('/authored', validateSession, validateUserPerms, getUserAuthoredTickets);
 
 // Notes
 router.use('/notes', noteRouter);
