@@ -13,9 +13,11 @@ declare module 'express-session' {
 	}
 }
 
-declare module 'express' {
-	interface User extends sessionUser {}
-	interface Request {
-		user: User;
+declare global {
+	namespace Express {
+		interface User extends sessionUser {}
+		interface Request {
+			user?: User;
+		}
 	}
 }
