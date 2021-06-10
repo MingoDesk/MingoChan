@@ -3,7 +3,7 @@ import { body } from 'express-validator';
 interface ITag {
 	name: string;
 	color: string;
-	backgrundColor: string;
+	backgroundColor: string;
 }
 
 // TODO: Figure out how the hell we should do templates
