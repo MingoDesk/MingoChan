@@ -48,7 +48,7 @@ export interface ISystemSettings {
 	allowUserSeeTicketStatus: boolean;
 	groups?: IGroup[];
 	avgUserSatisfaction: AvgUserSatisfaction;
-	avgRespTime?: string;
+	avgResponseTime?: string;
 	prefDataType: PrefDataType;
 }
 
