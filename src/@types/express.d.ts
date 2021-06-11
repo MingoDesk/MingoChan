@@ -1,9 +1,9 @@
 import { Profile } from 'passport-auth0';
-import { ISysAdmin, IStaff, IStaffAdmin, IOrgUser } from '@user/controllers/userController';
+import { IUserPermissions } from '@user/controllers/userController';
 import express = require('express');
 
 interface ISessionUser extends Profile {
-	permissions: ISysAdmin['permissions'] | IStaff['permissions'] | IStaffAdmin['permissions'] | IOrgUser['permissions'];
+	permissions: IUserPermissions;
 }
 
 declare module 'express-session' {

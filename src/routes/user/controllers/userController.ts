@@ -10,6 +10,10 @@ export enum UserPermissions {
 	ViewCreatedTickets = 'view:ticket',
 }
 
+export interface IUserPermissions {
+	permissions: UserPermissions;
+}
+
 export interface IUser {
 	permissions: [UserPermissions.CreateTicket, UserPermissions.ReplyTicket, UserPermissions.ViewCreatedTickets];
 }
