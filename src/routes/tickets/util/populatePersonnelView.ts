@@ -1,25 +1,30 @@
-import { IPersonnelView, INoteData, IMessage } from "../controllers/ticketController";
+import { IPersonnelView, INote, IMessage } from '../controllers/ticketController';
+
+/**
+ * This function takes the id's from the personnelView and fills them with it's real data such as a note or a reply for sending to the front-end
+ *
+ * @param notes
+ * @param personnelView
+ * @param messages
+ * @returns IPersonnelView
+ */
 
 const populatePersonnelView = (
-  notes: INoteData[],
-  personnelData: IPersonnelView[],
-  messages: IMessage[]
+	notes: INote[],
+	personnelView: IPersonnelView[],
+	messages: IMessage[],
 ): IPersonnelView[] => {
-  personnelData.forEach((data, index) => {
-    for (let note of notes) {
-      if (note.id != data.id) continue;
-      personnelData[index] = { ...note };
-      return;
-    }
+	const map = {};
 
-    for (let message of messages) {
-      if (message.id != data.id) continue;
-      personnelData[index] = { ...message };
-      return;
-    }
-  });
+	notes.forEach((note) => {
+		map[note.id] = note;
+	});
 
-  return personnelData;
+	messages.forEach((message) => {
+		map[message.id] = message;
+	});
+
+	return personnelView.map((v) => map[v.id] || v.id);
 };
 
 export { populatePersonnelView };

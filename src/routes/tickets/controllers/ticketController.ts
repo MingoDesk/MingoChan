@@ -1,50 +1,69 @@
-import { body } from "express-validator";
+import { body } from 'express-validator';
+
+export enum TicketStatus {
+	open = 1,
+	snoozed,
+	closed,
+}
 
 export interface IMessage {
-  authorId: string;
-  text: string;
-  createdAt: Date;
-  id: string;
+	authorId: string;
+	author: string;
+	text: string;
+	createdAt: Date;
+	id: string;
 }
 
-export interface INoteData extends IMessage {
-  id: string;
-  isNote?: true;
+export interface INote extends IMessage {
+	id: string;
+	isNote?: true;
 }
 
-export interface IPersonnelView extends IMessage, INoteData {}
+export interface IPersonnelView {
+	id: string;
+	isNote?: true;
+}
 
 export interface ITicket {
-  authorId: string;
-  author: string;
-  assignee: string;
-  creadedAt: Date;
-  isStarred: boolean;
-  tags: string[];
-  labels: string[];
-  rating?: number;
-  isUpdated: boolean;
-  messages: IMessage[];
-  notes?: INoteData[];
-  personnelView: IPersonnelView[];
+	authorId: string;
+	author: string;
+	status: TicketStatus;
+	assignee?: string;
+	createdAt: Date;
+	isStarred: boolean;
+	tags: string[];
+	labels: string[];
+	rating?: number;
+	isUpdated: boolean;
+	messages: IMessage[];
+	notes?: INote[];
+	personnelView: IPersonnelView[];
 }
 
 const validate = (method: string) => {
-  switch (method) {
-    case "createTicket": {
-      return [
-        body("authorId", "Field authorId failed validation").exists().isString().notEmpty().escape(),
-        body("text", "Field text failed validation").exists().isString().notEmpty().escape(),
-      ];
-    }
-    case "replyTicket": {
-      return [
-        body("id", "Field id failed validation").exists().isString().notEmpty().escape(),
-        body("authorId", "Field authorId failed validation").exists().isString().notEmpty().escape(),
-        body("text", "Field text failed validation").exists().isString().notEmpty().escape(),
-      ];
-    }
-  }
+	switch (method) {
+		case 'createTicket': {
+			return [body('text', 'Field text failed validation').exists().isString().notEmpty().escape()];
+		}
+		case 'replyTicket': {
+			return [
+				body('ticketId', 'Field ticketId failed validation').exists().isMongoId().notEmpty().escape(),
+				body('text', 'Field text failed validation').exists().isString().notEmpty().escape(),
+			];
+		}
+		case 'assignTicket': {
+			return [
+				body('ticketId', 'Field userId failed validation').exists().isMongoId().notEmpty().escape(),
+				body('assignTo', 'Field userId failed validation').exists().isString().escape().optional(),
+			];
+		}
+		case 'ticketSatisfaction': {
+			return [
+				body('ticketId', 'Field userId failed validation').exists().isString().notEmpty().escape(),
+				body('satisfactionLevel', 'Field satisfactionLevel').exists().isInt({ min: 1, max: 3 }).notEmpty().escape(),
+			];
+		}
+	}
 };
 
 export { validate };

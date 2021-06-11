@@ -1,3 +1,5 @@
 node_modules
 LICENSE
 readme.md
+dist
+.vscode

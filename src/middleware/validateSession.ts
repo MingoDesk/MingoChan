@@ -1,12 +1,10 @@
-import { Request, Response, NextFunction } from "express";
+import { Request } from 'express';
 
-function secured(req: Request, res: Response, next: NextFunction) {
-  console.log(`${process.env.DOMAIN}/api/login`);
-  if (req.user) {
-    return next();
-  }
-  req.session.returnTo = req.originalUrl;
-  res.redirect(`${process.env.DOMAIN}/api/login`);
+function secured(req: Request, res, next) {
+	if (req.user) {
+		return next();
+	}
+	return res.redirect(`${process.env.BASEURL}/api/login`);
 }
 
 export { secured };
