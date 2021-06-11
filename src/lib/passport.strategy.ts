@@ -1,6 +1,6 @@
 import Auth0Strategy, { ExtraVerificationParams } from 'passport-auth0';
-import { getDB } from '../database/db';
-import { User } from '../routes/user/controllers/userController';
+import { getDB } from '@database/db';
+import { User } from '@user/controllers/userController';
 
 const setupStrategy = () => {
 	const strategy = new Auth0Strategy(

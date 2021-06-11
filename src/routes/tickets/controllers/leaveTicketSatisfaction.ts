@@ -1,6 +1,6 @@
-import { getDB } from '../../../database/db';
+import { getDB } from '@database/db';
 import { validationResult, matchedData } from 'express-validator';
-import { responseGenerator } from '../../../util/responseGenerator';
+import { responseGenerator } from '@util/responseGenerator';
 import { Request, Response } from 'express';
 import { ObjectId } from 'mongodb';
 

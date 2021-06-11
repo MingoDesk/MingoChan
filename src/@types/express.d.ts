@@ -1,5 +1,5 @@
 import { Profile } from 'passport-auth0';
-import { ISysAdmin, IStaff, IStaffAdmin, IOrgUser } from 'routes/user/controllers/userController';
+import { ISysAdmin, IStaff, IStaffAdmin, IOrgUser } from '@user/controllers/userController';
 import express = require('express');
 
 interface ISessionUser extends Profile {

@@ -1,9 +1,9 @@
-import { getDB } from '../../../../database/db';
+import { getDB } from '@database/db';
 import { validationResult, matchedData } from 'express-validator';
 import { ObjectId } from 'mongodb';
 import { v4 as uuid } from 'uuid';
-import { populatePersonnelView } from '../../util/populatePersonnelView';
-import { responseGenerator } from '../../../../util/responseGenerator';
+import { populatePersonnelView } from '@tickets/util/populatePersonnelView';
+import { responseGenerator } from '@util/responseGenerator';
 
 const createNote = async (req, res) => {
 	const errors = validationResult(req);

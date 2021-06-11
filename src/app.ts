@@ -1,10 +1,10 @@
 import express, { Application } from 'express';
 import helmet from 'helmet';
 import 'reflect-metadata';
-import { setupDB } from './database/db';
-import { checkEnvVars } from './util/checkEnvVars';
-import { setupRoutes } from './routes/routes';
-import { initializeAuth } from './lib/setup.passport';
+import { setupDB } from '@database/db';
+import { checkEnvVars } from '@util/checkEnvVars';
+import { setupRoutes } from '@routes/routes';
+import { initializeAuth } from '@lib/setup.passport';
 import cors from 'cors';
 
 const init = async (app: Application): Promise<void> => {

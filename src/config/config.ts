@@ -1,9 +1,4 @@
-import {
-	ISystemSettings,
-	Themes,
-	PrefDataType,
-	AvgUserSatisfaction,
-} from '../routes/system/controllers/systemsController';
+import { ISystemSettings, Themes, PrefDataType, AvgUserSatisfaction } from '@system/controllers/systemsController';
 
 interface IDatabaseCollections {
 	users: string;

@@ -4,8 +4,8 @@ import session from 'express-session';
 import connectRedis, { RedisStore } from 'connect-redis';
 import redis, { RedisClient, ClientOpts } from 'redis';
 import { v4 as uuid } from 'uuid';
-import { auth0Serialize, auth0Deserialize } from './serialize';
-import { setupStrategy } from './passport.strategy';
+import { auth0Serialize, auth0Deserialize } from '@lib/serialize';
+import { setupStrategy } from '@lib/passport.strategy';
 
 function initializeAuth(app: Application): void {
 	const redisStore: RedisStore = connectRedis(session);

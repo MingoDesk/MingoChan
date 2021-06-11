@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { responseGenerator } from '../../../util/responseGenerator';
+import { responseGenerator } from '@util/responseGenerator';
 import { matchedData, validationResult } from 'express-validator';
-import { getDB } from '../../../database/db';
+import { getDB } from '@database/db';
 import { ObjectId } from 'mongodb';
 
 const assignTicket = async (req: Request, res: Response) => {

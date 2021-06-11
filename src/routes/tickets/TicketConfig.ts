@@ -16,7 +16,7 @@ import {
 	validateUserPerms,
 	validateStaffAdminPerms,
 	validateSysAdminPerms,
-} from '../../middleware/validatePermissions';
+} from '@middleware/validatePermissions';
 
 const router = Router();
 

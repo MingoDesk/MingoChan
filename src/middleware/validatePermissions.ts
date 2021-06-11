@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { responseGenerator } from '../util/responseGenerator';
-import { SysAdmin, StaffAdmin, Staff, OrgUser, User } from '../routes/user/controllers/userController';
+import { responseGenerator } from '@util/responseGenerator';
+import { SysAdmin, StaffAdmin, Staff, OrgUser, User } from '@user/controllers/userController';
 
 const check = (userPerms, ref) => ref.every((v) => userPerms.includes(v));
 

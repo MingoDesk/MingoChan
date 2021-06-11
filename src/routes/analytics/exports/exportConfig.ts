@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { exportTicket } from './controllers/exportTicket';
-import { secured as validateSession } from '../../../middleware/validateSession';
-import { validateSysAdminPerms } from '../../../middleware/validatePermissions';
+import { secured as validateSession } from '@middleware/validateSession';
+import { validateSysAdminPerms } from '@middleware/validatePermissions';
 
 const router = Router();
 

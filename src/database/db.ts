@@ -1,5 +1,5 @@
 import { MongoClient, Db as mongoDb, Collection } from 'mongodb';
-import { datbaseCollections } from '../config/config';
+import { datbaseCollections } from '@config/config';
 
 interface IConfig {
 	URI: string;

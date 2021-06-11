@@ -6,7 +6,7 @@
 		"target": "es2017",
 		"lib": ["es7"],
 		"strict": true,
-		"moduleResolution": "node",
+		//"moduleResolution": "node",
 		"baseUrl": "./src",
 		"esModuleInterop": true,
 		"sourceMap": true,
@@ -27,7 +27,20 @@
 			"bcrypt"
 		],
 		"declaration": true,
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"paths": {
+			"@middleware/*": ["middleware/*"],
+			"@database/*": ["database/*"],
+			"@routes/*": ["routes/*"],
+			"@util/*": ["util/*"],
+			"@config/*": ["config/*"],
+			"@lib/*": ["lib/*"],
+			"@tickets/*": ["routes/tickets/*"],
+			"@analytics/*": ["routes/analytics/*"],
+			"@auth/*": ["routes/auth/*"],
+			"@system/*": ["routes/system/*"],
+			"@user/*": ["routes/user/*"]
+		}
 	},
 	"exclude": ["node_modules", "dist"],
 	"include": ["src/**/*", "src/**/*.json"]
