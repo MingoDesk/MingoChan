@@ -16,7 +16,7 @@ export interface IMessage {
 
 export interface INote extends IMessage {
 	id: string;
-	isNote?: true;
+	isNote: true;
 }
 
 export interface IPersonnelView {
