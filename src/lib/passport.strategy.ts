@@ -24,8 +24,6 @@ const setupStrategy = () => {
 				picture,
 			} = profile._json;
 
-			console.log(profile);
-
 			getDB().users.findOneAndUpdate(
 				{ _id: sub },
 				{
@@ -39,7 +37,7 @@ const setupStrategy = () => {
 						timezone,
 						updatedAt: updated_at,
 					},
-					$setOnInsert: { permissions: User.permissions },
+					$setOnInsert: { permissions: User.permissions, organisationId: process.env.ORGANISATIONID },
 				},
 				{ upsert: true, returnOriginal: false },
 				(err, res) => {
