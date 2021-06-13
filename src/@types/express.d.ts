@@ -4,6 +4,7 @@ import express = require('express');
 
 interface ISessionUser extends Profile {
 	permissions: IUserPermissions;
+	organisationId: string;
 }
 
 declare module 'express-session' {

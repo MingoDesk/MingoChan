@@ -14,17 +14,21 @@ const datbaseCollections: IDatabaseCollections = {
 
 const envFilter: string[] = [
 	'PORT',
-	'MONGO_URI',
 	'DB_NAME',
-	'SESSION_SECRET',
-	'NODE_ENV',
+	'MONGO_URI',
 	'REDIS_URI',
+	'SESSION_SECRET',
+	'INSTANCE_NAME',
+	'NODE_ENV',
 	'CLIENT_ID',
-	'SECRET',
 	'BASEURL',
-	'SESSION_LIFETIME',
+	'SECRET',
 	'ISSUER_BASEURL',
+	'BASE_REDIRECT_URL',
 	'PAGINATION_LIMIT',
+	'AUTH0_AUDIENCE',
+	'AUTH0_DOMAIN',
+	'ORGANISATIONID',
 ];
 
 const systemConfigdefaults: ISystemSettings = {
