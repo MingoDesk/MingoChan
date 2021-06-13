@@ -1,6 +1,6 @@
 import { getDB } from '@database/db';
 import { Request, Response } from 'express';
-import { updateSystemSettings as createSystemSettingsDefault } from '../util/createSystemSettingsDefault';
+import { updateSystemSettings } from '../util/updateSystemSettings';
 import { systemConfigdefaults } from '@config/config';
 import { responseGenerator } from '@util/responseGenerator';
 
@@ -8,7 +8,7 @@ const getSystemSettings = async (req: Request, res: Response) => {
 	const getSettings = await getDB().settings.findOne({});
 
 	if (!getSettings) {
-		const createDefaults = await createSystemSettingsDefault(systemConfigdefaults);
+		const createDefaults = await updateSystemSettings(systemConfigdefaults);
 
 		if (!createDefaults)
 			return res.status(500).send({
