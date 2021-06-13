@@ -10,7 +10,11 @@ const createOrganisation = async (req: Request, res: Response) => {
 	if (!errors.isEmpty()) {
 		return res.status(400).send({ success: false, msg: 'Bad request', errors: errors.array() });
 	}
+	const users = await getDB().users.find({ _id: data.users, organisationId: req.user!.organisationId }).toArray();
 
+	if (!users.length || users.length !== data.users.length) {
+		return res.status(400).send({ ...responseGenerator(400, 'Invalid users') });
+	}
 
 	const newOrganisation = await getDB().organisations.insertOne({
 		name: data.name,
