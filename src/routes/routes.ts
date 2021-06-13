@@ -4,11 +4,13 @@ import loginRouter from './auth/controllers/login';
 import logoutRouter from './auth/controllers/logout';
 import ticketsRouter from './tickets/ticketConfig';
 import systemRouter from './system/systemConfig';
+import organisationRouter from './organisation/organisationConfig';
 
 const setupRoutes = (app: Application): void => {
 	app.use('/api', loginRouter, callbackRouter, logoutRouter);
 	app.use('/api/tickets', ticketsRouter);
 	app.use('/api/system', systemRouter);
+	app.use('/api/organisation', organisationRouter);
 };
 
 export { setupRoutes };
