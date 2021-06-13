@@ -14,6 +14,7 @@ export class Db {
 	public users!: Collection;
 	public tickets!: Collection;
 	public settings!: Collection;
+	public organisations!: Collection;
 	public constructor(public config: IConfig) {
 		this.db_name = config.name;
 		this.uri = config.URI;
@@ -34,6 +35,7 @@ export class Db {
 				this.users = this.db.collection(datbaseCollections.users);
 				this.tickets = this.db.collection(datbaseCollections.tickets);
 				this.settings = this.db.collection(datbaseCollections.settings);
+				this.organisations = this.db.collection(datbaseCollections.settings);
 				resolve(this);
 			});
 		});
