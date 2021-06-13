@@ -59,7 +59,6 @@ const validate = (method: string) => {
 				body('tags').isArray(),
 				body('ratings').isBoolean(),
 				body('snoozing').isBoolean(),
-				body('groups').isArray(),
 				body('defaultTheme')
 					.isString()
 					.matches(/^(light|dark)$/),
