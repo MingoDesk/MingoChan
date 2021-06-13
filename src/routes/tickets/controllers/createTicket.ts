@@ -46,9 +46,10 @@ const createTicket = async (req, res): Promise<ITicket> => {
 		});
 	}
 
-	return res
-		.status(200)
-		.send({ ...responseGenerator(200, 'Sucess, your ticket was sent!'), data: { ...newTicket.ops[0] } });
+	return res.status(200).send({
+		...responseGenerator(200, 'Sucess, your ticket was sent!'),
+		data: { ...newTicket.ops[0] },
+	});
 };
 
 export { createTicket };
