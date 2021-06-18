@@ -27,7 +27,7 @@ router.post(
 	validateSession,
 	validateUserPerms,
 	// @ts-ignore
-	...validate('createTicket'),
+	validate('createTicket'),
 	createTicket,
 );
 // @ts-ignore reply to a ticket
