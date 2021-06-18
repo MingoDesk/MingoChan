@@ -19,7 +19,7 @@ const init = async (app: Application): Promise<void> => {
 	app.use(helmet());
 	app.use(
 		cors({
-			origin: process.env.BASE_REDIRECT_URL,
+			origin: process.env.CORS.split('|'),
 			optionsSuccessStatus: 200,
 			credentials: true,
 		}),

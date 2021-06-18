@@ -29,6 +29,7 @@ const envFilter: string[] = [
 	'AUTH0_AUDIENCE',
 	'AUTH0_DOMAIN',
 	'ORGANISATIONID',
+	'CORS',
 ];
 
 const systemConfigdefaults: ISystemSettings = {
