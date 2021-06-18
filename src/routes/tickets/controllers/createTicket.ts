@@ -7,6 +7,7 @@ import { responseGenerator } from '@util/responseGenerator';
 // TODO: Make sure to incorporate diffirent callbacks depending on user permissions
 
 const createTicket = async (req, res): Promise<ITicket> => {
+	console.log('haro!');
 	const errors = validationResult(req);
 	const data = matchedData(req);
 
@@ -18,7 +19,7 @@ const createTicket = async (req, res): Promise<ITicket> => {
 	const ticketId = uuid();
 
 	const newTicket = await getDB().tickets.insertOne({
-		authorId: req.user.sub,
+		authorId: req.user._id,
 		author: req.user.name,
 		status: TicketStatus.open,
 		createdAt: createdAt,
@@ -31,7 +32,7 @@ const createTicket = async (req, res): Promise<ITicket> => {
 			{
 				text: data.text,
 				author: req.user.name,
-				authorId: req.user.sub,
+				authorId: req.user._id,
 				createdAt,
 				id: ticketId,
 			},
@@ -45,6 +46,8 @@ const createTicket = async (req, res): Promise<ITicket> => {
 			...responseGenerator(500, 'Something went wrong when saving to DB, please try again'),
 		});
 	}
+
+	console.log('You made it!');
 
 	return res.status(200).send({
 		...responseGenerator(200, 'Sucess, your ticket was sent!'),
