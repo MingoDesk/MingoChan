@@ -56,16 +56,18 @@ const validate = (method: string) => {
 	switch (method) {
 		case 'update': {
 			return [
-				body('tags').isArray(),
-				body('ratings').isBoolean(),
-				body('snoozing').isBoolean(),
+				body('tags').isArray().optional(),
+				body('ratings').isBoolean().optional(),
+				body('snoozing').isBoolean().optional(),
 				body('defaultTheme')
 					.isString()
-					.matches(/^(light|dark)$/),
-				body('allowNotesEdit').isBoolean(),
+					.matches(/^(light|dark)$/)
+					.optional(),
+				body('allowNotesEdit').isBoolean().optional(),
 				body('prefDataType')
 					.isString()
-					.matches(/^(JSON|CSV)$/),
+					.matches(/^(JSON|CSV)$/)
+					.optional(),
 			];
 		}
 	}

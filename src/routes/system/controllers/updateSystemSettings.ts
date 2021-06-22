@@ -3,14 +3,16 @@ import { Request, Response } from 'express';
 import { updateSystemSettings } from '../util/updateSystemSettings';
 import { responseGenerator } from '@util/responseGenerator';
 
-// TODO: Attach the system's id on the users session by adding an identifier to the session
-
 const updateSystemSettingsRoute = async (req: Request, res: Response) => {
 	const errors = validationResult(req);
 	const data = matchedData(req);
 
 	if (!errors.isEmpty()) {
 		return res.status(400).send({ success: false, msg: 'Bad request', errors: errors.array() });
+	}
+
+	if (Object.entries(data).length === 0) {
+		return res.status(400).send({ ...responseGenerator(400, 'You must pass at least one item to update') });
 	}
 
 	const updated = new Date();
