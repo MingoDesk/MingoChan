@@ -1,8 +1,6 @@
 import { FindAndModifyWriteOpResultObject } from 'mongodb';
 import { getDB } from '@database/db';
 
-// TODO: ADD the ID here as a parameter coming from the session
-
 const updateSystemSettings = async (
 	data,
 	updated: Date = new Date(),
