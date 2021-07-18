@@ -1,3 +1,4 @@
+import { RequestHandler } from 'express';
 import { body } from 'express-validator';
 
 export enum TicketStatus {
@@ -40,7 +41,7 @@ export interface ITicket {
 	personnelView: IPersonnelView[];
 }
 
-const validate = (method: string) => {
+const validate = (method: string): RequestHandler[] => {
 	switch (method) {
 		case 'createTicket': {
 			return [body('text', 'Field text failed validation').exists().isString().notEmpty().escape()];
@@ -62,6 +63,9 @@ const validate = (method: string) => {
 				body('ticketId', 'Field userId failed validation').exists().isString().notEmpty().escape(),
 				body('satisfactionLevel', 'Field satisfactionLevel').exists().isInt({ min: 1, max: 3 }).notEmpty().escape(),
 			];
+		}
+		default: {
+			return [];
 		}
 	}
 };

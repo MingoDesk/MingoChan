@@ -7,10 +7,7 @@ import { validateStaffPerms, validateSysAdminPerms } from '@middleware/validateP
 
 const router = Router();
 
-// @ts-ignore
 router.patch('/new', validateSession, validateStaffPerms, validate('note'), createNote);
-
-// @ts-ignore
 router.patch('/edit', validateSession, validateSysAdminPerms, validate('editNote'), editNote);
 
 export default router;

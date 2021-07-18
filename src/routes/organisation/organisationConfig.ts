@@ -8,7 +8,6 @@ const router: Router = Router();
 
 // Create a new organisation of users | only staffAdmin's can do this
 
-//@ts-ignore
-router.post('/new', validateSession, validateStaffAdminPerms, validate('new'), createOrganisation);
+router.post('/new', validateSession, validateStaffAdminPerms, validate('/new'), createOrganisation);
 
 export default router;

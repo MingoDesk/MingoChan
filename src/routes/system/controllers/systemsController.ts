@@ -1,3 +1,4 @@
+import { RequestHandler } from 'express';
 import { body } from 'express-validator';
 
 interface ITag {
@@ -52,7 +53,7 @@ export interface ISystemSettings {
 	prefDataType: PrefDataType;
 }
 
-const validate = (method: string) => {
+const validate = (method: string): RequestHandler[] => {
 	switch (method) {
 		case 'update': {
 			return [
@@ -69,6 +70,9 @@ const validate = (method: string) => {
 					.matches(/^(JSON|CSV)$/)
 					.optional(),
 			];
+		}
+		default: {
+			return [];
 		}
 	}
 };

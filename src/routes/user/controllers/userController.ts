@@ -1,3 +1,6 @@
+import { RequestHandler } from 'express';
+import { check } from 'express-validator';
+
 export enum UserPermissions {
 	EditNote = 'edit:notes',
 	EditOtherUserData = 'edit:other-user-settings',
@@ -89,3 +92,28 @@ export interface ISysAdmin {
 export const SysAdmin: ISysAdmin = {
 	permissions: Object.values(UserPermissions),
 };
+
+const validate = (method: string): RequestHandler[] => {
+	switch (method) {
+		case 'update': {
+			return [
+				check('userId', 'Field userId failed validation').isString().exists().notEmpty().escape(),
+				check('permissions', 'Field permissions failed validation')
+					.isArray({ min: 3, max: 10 })
+					.exists()
+					.notEmpty()
+					.custom((arr) => {
+						arr.forEach((x) => {
+							if (!Object.values(UserPermissions).includes(x)) return false;
+						});
+						return true;
+					}),
+			];
+		}
+		default: {
+			return [];
+		}
+	}
+};
+
+export { validate };

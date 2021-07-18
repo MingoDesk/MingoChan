@@ -1,17 +1,21 @@
-import { check } from 'express-validator';
+import { body } from 'express-validator';
+import { RequestHandler } from 'express';
 
 interface IOrganisation {
 	name: string;
 	users: string[];
 }
 
-const validate = (method: string) => {
+const validate = (method: string): RequestHandler[] => {
 	switch (method) {
-		case 'new': {
+		case '/new': {
 			return [
-				check('name', 'Field name failed validation').isString().exists().notEmpty().escape(),
-				check('users', 'Field users failed validation').isArray().exists().notEmpty(),
+				body('name', 'Field name failed validation').isString().exists().notEmpty().escape(),
+				body('users', 'Field users failed validation').isArray().exists().notEmpty(),
 			];
+		}
+		default: {
+			return [];
 		}
 	}
 };

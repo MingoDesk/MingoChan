@@ -1,6 +1,7 @@
+import { RequestHandler } from 'express';
 import { body } from 'express-validator';
 
-const validate = (method: string) => {
+const validate = (method: string): RequestHandler[] => {
 	switch (method) {
 		case 'note': {
 			return [
@@ -14,6 +15,9 @@ const validate = (method: string) => {
 				body('noteId', 'Field noteId failed validation').exists().isString().notEmpty().escape(),
 				body('text', 'Field text failed validation').exists().isString().notEmpty().escape(),
 			];
+		}
+		default: {
+			return [];
 		}
 	}
 };

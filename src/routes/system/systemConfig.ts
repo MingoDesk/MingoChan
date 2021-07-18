@@ -7,9 +7,7 @@ import { validateSysAdminPerms } from '@middleware/validatePermissions';
 
 const router = Router();
 
-// eslint-disable-next-line
 router.get('/', getSystemSettings);
-// @ts-ignore
 router.patch('/update', validateSession, validateSysAdminPerms, validate('update'), updateSystemSettingsRoute);
 
 export default router;
