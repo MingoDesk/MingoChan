@@ -8,15 +8,13 @@ const createOrganisation = async (req: Request, res: Response) => {
 	const errors = validationResult(req);
 	const data = matchedData(req);
 
-	console.log(data);
-
 	if (!errors.isEmpty()) {
 		return res.status(400).send({ success: false, msg: 'Bad request', errors: errors.array() });
 	}
 	const users = await getDB()
 		.users.find({
 			_id: { $in: data.users },
-			organisationId: req.user!.organisationId,
+			systemOrganisationId: req.user!.systemOrganisationId,
 		})
 		.toArray();
 
