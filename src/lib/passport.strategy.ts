@@ -37,11 +37,13 @@ const setupStrategy = () => {
 						timezone,
 						updatedAt: updated_at,
 					},
-					$setOnInsert: { permissions: User.permissions, organisationId: process.env.ORGANISATIONID },
+					$setOnInsert: {
+						permissions: User.permissions,
+						systemOrganisationId: process.env.ORGANISATIONID,
+					},
 				},
 				{ upsert: true, returnOriginal: false },
 				(err, res) => {
-					console.log(res.value);
 					// eslint-disable-next-line
 					if (err) return done(err);
 					return done(null, res.value);
