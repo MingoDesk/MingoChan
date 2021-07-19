@@ -25,7 +25,7 @@ export interface IPersonnelView {
 	isNote?: true;
 }
 
-export interface ITicket {
+export interface ITicketMetaData {
 	authorId: string;
 	author: string;
 	status: TicketStatus;
@@ -34,8 +34,11 @@ export interface ITicket {
 	isStarred: boolean;
 	tags: string[];
 	labels: string[];
-	rating?: number;
 	isUpdated: boolean;
+}
+
+export interface ITicket extends ITicketMetaData {
+	rating?: number;
 	messages: IMessage[];
 	notes?: INote[];
 	personnelView: IPersonnelView[];
