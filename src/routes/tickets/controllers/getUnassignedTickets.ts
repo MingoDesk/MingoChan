@@ -4,6 +4,7 @@ import { TicketStatus, ITicket } from './ticketController';
 import { IPaginateResult } from '../../../@types/paginate';
 import { getMetadataFromTicket } from '../util/getMetadataFromTicket';
 import { responseGenerator } from '@util/responseGenerator';
+import { Request, Response } from 'express';
 
 /**
  *
@@ -14,7 +15,7 @@ import { responseGenerator } from '@util/responseGenerator';
  * @returns Metadata from paginated tickets. If it includes "hasNext":true, then you're expected to make a second GET request witht he parameter ?hasNext=true to get the rest of the metadata
  */
 
-const getUnassignedTickets = async (req, res) => {
+const getUnassignedTickets = async (req: Request, res: Response) => {
 	// Get all tickets that aren't assigned to anyone and that has an open status
 	const hasNext = Boolean(req.query.hasNext);
 	const hasPrevious = Boolean(req.query.hasPrevious);
