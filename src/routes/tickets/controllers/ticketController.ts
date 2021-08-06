@@ -35,6 +35,7 @@ export interface ITicketMetaData {
 	tags: string[];
 	labels: string[];
 	isUpdated: boolean;
+	previewText: string;
 }
 
 export interface ITicket extends ITicketMetaData {
