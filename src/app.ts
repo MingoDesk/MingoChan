@@ -11,10 +11,7 @@ const init = async (app: Application): Promise<void> => {
 	// Check that all env variables are set
 	checkEnvVars();
 
-	// Setup mongo
-	await setupDB({ URI: process.env.MONGO_URI, name: process.env.DB_NAME });
-
-	// Application configuration
+	// Application configuration and init
 	app.use(express.json({ limit: '100kb', strict: true, type: 'application/json' }));
 	app.use(helmet());
 	app.use(
@@ -24,11 +21,12 @@ const init = async (app: Application): Promise<void> => {
 			credentials: true,
 		}),
 	);
+
+	await setupDB({ URI: process.env.MONGO_URI, name: process.env.DB_NAME });
 	initializeAuth(app);
+	setupRoutes(app);
 
-	await setupRoutes(app);
-
-	app.listen(process.env.PORT, () => console.info(`Listening on http://localhost:${process.env.PORT}`));
+	app.listen(process.env.PORT, () => console.info(`Listening on PORT:${process.env.PORT}`));
 };
 
 export { init };
