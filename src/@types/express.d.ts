@@ -1,9 +1,9 @@
 import { Profile } from 'passport-auth0';
 import { IUserPermissions } from '@user/controllers/userController';
-import express = require('express');
+import express from 'express';
 
 interface ISessionUser extends Profile {
-	permissions: IUserPermissions;
+	permissions: IUserPermissions['permissions'];
 	systemOrganisationId: string;
 	organisationId: string | null;
 }
