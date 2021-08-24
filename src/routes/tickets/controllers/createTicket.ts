@@ -21,8 +21,9 @@ const createTicket = async (req, res): Promise<ITicket> => {
 	const newTicket = await getDB().tickets.insertOne({
 		authorId: req.user._id,
 		author: req.user.name,
+		subject: data.subject,
 		authorOrganisationId: req.user!.organisationId || null,
-		status: TicketStatus.open,
+		status: TicketStatus.updated,
 		createdAt: createdAt,
 		// TODO: Check if customer group is marked as "starred"
 		isStarred: false,

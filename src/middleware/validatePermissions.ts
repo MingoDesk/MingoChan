@@ -1,28 +1,17 @@
 import { NextFunction, Request, Response } from 'express';
 import { responseGenerator } from '@util/responseGenerator';
-import {
-	ISysAdmin,
-	SysAdmin,
-	IStaffAdmin,
-	StaffAdmin,
-	IStaff,
-	Staff,
-	IOrgUser,
-	OrgUser,
-	IUser,
-	User,
-} from '@user/controllers/userController';
+import { SysAdmin, StaffAdmin, Staff, OrgUser, User } from '@user/controllers/userController';
 
 const check = (userPerms: any, ref: any[]) => ref.every((v) => userPerms.includes(v));
 
 const validateSysAdminPerms = (req: Request, res: Response, next: NextFunction) => {
-	if (req.user!.permissions == undefined) {
+	if (!req.user?.permissions) {
 		return res
 			.status(401)
 			.send({ ...responseGenerator(401, "You don't have the permissions to perform this action!") });
 	}
 
-	if (!check(req.user!.permissions, SysAdmin.permissions)) {
+	if (!check(req.user.permissions, SysAdmin.permissions)) {
 		return res
 			.status(401)
 			.send({ ...responseGenerator(401, "You don't have the permissions to perform this action!") });
@@ -32,13 +21,13 @@ const validateSysAdminPerms = (req: Request, res: Response, next: NextFunction) 
 };
 
 const validateStaffAdminPerms = (req: Request, res: Response, next: NextFunction) => {
-	if (req.user!.permissions == undefined) {
+	if (!req.user?.permissions) {
 		return res
 			.status(401)
 			.send({ ...responseGenerator(401, "You don't have the permissions to perform this action!") });
 	}
 
-	if (!check(req.user!.permissions, StaffAdmin.permissions)) {
+	if (!check(req.user.permissions, StaffAdmin.permissions)) {
 		return res
 			.status(401)
 			.send({ ...responseGenerator(401, "You don't have the permissions to perform this action!") });
@@ -48,13 +37,13 @@ const validateStaffAdminPerms = (req: Request, res: Response, next: NextFunction
 };
 
 const validateStaffPerms = (req: Request, res: Response, next: NextFunction) => {
-	if (req.user!.permissions == undefined) {
+	if (!req.user?.permissions) {
 		return res
 			.status(401)
 			.send({ ...responseGenerator(401, "You don't have the permissions to perform this action!") });
 	}
 
-	if (!check(req.user!.permissions, Staff.permissions)) {
+	if (!check(req.user.permissions, Staff.permissions)) {
 		return res
 			.status(401)
 			.send({ ...responseGenerator(401, "You don't have the permissions to perform this action!") });
@@ -64,11 +53,11 @@ const validateStaffPerms = (req: Request, res: Response, next: NextFunction) => 
 };
 
 const validateOrgUserPerms = (req: Request, res: Response, next: NextFunction) => {
-	if (req.user!.permissions == undefined) {
+	if (!req.user?.permissions) {
 		return res.status(401).send({ ...responseGenerator(401) });
 	}
 
-	if (!check(req.user!.permissions, OrgUser.permissions)) {
+	if (!check(req.user.permissions, OrgUser.permissions)) {
 		return res.status(401).send({ ...responseGenerator(401) });
 	}
 
@@ -76,11 +65,11 @@ const validateOrgUserPerms = (req: Request, res: Response, next: NextFunction) =
 };
 
 const validateUserPerms = (req: Request, res: Response, next: NextFunction) => {
-	if (req.user!.permissions == undefined) {
+	if (!req.user?.permissions) {
 		return res.status(401).send({ ...responseGenerator(401) });
 	}
 
-	if (!check(req.user!.permissions, User.permissions)) {
+	if (!check(req.user.permissions, User.permissions)) {
 		return res.status(401).send({ ...responseGenerator(401) });
 	}
 

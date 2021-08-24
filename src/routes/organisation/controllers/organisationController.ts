@@ -14,7 +14,7 @@ const validate = (method: string): RequestHandler[] => {
 				body('users', 'Field users failed validation').isArray().exists().notEmpty(),
 			];
 		}
-		case '/add-users': {
+		case '/update': {
 			return [
 				body('users', 'Field users failed valition').isArray().exists().notEmpty(),
 				body('organisationId', 'Field organisationId failed validation').isString().exists().notEmpty().escape(),

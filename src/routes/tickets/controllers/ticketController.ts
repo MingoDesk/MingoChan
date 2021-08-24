@@ -3,6 +3,7 @@ import { body } from 'express-validator';
 
 export enum TicketStatus {
 	open = 1,
+	updated,
 	snoozed,
 	closed,
 }
@@ -34,8 +35,8 @@ export interface ITicketMetaData {
 	isStarred: boolean;
 	tags: string[];
 	labels: string[];
-	isUpdated: boolean;
 	previewText: string;
+	subject: string;
 }
 
 export interface ITicket extends ITicketMetaData {
@@ -45,10 +46,17 @@ export interface ITicket extends ITicketMetaData {
 	personnelView: IPersonnelView[];
 }
 
-const validate = (method: string): RequestHandler[] => {
+interface IValidationMethods {
+	method: 'createTicket' | 'replyTicket' | 'assignTicket' | 'ticketSatisfaction' | 'updateTicketStatus';
+}
+
+const validate = (method: IValidationMethods['method']): RequestHandler[] => {
 	switch (method) {
 		case 'createTicket': {
-			return [body('text', 'Field text failed validation').exists().isString().notEmpty().escape()];
+			return [
+				body('text', 'Field text failed validation').exists().isString().notEmpty().escape(),
+				body('subject', 'Field subject failed validation').exists().isString().notEmpty().escape(),
+			];
 		}
 		case 'replyTicket': {
 			return [
@@ -65,7 +73,21 @@ const validate = (method: string): RequestHandler[] => {
 		case 'ticketSatisfaction': {
 			return [
 				body('ticketId', 'Field userId failed validation').exists().isString().notEmpty().escape(),
-				body('satisfactionLevel', 'Field satisfactionLevel').exists().isInt({ min: 1, max: 3 }).notEmpty().escape(),
+				body('satisfactionLevel', 'Field satisfactionLevel failed validation')
+					.exists()
+					.isInt({ min: 1, max: 3 })
+					.notEmpty()
+					.escape(),
+			];
+		}
+		case 'updateTicketStatus': {
+			return [
+				body('ticketId', 'Field userId failed validation').exists().isString().notEmpty().escape(),
+				body('status', 'Field status failed validation')
+					.exists()
+					.isInt({ min: TicketStatus.open, max: TicketStatus.closed })
+					.notEmpty()
+					.escape(),
 			];
 		}
 		default: {

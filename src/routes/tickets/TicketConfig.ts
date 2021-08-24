@@ -11,22 +11,16 @@ import { getUserAuthoredTickets } from './controllers/getUserAuthoredTickets';
 import { assignTicket } from './controllers/assignTicket';
 import { leaveTicketSatisfaction } from './controllers/leaveTicketSatisfaction';
 import { validateStaffPerms, validateUserPerms } from '@middleware/validatePermissions';
+import { updateTicketStatus } from './controllers/updateTicketStatus';
 
 const router = Router();
 
-// create a ticket
-
-router.post(
-	'/new',
-	validateSession,
-	validateUserPerms,
-	// @ts-ignore
-	validate('createTicket'),
-	createTicket,
-);
+router.post('/new', validateSession, validateUserPerms, validate('createTicket'), createTicket);
 router.patch('/reply', validateSession, validateUserPerms, validate('replyTicket'), replyTicket);
 router.get('/:id', validateSession, validateUserPerms, getTicket);
 router.patch('/assignee', validateSession, validateStaffPerms, validate('assignTicket'), assignTicket);
+router.patch('/status', validateSession, validateStaffPerms, validate('updateTicketStatus'), updateTicketStatus);
+
 router.patch(
 	'/satisfaction',
 	validateSession,
@@ -36,7 +30,7 @@ router.patch(
 );
 router.get('/unassigned/feed', validateSession, validateStaffPerms, getUnassignedTickets);
 router.get('/assigned/feed', validateSession, validateStaffPerms, getAssignedTickets);
-router.get('/authored', validateSession, validateUserPerms, getUserAuthoredTickets);
+router.get('/authored/feed', validateSession, validateUserPerms, getUserAuthoredTickets);
 router.use('/notes', noteRouter);
 
 export default router;

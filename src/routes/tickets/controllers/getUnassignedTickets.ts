@@ -23,7 +23,7 @@ const getUnassignedTickets = async (req: Request, res: Response) => {
 	const tickets: IPaginateResult<ITicket> = await find(getDB().tickets, {
 		limit: parseInt(process.env.PAGINATION_LIMIT, 10),
 		query: {
-			status: TicketStatus.open,
+			status: TicketStatus.updated,
 			$or: [
 				{
 					assignee: { $type: 'null' },
@@ -39,7 +39,7 @@ const getUnassignedTickets = async (req: Request, res: Response) => {
 
 	if (!Array.isArray(tickets.results) || !tickets.results.length)
 		return res.status(200).send({
-			...responseGenerator(200, "There aren't any unnasigned tickets 🥳"),
+			...responseGenerator(200, "There aren't any unassigned tickets 🥳"),
 		});
 
 	const data = getMetadataFromTicket(tickets.results);

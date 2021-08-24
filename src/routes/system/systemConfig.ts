@@ -7,6 +7,7 @@ import { validateSysAdminPerms } from '@middleware/validatePermissions';
 
 const router = Router();
 
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
 router.get('/', getSystemSettings);
 router.patch('/update', validateSession, validateSysAdminPerms, validate('update'), updateSystemSettingsRoute);
 

@@ -17,5 +17,6 @@ declare namespace NodeJS {
 		AUTH0_DOMAIN: string;
 		ORGANISATIONID: string;
 		CORS: string;
+		BASEURL: string;
 	}
 }
