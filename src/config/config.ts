@@ -20,16 +20,15 @@ const envFilter: string[] = [
 	'SESSION_SECRET',
 	'INSTANCE_NAME',
 	'NODE_ENV',
-	'CLIENT_ID',
 	'BASEURL',
-	'SECRET',
-	'ISSUER_BASEURL',
 	'BASE_REDIRECT_URL',
 	'PAGINATION_LIMIT',
-	'AUTH0_AUDIENCE',
-	'AUTH0_DOMAIN',
 	'ORGANISATIONID',
 	'CORS',
+	'SLACK_SECRET',
+	'SLACK_CLIENT_ID',
+	'GOOGLE_CLIENT_ID',
+	'GOOGLE_SECRET',
 ];
 
 const systemConfigdefaults: ISystemSettings = {
