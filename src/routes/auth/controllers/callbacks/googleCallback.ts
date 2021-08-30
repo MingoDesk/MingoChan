@@ -4,8 +4,8 @@ import passport from 'passport';
 const router = Router();
 
 /* eslint-disable */
-router.get('/callback', (req: Request, res: Response, next: NextFunction) => {
-	passport.authenticate('auth0', (err, user) => {
+router.get('/google/callback', (req: Request, res: Response, next: NextFunction) => {
+	passport.authenticate('google', (err, user) => {
 		if (err) return next(err);
 		if (!user) return res.redirect('/login');
 		req.logIn(user, (err) => {
