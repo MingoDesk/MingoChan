@@ -1,10 +1,10 @@
 import { getDB } from '@database/db';
 import { find } from '@tadashi/mongo-cursor-pagination';
+import { responseGenerator } from '@util/responseGenerator';
+import { Request, Response } from 'express';
 import { TicketStatus, ITicket } from './ticketController';
 import { IPaginateResult } from '../../../@types/paginate';
 import { getMetadataFromTicket } from '../util/getMetadataFromTicket';
-import { responseGenerator } from '@util/responseGenerator';
-import { Request, Response } from 'express';
 
 /**
  *
@@ -37,10 +37,11 @@ const getUnassignedTickets = async (req: Request, res: Response) => {
 		previous: hasPrevious ? req.params.previousHash : null,
 	});
 
-	if (!Array.isArray(tickets.results) || !tickets.results.length)
+	if (!Array.isArray(tickets.results) || !tickets.results.length) {
 		return res.status(200).send({
 			...responseGenerator(200, "There aren't any unassigned tickets 🥳"),
 		});
+	}
 
 	const data = getMetadataFromTicket(tickets.results);
 
