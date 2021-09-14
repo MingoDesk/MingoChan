@@ -1,4 +1,6 @@
-import { Router, Response, Request, NextFunction } from 'express';
+import {
+	Router, Response, Request, NextFunction,
+} from 'express';
 import passport from 'passport';
 
 const router = Router();

@@ -7,23 +7,25 @@ const setupGoogleStrategy = () => {
 		{
 			clientID: process.env.GOOGLE_CLIENT_ID,
 			clientSecret: process.env.GOOGLE_SECRET,
-			callbackURL: `${process.env.BASEURL}/api/google/callback`,
+			callbackURL: `${process.env.BASEURL}/api/auth/google/callback`,
 		},
 		(_accessToken: string, _refreshToken: string, _extraParams: ExtraVerificationParams, profile, done: any) => {
-			const { sub, email, email_verified, name, family_name, given_name, picture, locale } = profile._json;
+			const user = profile._json;
+			const now = new Date();
+
+			console.log('Google', profile._json);
 
 			getDB().users.findOneAndUpdate(
-				{ _id: sub },
+				{ providerId: user.sub },
 				{
 					$set: {
-						email,
-						email_verified,
-						name,
-						given_name,
-						family_name,
-						picture,
-						locale,
-						updatedAt: Date.now(),
+						email: user.email,
+						isVerified: user.email_verified,
+						name: user.name,
+						picture: user.picture,
+						locale: user.locale,
+						providerId: user.sub,
+						updatedAt: now,
 					},
 					$setOnInsert: {
 						permissions: User.permissions,
