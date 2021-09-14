@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { validateStaffPerms, validateUserPerms } from '@middleware/validatePermissions';
 import { createTicket } from './controllers/createTicket';
 import { getTicket } from './controllers/getTicket';
 import { replyTicket } from './controllers/replyTicket';
@@ -10,7 +11,6 @@ import noteRouter from './notes/noteConfig';
 import { getUserAuthoredTickets } from './controllers/getUserAuthoredTickets';
 import { assignTicket } from './controllers/assignTicket';
 import { leaveTicketSatisfaction } from './controllers/leaveTicketSatisfaction';
-import { validateStaffPerms, validateUserPerms } from '@middleware/validatePermissions';
 import { updateTicketStatus } from './controllers/updateTicketStatus';
 
 const router = Router();
