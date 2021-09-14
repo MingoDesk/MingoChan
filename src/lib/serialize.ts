@@ -1,15 +1,15 @@
 import { getDB } from '@database/db';
+import { ObjectId } from 'mongodb';
+import { Request } from 'express';
 
-function auth0Serialize(user, done) {
-	done(null, user._id);
+export function serialize(user: Request['user'], done) {
+	done(null, user!.providerId);
 }
 
-function auth0Deserialize(id, done: any) {
+export function deserialize(id: ObjectId, done: any) {
 	getDB().users.findOne({ _id: id }, (err, res) => {
 		// eslint-disable-next-line
 		if (err) return done(err);
 		done(null, res);
 	});
 }
-
-export { auth0Serialize, auth0Deserialize };

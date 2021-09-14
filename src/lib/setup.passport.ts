@@ -4,7 +4,7 @@ import session from 'express-session';
 import connectRedis, { RedisStore } from 'connect-redis';
 import redis, { RedisClient, ClientOpts } from 'redis';
 import { v4 as uuid } from 'uuid';
-import { auth0Serialize, auth0Deserialize } from '@lib/serialize';
+import { serialize, deserialize } from './serialize';
 import { setupGoogleStrategy } from '@lib/strategies/google';
 import { setupSlackStrategy } from '@lib/strategies/slack';
 
@@ -30,7 +30,7 @@ function initializeAuth(app: Application): void {
 				sameSite: IS_PROD,
 				secure: IS_PROD,
 			},
-			genid: function () {
+			genid() {
 				return uuid();
 			},
 		}),
@@ -38,10 +38,10 @@ function initializeAuth(app: Application): void {
 
 	passport.use(setupGoogleStrategy());
 	passport.use(setupSlackStrategy());
-	passport.serializeUser(auth0Serialize);
-	passport.deserializeUser(auth0Deserialize);
+	passport.serializeUser(serialize);
+	passport.deserializeUser(deserialize);
 	app.use(passport.initialize());
 	app.use(passport.session());
 }
 
-export { initializeAuth };
+export default initializeAuth;
