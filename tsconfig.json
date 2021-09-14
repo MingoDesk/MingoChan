@@ -3,6 +3,7 @@
 		"outDir": "dist",
 		"noImplicitAny": false,
 		"module": "commonjs",
+		"noUnusedParameters": true,
 		"target": "es2017",
 		"lib": ["es7"],
 		"skipLibCheck": true,

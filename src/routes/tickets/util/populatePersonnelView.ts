@@ -16,15 +16,15 @@ const populatePersonnelView = (
 ): IPersonnelView[] => {
 	const map = {};
 
-	notes.forEach((note) => {
+	notes.forEach(note => {
 		map[note.id] = note;
 	});
 
-	messages.forEach((message) => {
+	messages.forEach(message => {
 		map[message.id] = message;
 	});
 
-	return personnelView.map((v) => map[v.id] || v.id);
+	return personnelView.map(v => map[v.id] || v.id);
 };
 
 export { populatePersonnelView };

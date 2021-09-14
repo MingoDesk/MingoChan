@@ -1,7 +1,7 @@
 import { matchedData, validationResult } from 'express-validator';
 import { Request, Response } from 'express';
-import { updateSystemSettings } from '../util/updateSystemSettings';
 import { responseGenerator } from '@util/responseGenerator';
+import { updateSystemSettings } from '../util/updateSystemSettings';
 
 const updateSystemSettingsRoute = async (req: Request, res: Response) => {
 	const errors = validationResult(req);
@@ -19,11 +19,12 @@ const updateSystemSettingsRoute = async (req: Request, res: Response) => {
 
 	const updateSettings = await updateSystemSettings(data, updated);
 
-	if (!updateSettings)
+	if (!updateSettings) {
 		return res.status(500).send({
 			...responseGenerator(500, 'Something went horribly wrong! Please try again.'),
 			data: updateSettings,
 		});
+	}
 
 	return res.status(200).send(updateSettings);
 };

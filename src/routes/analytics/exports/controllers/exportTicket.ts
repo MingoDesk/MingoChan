@@ -1,8 +1,9 @@
-import { parseJsonToCsv } from '../util/jsonToCsvParser';
 import { getDB } from '@database/db';
 import { responseGenerator } from '@util/responseGenerator';
+import { Response } from 'express';
+import { parseJsonToCsv } from '../util/jsonToCsvParser';
 
-const exportTicket = async (req, res) => {
+const exportTicket = async ({ res }: { res: Response }) => {
 	const preferences = await getDB().settings.findOne({});
 	if (!preferences.value || !preferences) {
 		return res.status(500).send({
@@ -23,7 +24,7 @@ const exportTicket = async (req, res) => {
 	const date = new Date();
 
 	res.header('Content-Type', 'text/json');
-	res.attachment(date);
+	res.attachment(date.toString());
 	return res.status(200).send(data);
 };
 

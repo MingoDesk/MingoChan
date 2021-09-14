@@ -1,13 +1,12 @@
 import { getDB } from '@database/db';
 import { matchedData, validationResult } from 'express-validator';
-import { ITicket, TicketStatus } from './ticketController';
 import { v4 as uuid } from 'uuid';
 import { responseGenerator } from '@util/responseGenerator';
+import { ITicket, TicketStatus } from './ticketController';
 
 // TODO: Make sure to incorporate diffirent callbacks depending on user permissions
 
 const createTicket = async (req, res): Promise<ITicket> => {
-	console.log('haro!');
 	const errors = validationResult(req);
 	const data = matchedData(req);
 
@@ -24,7 +23,7 @@ const createTicket = async (req, res): Promise<ITicket> => {
 		subject: data.subject,
 		authorOrganisationId: req.user!.organisationId || null,
 		status: TicketStatus.updated,
-		createdAt: createdAt,
+		createdAt,
 		// TODO: Check if customer group is marked as "starred"
 		isStarred: false,
 		tags: [],
@@ -48,8 +47,6 @@ const createTicket = async (req, res): Promise<ITicket> => {
 			...responseGenerator(500, 'Something went wrong when saving to DB, please try again'),
 		});
 	}
-
-	console.log('You made it!');
 
 	return res.status(200).send({
 		...responseGenerator(200, 'Sucess, your ticket was sent!'),

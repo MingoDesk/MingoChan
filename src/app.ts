@@ -4,7 +4,7 @@ import 'reflect-metadata';
 import { setupDB } from '@database/db';
 import { checkEnvVars } from '@util/checkEnvVars';
 import { setupRoutes } from '@routes/routes';
-import { initializeAuth } from '@lib/setup.passport';
+import initializeAuth from '@lib/setup.passport';
 import cors from 'cors';
 
 const init = async (app: Application): Promise<void> => {
@@ -22,10 +22,11 @@ const init = async (app: Application): Promise<void> => {
 		}),
 	);
 
-	await setupDB({ URI: process.env.MONGO_URI, name: process.env.DB_NAME });
+	await setupDB({ uri: process.env.MONGO_URI, name: process.env.DB_NAME });
 	initializeAuth(app);
 	setupRoutes(app);
 
+	// eslint-disable-next-line no-console
 	app.listen(process.env.PORT, () => console.info(`Listening on PORT:${process.env.PORT}`));
 };
 

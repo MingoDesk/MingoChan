@@ -1,6 +1,6 @@
 import { Router, Response, Request } from 'express';
 
-const router = Router();
+const router: Router = Router();
 
 router.get('/logout', (req: Request, res: Response) => {
 	req.logout();
