@@ -1,9 +1,9 @@
 import { getDB } from '@database/db';
 import { find } from '@tadashi/mongo-cursor-pagination';
+import { responseGenerator } from '@util/responseGenerator';
 import { TicketStatus, ITicket } from './ticketController';
 import { IPaginateResult } from '../../../@types/paginate';
 import { getMetadataFromTicket } from '../util/getMetadataFromTicket';
-import { responseGenerator } from '@util/responseGenerator';
 
 /**
  *
@@ -28,10 +28,11 @@ const getOrganisationTickets = async (req, res) => {
 		previous: hasPrevious ? req.params.previousHash : null,
 	});
 
-	if (!Array.isArray(tickets.results) || !tickets.results.length)
+	if (!Array.isArray(tickets.results) || !tickets.results.length) {
 		return res.status(200).send({
 			...responseGenerator(200, "There aren't any unnasigned tickets 🥳"),
 		});
+	}
 
 	const data = getMetadataFromTicket(tickets.results);
 
