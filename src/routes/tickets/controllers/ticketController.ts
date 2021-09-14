@@ -54,25 +54,39 @@ const validate = (method: IValidationMethods['method']): RequestHandler[] => {
 	switch (method) {
 		case 'createTicket': {
 			return [
-				body('text', 'Field text failed validation').exists().isString().notEmpty().escape(),
-				body('subject', 'Field subject failed validation').exists().isString().notEmpty().escape(),
+				body('text', 'Field text failed validation').exists().isString()
+					.notEmpty()
+					.escape(),
+				body('subject', 'Field subject failed validation').exists().isString()
+					.notEmpty()
+					.escape(),
 			];
 		}
 		case 'replyTicket': {
 			return [
-				body('ticketId', 'Field ticketId failed validation').exists().isMongoId().notEmpty().escape(),
-				body('text', 'Field text failed validation').exists().isString().notEmpty().escape(),
+				body('ticketId', 'Field ticketId failed validation').exists().isMongoId()
+					.notEmpty()
+					.escape(),
+				body('text', 'Field text failed validation').exists().isString()
+					.notEmpty()
+					.escape(),
 			];
 		}
 		case 'assignTicket': {
 			return [
-				body('ticketId', 'Field userId failed validation').exists().isMongoId().notEmpty().escape(),
-				body('assignTo', 'Field userId failed validation').exists().isString().escape().optional(),
+				body('ticketId', 'Field userId failed validation').exists().isMongoId()
+					.notEmpty()
+					.escape(),
+				body('assignTo', 'Field userId failed validation').exists().isString()
+					.escape()
+					.optional(),
 			];
 		}
 		case 'ticketSatisfaction': {
 			return [
-				body('ticketId', 'Field userId failed validation').exists().isString().notEmpty().escape(),
+				body('ticketId', 'Field userId failed validation').exists().isString()
+					.notEmpty()
+					.escape(),
 				body('satisfactionLevel', 'Field satisfactionLevel failed validation')
 					.exists()
 					.isInt({ min: 1, max: 3 })
@@ -82,7 +96,9 @@ const validate = (method: IValidationMethods['method']): RequestHandler[] => {
 		}
 		case 'updateTicketStatus': {
 			return [
-				body('ticketId', 'Field userId failed validation').exists().isString().notEmpty().escape(),
+				body('ticketId', 'Field userId failed validation').exists().isString()
+					.notEmpty()
+					.escape(),
 				body('status', 'Field status failed validation')
 					.exists()
 					.isInt({ min: TicketStatus.open, max: TicketStatus.closed })
