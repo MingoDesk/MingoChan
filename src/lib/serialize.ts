@@ -7,7 +7,7 @@ export function serialize(user: Request['user'], done) {
 }
 
 export function deserialize(id: ObjectId, done: any) {
-	getDB().users.findOne({ _id: id }, (err, res) => {
+	getDB().users.findOne({ providerId: id }, (err, res) => {
 		// eslint-disable-next-line
 		if (err) return done(err);
 		done(null, res);
