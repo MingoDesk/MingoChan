@@ -1,5 +1,5 @@
 import {
-  Router, Response, Request, NextFunction,
+	Router, Response, Request, NextFunction,
 } from 'express';
 import passport from 'passport';
 
