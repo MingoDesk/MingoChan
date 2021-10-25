@@ -39,6 +39,7 @@ const getUnassignedTickets = async (req: Request, res: Response) => {
 
 	if (!Array.isArray(tickets.results) || !tickets.results.length) {
 		return res.status(200).send({
+			data: [],
 			...responseGenerator(200, "There aren't any unassigned tickets 🥳"),
 		});
 	}

@@ -30,6 +30,7 @@ const getOrganisationTickets = async (req, res) => {
 
 	if (!Array.isArray(tickets.results) || !tickets.results.length) {
 		return res.status(200).send({
+			data: [],
 			...responseGenerator(200, "There aren't any unnasigned tickets 🥳"),
 		});
 	}
