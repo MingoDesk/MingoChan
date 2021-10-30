@@ -6,5 +6,6 @@
 	"trailingComma": "all",
 	"endOfLine": "auto",
 	"bracketSpacing": true,
-	"extends": "marine/prettier/node"
+	"extends": "marine/prettier/node",
+	"arrowParens": "avoid"
 }

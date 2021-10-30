@@ -1,9 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import { responseGenerator } from '@util/responseGenerator';
-import {
-	SysAdmin, StaffAdmin, Staff, OrgUser, User,
-} from '@user/controllers/userController';
+import { SysAdmin, StaffAdmin, Staff, OrgUser, User } from '@user/controllers/userController';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const check = (userPerms: any, ref: any[]) => ref.every(v => userPerms.includes(v));
 
 const validateSysAdminPerms = (req: Request, res: Response, next: NextFunction) => {
@@ -78,6 +77,4 @@ const validateUserPerms = (req: Request, res: Response, next: NextFunction) => {
 	next();
 };
 
-export {
-	validateSysAdminPerms, validateStaffAdminPerms, validateStaffPerms, validateOrgUserPerms, validateUserPerms,
-};
+export { validateSysAdminPerms, validateStaffAdminPerms, validateStaffPerms, validateOrgUserPerms, validateUserPerms };
