@@ -9,11 +9,10 @@ const setupGoogleStrategy = () => {
 			clientSecret: process.env.GOOGLE_SECRET,
 			callbackURL: `${process.env.BASEURL}/api/auth/google/callback`,
 		},
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(_accessToken: string, _refreshToken: string, _extraParams: ExtraVerificationParams, profile, done: any) => {
 			const user = profile._json;
 			const now = new Date();
-
-			console.log('Google', profile._json);
 
 			getDB().users.findOneAndUpdate(
 				{ providerId: user.sub },
