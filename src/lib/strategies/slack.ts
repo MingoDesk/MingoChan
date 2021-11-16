@@ -11,13 +11,13 @@ const setupSlackStrategy = (): SlackStrategy => {
 			scope: ['identity.openid', 'identity.email', 'identity.profile', 'identity.basic'],
 		},
 		(_accessToken: string, _refreshToken: string, _extraParams: ExtraVerificationParams, profile: any, done: any) => {
-			const user = profile._json;
+			const user = profile.user;
 			const now = new Date();
 
 			console.log(profile, 'slack');
 
 			getDB().users.findOneAndUpdate(
-				{ providerId: user.sub },
+				{ providerId: user.id },
 				{
 					$set: {
 						email: user.email,
@@ -28,8 +28,9 @@ const setupSlackStrategy = (): SlackStrategy => {
 						// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 						locale: user.locale,
 						// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-						providerId: user.sub,
+						providerId: user.id,
 						updatedAt: now,
+						provider: 'Slack',
 					},
 					$setOnInsert: {
 						permissions: User.permissions,

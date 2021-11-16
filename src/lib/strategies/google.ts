@@ -25,6 +25,7 @@ const setupGoogleStrategy = () => {
 						locale: user.locale,
 						providerId: user.sub,
 						updatedAt: now,
+						provider: 'Google',
 					},
 					$setOnInsert: {
 						permissions: User.permissions,
