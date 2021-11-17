@@ -18,11 +18,19 @@ export interface IUserPermissions {
 }
 
 export interface IUser {
-	permissions: [UserPermissions.CreateTicket, UserPermissions.ReplyTicket, UserPermissions.ViewCreatedTickets];
+	permissions: [
+		UserPermissions.CreateTicket,
+		UserPermissions.ReplyTicket,
+		UserPermissions.ViewCreatedTickets,
+	];
 }
 
 export const User = {
-	permissions: [UserPermissions.CreateTicket, UserPermissions.ReplyTicket, UserPermissions.ViewCreatedTickets],
+	permissions: [
+		UserPermissions.CreateTicket,
+		UserPermissions.ReplyTicket,
+		UserPermissions.ViewCreatedTickets,
+	],
 };
 
 export interface IOrgUser {
@@ -97,9 +105,7 @@ const validate = (method: string): RequestHandler[] => {
 	switch (method) {
 		case 'update': {
 			return [
-				check('userId', 'Field userId failed validation').isString().exists()
-					.notEmpty()
-					.escape(),
+				check('userId', 'Field userId failed validation').isString().exists().notEmpty().escape(),
 				check('permissions', 'Field permissions failed validation')
 					.isArray({ min: 3, max: 10 })
 					.exists()
@@ -110,6 +116,18 @@ const validate = (method: string): RequestHandler[] => {
 						});
 						return true;
 					}),
+				check('locale', 'Locale failed validation').trim().isLocale().optional(),
+			];
+		}
+		case 'create-local': {
+			return [
+				check('email', 'Field email failed validation')
+					.normalizeEmail()
+					.isEmail()
+					.trim()
+					.toLowerCase(),
+				check('password', 'Password failed validation').trim().isStrongPassword(),
+				check('locale', 'Locale failed validation').trim().isLocale().optional(),
 			];
 		}
 		default: {

@@ -23,6 +23,7 @@
 		"mongodb": "^3.6.3",
 		"passport": "^0.4.1",
 		"passport-google-oauth20": "^2.0.0",
+		"passport-local": "^1.0.0",
 		"passport-slack-oauth2": "^1.1.1",
 		"pino": "^6.10.0",
 		"redis": "^3.0.2",
@@ -31,7 +32,7 @@
 		"uuid": "^8.3.2"
 	},
 	"devDependencies": {
-		"@types/bcrypt": "^3.0.0",
+		"@types/bcrypt": "^5.0.0",
 		"@types/connect-redis": "^0.0.16",
 		"@types/cookie-parser": "^1.4.2",
 		"@types/cors": "^2.8.10",

@@ -8,7 +8,7 @@ export const getSafeUser = (req: Request) => {
 		permissions: u.permissions,
 		providerId: u.providerId,
 		email: u.email,
-		isVerified: u.email,
+		isVerified: u.isVerified,
 		locale: u.locale,
 		name: u.name,
 		picture: u.picture,

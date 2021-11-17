@@ -7,6 +7,7 @@ import { v4 as uuid } from 'uuid';
 import { serialize, deserialize } from './serialize';
 import { setupGoogleStrategy } from '@lib/strategies/google';
 import { setupSlackStrategy } from '@lib/strategies/slack';
+import { setupLocalStrategy } from './strategies/local';
 
 function initializeAuth(app: Application): void {
 	const redisStore: RedisStore = connectRedis(session);
@@ -38,6 +39,7 @@ function initializeAuth(app: Application): void {
 
 	passport.use(setupGoogleStrategy());
 	passport.use(setupSlackStrategy());
+	passport.use(setupLocalStrategy());
 	passport.serializeUser(serialize);
 	passport.deserializeUser(deserialize);
 	app.use(passport.initialize());
