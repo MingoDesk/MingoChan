@@ -1,6 +1,19 @@
 import { Request } from 'express';
+import { UserPermissions } from '../controllers/userController';
 
-export const getSafeUser = (req: Request) => {
+interface SafeUser {
+	permissions: UserPermissions;
+	providerId: string;
+	email: string;
+	isVerified: boolean;
+	locale: string;
+	name: string;
+	picture: string;
+}
+
+// Safe user returns data that is "safe" to send to the client i.e not sensetive data such as passwords
+
+export const getSafeUser = (req: Request): SafeUser | null => {
 	const u = req.user;
 
 	if (!u) return null;
