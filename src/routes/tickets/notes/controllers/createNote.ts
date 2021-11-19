@@ -4,8 +4,9 @@ import { ObjectId } from 'mongodb';
 import { v4 as uuid } from 'uuid';
 import { populatePersonnelView } from '@tickets/util/populatePersonnelView';
 import { responseGenerator } from '@util/responseGenerator';
+import { Request, Response } from 'express';
 
-const createNote = async (req, res) => {
+const createNote = async (req: Request, res: Response) => {
 	const errors = validationResult(req);
 	const data = matchedData(req);
 
@@ -26,8 +27,8 @@ const createNote = async (req, res) => {
 				},
 				notes: {
 					id: noteId,
-					authorId: req.user.sub,
-					author: req.user.name,
+					authorId: req.user!.providerId,
+					author: req.user!.name,
 					text: data.text,
 					isNote: true,
 					history: [{ text: data.text, createdAt: date }],

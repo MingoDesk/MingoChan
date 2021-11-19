@@ -1,10 +1,8 @@
+import { IUserPermissions } from '@user/controllers/userController';
+import express from 'express';
 import { Profile } from 'passport-auth0';
-import { ISysAdmin, IStaff, IStaffAdmin, IOrgUser } from '@user/controllers/userController';
-import express = require('express');
-
-interface ISessionUser extends Profile {
-	permissions: ISysAdmin['permissions'] | IStaff['permissions'] | IStaffAdmin['permissions'] | IOrgUser['permissions'];
-}
+import { ObjectId } from 'mongodb';
+import { ISessionUser } from './user';
 
 declare module 'express-session' {
 	interface session {

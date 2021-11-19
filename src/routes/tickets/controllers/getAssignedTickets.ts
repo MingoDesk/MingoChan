@@ -1,8 +1,8 @@
 import { getDB } from '@database/db';
-import { TicketStatus } from './ticketController';
 import { find } from '@tadashi/mongo-cursor-pagination';
-import { getMetadataFromTicket } from '../util/getMetadataFromTicket';
 import { responseGenerator } from '@util/responseGenerator';
+import { TicketStatus } from './ticketController';
+import { getMetadataFromTicket } from '../util/getMetadataFromTicket';
 
 const getAssignedTickets = async (req, res) => {
 	if (!req.query.userId) {
@@ -21,6 +21,7 @@ const getAssignedTickets = async (req, res) => {
 
 	if (!Array.isArray(tickets.results) || !tickets.results.length) {
 		return res.status(200).send({
+			data: [],
 			...responseGenerator(200, "You don't have any tickets!"),
 		});
 	}

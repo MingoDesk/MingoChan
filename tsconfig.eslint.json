@@ -1,17 +1,18 @@
 {
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "allowJs": false
-  },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.js",
-    "**/*.jsx",
-    "**/*.test.ts",
-    "**/*.test.js",
-    "**/*.spec.ts",
-    "**/*.spec.js"
-  ],
-  "exclude": []
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"allowJs": false,
+		"noUnusedLocals": true,
+	},
+	"include": [
+		"**/*.ts",
+		"**/*.tsx",
+		"**/*.js",
+		"**/*.jsx",
+		"**/*.test.ts",
+		"**/*.test.js",
+		"**/*.spec.ts",
+		"**/*.spec.js"
+	],
+	"exclude": []
 }

@@ -46,6 +46,10 @@ SESSION_LIFETIME = 128000
 
 # This represents the URL/Domain of which the front-end application is running. To know where to redirect to after the login.
 BASE_REDIRECT_URL = http://localhost:8080/
+
+# The ID of the organisation running on this instance
+
+ORGANISATIONID = 1eff307b-c25c-4c43-83c0-1752b2ebd7c2
 ```
 
 `Note that if one of the variables are missing the program will let you know on boot and cannot boot without all the .env variables being set`

@@ -20,7 +20,7 @@ const assignTicket = async (req: Request, res: Response) => {
 	const _id = new ObjectId(data.ticketId);
 
 	const updateAssignee = await getDB().tickets.findOneAndUpdate(
-		{ _id: _id },
+		{ _id },
 		{ $set: { assignee: data.assignTo } },
 		{
 			returnOriginal: false,

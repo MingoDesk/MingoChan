@@ -4,15 +4,16 @@ import session from 'express-session';
 import connectRedis, { RedisStore } from 'connect-redis';
 import redis, { RedisClient, ClientOpts } from 'redis';
 import { v4 as uuid } from 'uuid';
-import { auth0Serialize, auth0Deserialize } from '@lib/serialize';
-import { setupStrategy } from '@lib/passport.strategy';
+import { serialize, deserialize } from './serialize';
+import { setupGoogleStrategy } from '@lib/strategies/google';
+import { setupSlackStrategy } from '@lib/strategies/slack';
+import { setupLocalStrategy } from './strategies/local';
 
 function initializeAuth(app: Application): void {
 	const redisStore: RedisStore = connectRedis(session);
 	const IS_PROD = process.env.NODE_ENV === 'production';
 
 	// Sessions, auth, and redis setup
-
 	const redisSettings: ClientOpts = {
 		url: process.env.REDIS_URI,
 	};
@@ -30,17 +31,19 @@ function initializeAuth(app: Application): void {
 				sameSite: IS_PROD,
 				secure: IS_PROD,
 			},
-			genid: function () {
+			genid() {
 				return uuid();
 			},
 		}),
 	);
 
-	passport.use(setupStrategy());
-	passport.serializeUser(auth0Serialize);
-	passport.deserializeUser(auth0Deserialize);
+	passport.use(setupGoogleStrategy());
+	passport.use(setupSlackStrategy());
+	passport.use(setupLocalStrategy());
+	passport.serializeUser(serialize);
+	passport.deserializeUser(deserialize);
 	app.use(passport.initialize());
 	app.use(passport.session());
 }
 
-export { initializeAuth };
+export default initializeAuth;

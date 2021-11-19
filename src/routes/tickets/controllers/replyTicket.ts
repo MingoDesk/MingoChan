@@ -1,10 +1,10 @@
 import { getDB } from '@database/db';
 import { validationResult, matchedData } from 'express-validator';
 import { ObjectId } from 'mongodb';
-import { populatePersonnelView } from '../util/populatePersonnelView';
-import { ITicket } from './ticketController';
 import { v4 as uuid } from 'uuid';
 import { responseGenerator } from '@util/responseGenerator';
+import { populatePersonnelView } from '../util/populatePersonnelView';
+import { ITicket, TicketStatus } from './ticketController';
 
 const replyTicket = async (req, res): Promise<ITicket> => {
 	const errors = validationResult(req);
@@ -21,6 +21,9 @@ const replyTicket = async (req, res): Promise<ITicket> => {
 	const updatedData = await getDB().tickets.findOneAndUpdate(
 		{ _id },
 		{
+			$set: {
+				status: TicketStatus.updated,
+			},
 			$push: {
 				messages: {
 					id: replyId,

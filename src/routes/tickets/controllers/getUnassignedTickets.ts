@@ -1,9 +1,10 @@
 import { getDB } from '@database/db';
 import { find } from '@tadashi/mongo-cursor-pagination';
+import { responseGenerator } from '@util/responseGenerator';
+import { Request, Response } from 'express';
 import { TicketStatus, ITicket } from './ticketController';
 import { IPaginateResult } from '../../../@types/paginate';
 import { getMetadataFromTicket } from '../util/getMetadataFromTicket';
-import { responseGenerator } from '@util/responseGenerator';
 
 /**
  *
@@ -14,7 +15,7 @@ import { responseGenerator } from '@util/responseGenerator';
  * @returns Metadata from paginated tickets. If it includes "hasNext":true, then you're expected to make a second GET request witht he parameter ?hasNext=true to get the rest of the metadata
  */
 
-const getUnassignedTickets = async (req, res) => {
+const getUnassignedTickets = async (req: Request, res: Response) => {
 	// Get all tickets that aren't assigned to anyone and that has an open status
 	const hasNext = Boolean(req.query.hasNext);
 	const hasPrevious = Boolean(req.query.hasPrevious);
@@ -22,7 +23,7 @@ const getUnassignedTickets = async (req, res) => {
 	const tickets: IPaginateResult<ITicket> = await find(getDB().tickets, {
 		limit: parseInt(process.env.PAGINATION_LIMIT, 10),
 		query: {
-			status: TicketStatus.open,
+			status: TicketStatus.updated,
 			$or: [
 				{
 					assignee: { $type: 'null' },
@@ -36,10 +37,12 @@ const getUnassignedTickets = async (req, res) => {
 		previous: hasPrevious ? req.params.previousHash : null,
 	});
 
-	if (!Array.isArray(tickets.results) || !tickets.results.length)
+	if (!Array.isArray(tickets.results) || !tickets.results.length) {
 		return res.status(200).send({
-			...responseGenerator(200, "There aren't any unnasigned tickets 🥳"),
+			data: [],
+			...responseGenerator(200, "There aren't any unassigned tickets 🥳"),
 		});
+	}
 
 	const data = getMetadataFromTicket(tickets.results);
 

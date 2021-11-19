@@ -1,10 +1,10 @@
-import { Request } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
-function secured(req: Request, res, next) {
+function secured(req: Request, res: Response, next: NextFunction) {
 	if (req.user) {
 		return next();
 	}
-	return res.redirect(`${process.env.BASEURL}/api/login`);
+	return res.status(403).send({ success: false, errors: 'Not logged in', msg: 'Log in lol' });
 }
 
 export { secured };

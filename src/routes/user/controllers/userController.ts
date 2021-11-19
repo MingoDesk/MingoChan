@@ -1,3 +1,6 @@
+import { RequestHandler } from 'express';
+import { check } from 'express-validator';
+
 export enum UserPermissions {
 	EditNote = 'edit:notes',
 	EditOtherUserData = 'edit:other-user-settings',
@@ -10,12 +13,24 @@ export enum UserPermissions {
 	ViewCreatedTickets = 'view:ticket',
 }
 
+export interface IUserPermissions {
+	permissions: UserPermissions;
+}
+
 export interface IUser {
-	permissions: [UserPermissions.CreateTicket, UserPermissions.ReplyTicket, UserPermissions.ViewCreatedTickets];
+	permissions: [
+		UserPermissions.CreateTicket,
+		UserPermissions.ReplyTicket,
+		UserPermissions.ViewCreatedTickets,
+	];
 }
 
 export const User = {
-	permissions: [UserPermissions.CreateTicket, UserPermissions.ReplyTicket, UserPermissions.ViewCreatedTickets],
+	permissions: [
+		UserPermissions.CreateTicket,
+		UserPermissions.ReplyTicket,
+		UserPermissions.ViewCreatedTickets,
+	],
 };
 
 export interface IOrgUser {
@@ -85,3 +100,40 @@ export interface ISysAdmin {
 export const SysAdmin: ISysAdmin = {
 	permissions: Object.values(UserPermissions),
 };
+
+const validate = (method: string): RequestHandler[] => {
+	switch (method) {
+		case 'update': {
+			return [
+				check('userId', 'Field userId failed validation').isString().exists().notEmpty().escape(),
+				check('permissions', 'Field permissions failed validation')
+					.isArray({ min: 3, max: 10 })
+					.exists()
+					.notEmpty()
+					.custom(arr => {
+						arr.forEach(x => {
+							if (!Object.values(UserPermissions).includes(x)) return false;
+						});
+						return true;
+					}),
+				check('locale', 'Locale failed validation').trim().isLocale().optional(),
+			];
+		}
+		case 'create-local': {
+			return [
+				check('email', 'Field email failed validation')
+					.normalizeEmail()
+					.isEmail()
+					.trim()
+					.toLowerCase(),
+				check('password', 'Password failed validation').trim().isStrongPassword(),
+				check('locale', 'Locale failed validation').trim().isLocale().optional(),
+			];
+		}
+		default: {
+			return [];
+		}
+	}
+};
+
+export { validate };

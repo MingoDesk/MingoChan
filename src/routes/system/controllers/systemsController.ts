@@ -1,3 +1,4 @@
+import { RequestHandler } from 'express';
 import { body } from 'express-validator';
 
 interface ITag {
@@ -52,22 +53,26 @@ export interface ISystemSettings {
 	prefDataType: PrefDataType;
 }
 
-const validate = (method: string) => {
+const validate = (method: string): RequestHandler[] => {
 	switch (method) {
 		case 'update': {
 			return [
-				body('tags').isArray(),
-				body('ratings').isBoolean(),
-				body('snoozing').isBoolean(),
-				body('groups').isArray(),
+				body('tags').isArray().optional(),
+				body('ratings').isBoolean().optional(),
+				body('snoozing').isBoolean().optional(),
 				body('defaultTheme')
 					.isString()
-					.matches(/^(light|dark)$/),
-				body('allowNotesEdit').isBoolean(),
+					.matches(/^(light|dark)$/)
+					.optional(),
+				body('allowNotesEdit').isBoolean().optional(),
 				body('prefDataType')
 					.isString()
-					.matches(/^(JSON|CSV)$/),
+					.matches(/^(JSON|CSV)$/)
+					.optional(),
 			];
+		}
+		default: {
+			return [];
 		}
 	}
 };

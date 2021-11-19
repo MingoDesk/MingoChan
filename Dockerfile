@@ -1,25 +1,33 @@
-FROM node:14.15.4
-WORKDIR /usr/src/app
+FROM node:14.15.4 as builder
+WORKDIR /app
 
-
+# Install dev dependencies
 COPY package*.json ./
 COPY yarn.lock ./
+RUN yarn install --frozen-lockfile --production=false
 
-
-RUN yarn install
-#RUN yarn global add typescript
-COPY src /usr/src/app/src
+# Build application
 COPY tsconfig.json ./
+COPY src ./src
 RUN yarn build
 
 
+FROM node:14.15.4 as runner
+WORKDIR /app
+
+# Installs prod dependencies
+
+COPY package*.json ./
+COPY yarn.lock ./
+RUN yarn install --frozen-lockfile --production=true
+
+# Copy compiled from builder
+
+COPY --from=builder /app/dist ./dist
+
 EXPOSE 1928
+VOLUME ["/app/store"]
 
+# Run application
 
-COPY . ./
-
-
-VOLUME ["/usr/src/app/store"]
-RUN ls -a
-
-CMD [ "yarn", "deploy" ]
+CMD ["yarn", "deploy"]
