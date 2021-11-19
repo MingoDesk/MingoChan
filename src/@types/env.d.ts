@@ -18,8 +18,8 @@ declare namespace NodeJS {
 		SESSION_LIFETIME: string;
 		BASE_REDIRECT_URL: string;
 		PAGINATION_LIMIT: string;
-		ORGANISATIONID: string;
-		CORS: string;
-		BASEURL: string;
+		ORGANISATION_ID: string;
+		CORS: string; // IP's and domains are split by | (pipes)
+		BASE_URL: string;
 	}
 }

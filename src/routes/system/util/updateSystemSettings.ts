@@ -6,7 +6,7 @@ const updateSystemSettings = async (
 	updated: Date = new Date(),
 ): Promise<FindAndModifyWriteOpResultObject<any> | null> => {
 	const create = await getDB().settings.findOneAndUpdate(
-		{ _id: process.env.ORGANISATIONID },
+		{ _id: process.env.ORGANISATION_ID },
 		{ $set: { ...data, updated } },
 		{ upsert: true, returnOriginal: false },
 	);

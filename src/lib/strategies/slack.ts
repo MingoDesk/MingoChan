@@ -7,14 +7,18 @@ const setupSlackStrategy = (): SlackStrategy => {
 		{
 			clientID: process.env.SLACK_CLIENT_ID,
 			clientSecret: process.env.SLACK_SECRET,
-			callbackURL: `${process.env.BASEURL}/api/auth/slack/callback`,
+			callbackURL: `${process.env.BASE_URL}/api/auth/slack/callback`,
 			scope: ['identity.openid', 'identity.email', 'identity.profile', 'identity.basic'],
 		},
-		(_accessToken: string, _refreshToken: string, _extraParams: ExtraVerificationParams, profile: any, done: any) => {
+		(
+			_accessToken: string,
+			_refreshToken: string,
+			_extraParams: ExtraVerificationParams,
+			profile: any,
+			done: any,
+		) => {
 			const user = profile.user;
 			const now = new Date();
-
-			console.log(profile, 'slack');
 
 			getDB().users.findOneAndUpdate(
 				{ providerId: user.id },

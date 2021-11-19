@@ -8,21 +8,13 @@ interface IConfig {
 
 export class Db {
 	private readonly dbName: string;
-
 	private readonly uri?: IConfig['uri'];
-
 	private readonly rootClient: MongoClient;
-
 	public db!: mongoDb;
-
 	public users!: Collection;
-
 	public tickets!: Collection;
-
 	public settings!: Collection;
-
 	public organisations!: Collection;
-
 	public constructor(public config: IConfig) {
 		this.dbName = config.name;
 		this.uri = config.uri;

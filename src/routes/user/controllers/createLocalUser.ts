@@ -29,7 +29,7 @@ export const createLocalUser = async (req: Request, res: Response) => {
 		name: null,
 		password,
 		permissions: User.permissions,
-		systemOrganisationId: process.env.ORGANISATIONID,
+		systemOrganisationId: process.env.ORGANISATION_ID,
 		providerId: 'local',
 		locale: data.locale || 'en-EN',
 		picture: 'https://fakedetail.com/userface_image/male/male1084187769378.png',
