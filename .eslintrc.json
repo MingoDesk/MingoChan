@@ -37,7 +37,8 @@
 				"node/shebang": "off",
 				"no-dupe-class-members": "off",
 				"require-atomic-updates": "off",
-				"newline-per-chained-call": "off"
+				"newline-per-chained-call": "off",
+				"@typescript-eslint/indent": ["off", 4]
 			}
 		}
 	]
