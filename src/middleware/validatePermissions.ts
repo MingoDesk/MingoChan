@@ -3,7 +3,7 @@ import { responseGenerator } from '@util/responseGenerator';
 import { SysAdmin, StaffAdmin, Staff, OrgUser, User } from '@user/controllers/userController';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const check = (userPerms: any, ref: any[]) => ref.every(v => userPerms.includes(v));
+export const check = (userPerms: any, ref: any[]) => ref.every(v => userPerms.includes(v));
 
 const validateSysAdminPerms = (req: Request, res: Response, next: NextFunction) => {
 	if (!req.user?.permissions) {
