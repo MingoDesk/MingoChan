@@ -39,7 +39,7 @@
 				"require-atomic-updates": "off",
 				"newline-per-chained-call": "off",
 				"no-tabs": 2,
-				"no-mixed-spaces-and-tabs": 1,
+				"no-mixed-spaces-and-tabs": 2,
 				"@typescript-eslint/indent": ["error", 2],
 				"indent": "off"
 			}
