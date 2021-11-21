@@ -2,25 +2,25 @@ import { body } from 'express-validator';
 import { RequestHandler } from 'express';
 
 interface IValidationMethods {
-	method: 'generateCdnToken';
+  method: 'generateCdnToken';
 }
 
 const validate = (method: IValidationMethods['method']): RequestHandler[] => {
-	switch (method) {
-		case 'generateCdnToken': {
-			return [
-				body('ticketId', 'Field ticketId failed validation')
-					.exists()
-					.isString()
-					.notEmpty()
-					.escape(),
-			];
-		}
+  switch (method) {
+    case 'generateCdnToken': {
+      return [
+        body('ticketId', 'Field ticketId failed validation')
+          .exists()
+          .isString()
+          .notEmpty()
+          .escape(),
+      ];
+    }
 
-		default: {
-			return [];
-		}
-	}
+    default: {
+      return [];
+    }
+  }
 };
 
 export { validate };

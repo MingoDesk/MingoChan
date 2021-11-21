@@ -8,26 +8,26 @@ import initializeAuth from '@lib/setup.passport';
 import cors from 'cors';
 
 const init = async (app: Application): Promise<void> => {
-	// Check that all env variables are set
-	checkEnvVars();
+  // Check that all env variables are set
+  checkEnvVars();
 
-	// Application configuration and init
-	app.use(express.json({ limit: '100kb', strict: true, type: 'application/json' }));
-	app.use(helmet());
-	app.use(
-		cors({
-			origin: process.env.CORS.split('|'),
-			optionsSuccessStatus: 200,
-			credentials: true,
-		}),
-	);
+  // Application configuration and init
+  app.use(express.json({ limit: '100kb', strict: true, type: 'application/json' }));
+  app.use(helmet());
+  app.use(
+    cors({
+      origin: process.env.CORS.split('|'),
+      optionsSuccessStatus: 200,
+      credentials: true,
+    }),
+  );
 
-	await setupDB({ uri: process.env.MONGO_URI, name: process.env.DB_NAME });
-	initializeAuth(app);
-	setupRoutes(app);
+  await setupDB({ uri: process.env.MONGO_URI, name: process.env.DB_NAME });
+  initializeAuth(app);
+  setupRoutes(app);
 
-	// eslint-disable-next-line no-console
-	app.listen(process.env.PORT, () => console.info(`Listening on PORT:${process.env.PORT}`));
+  // eslint-disable-next-line no-console
+  app.listen(process.env.PORT, () => console.info(`Listening on PORT:${process.env.PORT}`));
 };
 
 export { init };

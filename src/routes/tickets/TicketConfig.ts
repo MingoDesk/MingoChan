@@ -19,26 +19,26 @@ router.post('/new', validateSession, validateUserPerms, validate('createTicket')
 router.patch('/reply', validateSession, validateUserPerms, validate('replyTicket'), replyTicket);
 router.get('/:id', validateSession, validateUserPerms, getTicket);
 router.patch(
-	'/assignee',
-	validateSession,
-	validateStaffPerms,
-	validate('assignTicket'),
-	assignTicket,
+  '/assignee',
+  validateSession,
+  validateStaffPerms,
+  validate('assignTicket'),
+  assignTicket,
 );
 router.patch(
-	'/status',
-	validateSession,
-	validateStaffPerms,
-	validate('updateTicketStatus'),
-	updateTicketStatus,
+  '/status',
+  validateSession,
+  validateStaffPerms,
+  validate('updateTicketStatus'),
+  updateTicketStatus,
 );
 
 router.patch(
-	'/satisfaction',
-	validateSession,
-	validateUserPerms,
-	validate('ticketSatisfaction'),
-	leaveTicketSatisfaction,
+  '/satisfaction',
+  validateSession,
+  validateUserPerms,
+  validate('ticketSatisfaction'),
+  leaveTicketSatisfaction,
 );
 router.get('/unassigned/feed', validateSession, validateStaffPerms, getUnassignedTickets);
 router.get('/assigned/feed', validateSession, validateStaffPerms, getAssignedTickets);

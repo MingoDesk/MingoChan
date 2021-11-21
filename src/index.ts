@@ -7,7 +7,7 @@ dotenv.config();
 const app: Application = express();
 
 const start = async () => {
-	await init(app);
+  await init(app);
 };
 
 // eslint-disable-next-line no-console
