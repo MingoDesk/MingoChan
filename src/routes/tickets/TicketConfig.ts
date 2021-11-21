@@ -18,8 +18,20 @@ const router = Router();
 router.post('/new', validateSession, validateUserPerms, validate('createTicket'), createTicket);
 router.patch('/reply', validateSession, validateUserPerms, validate('replyTicket'), replyTicket);
 router.get('/:id', validateSession, validateUserPerms, getTicket);
-router.patch('/assignee', validateSession, validateStaffPerms, validate('assignTicket'), assignTicket);
-router.patch('/status', validateSession, validateStaffPerms, validate('updateTicketStatus'), updateTicketStatus);
+router.patch(
+	'/assignee',
+	validateSession,
+	validateStaffPerms,
+	validate('assignTicket'),
+	assignTicket,
+);
+router.patch(
+	'/status',
+	validateSession,
+	validateStaffPerms,
+	validate('updateTicketStatus'),
+	updateTicketStatus,
+);
 
 router.patch(
 	'/satisfaction',

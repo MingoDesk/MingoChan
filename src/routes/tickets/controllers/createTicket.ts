@@ -15,7 +15,7 @@ const createTicket = async (req, res): Promise<ITicket> => {
 	}
 
 	const createdAt = new Date();
-	const ticketId = uuid();
+	const messageId = uuid();
 
 	const newTicket = await getDB().tickets.insertOne({
 		authorId: req.user._id,
@@ -35,11 +35,11 @@ const createTicket = async (req, res): Promise<ITicket> => {
 				author: req.user.name,
 				authorId: req.user._id,
 				createdAt,
-				id: ticketId,
+				id: messageId,
 			},
 		],
 		notes: [],
-		personnelView: [{ id: ticketId }],
+		personnelView: [{ id: messageId }],
 	});
 
 	if (!newTicket.ops.length) {

@@ -7,5 +7,6 @@
 	"endOfLine": "auto",
 	"bracketSpacing": true,
 	"extends": "marine/prettier/node",
-	"arrowParens": "avoid"
+	"arrowParens": "avoid",
+	"tabWidth": 2
 }

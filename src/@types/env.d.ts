@@ -21,5 +21,6 @@ declare namespace NodeJS {
 		ORGANISATION_ID: string;
 		CORS: string; // IP's and domains are split by | (pipes)
 		BASE_URL: string;
+		SIGNING_SECRET: string;
 	}
 }
