@@ -16,44 +16,44 @@ import { getMetadataFromTicket } from '../util/getMetadataFromTicket';
  */
 
 const getUnassignedTickets = async (req: Request, res: Response) => {
-	// Get all tickets that aren't assigned to anyone and that has an open status
-	const hasNext = Boolean(req.query.hasNext);
-	const hasPrevious = Boolean(req.query.hasPrevious);
+  // Get all tickets that aren't assigned to anyone and that has an open status
+  const hasNext = Boolean(req.query.hasNext);
+  const hasPrevious = Boolean(req.query.hasPrevious);
 
-	const tickets: IPaginateResult<ITicket> = await find(getDB().tickets, {
-		limit: parseInt(process.env.PAGINATION_LIMIT, 10),
-		query: {
-			status: TicketStatus.updated,
-			$or: [
-				{
-					assignee: { $type: 'null' },
-				},
-				{
-					assignee: { $exists: false },
-				},
-			],
-		},
-		next: hasNext ? req.params.nextHash : null,
-		previous: hasPrevious ? req.params.previousHash : null,
-	});
+  const tickets: IPaginateResult<ITicket> = await find(getDB().tickets, {
+    limit: parseInt(process.env.PAGINATION_LIMIT, 10),
+    query: {
+      status: TicketStatus.updated,
+      $or: [
+        {
+          assignee: { $type: 'null' },
+        },
+        {
+          assignee: { $exists: false },
+        },
+      ],
+    },
+    next: hasNext ? req.params.nextHash : null,
+    previous: hasPrevious ? req.params.previousHash : null,
+  });
 
-	if (!Array.isArray(tickets.results) || !tickets.results.length) {
-		return res.status(200).send({
-			data: [],
-			...responseGenerator(200, "There aren't any unassigned tickets 🥳"),
-		});
-	}
+  if (!Array.isArray(tickets.results) || !tickets.results.length) {
+    return res.status(200).send({
+      data: [],
+      ...responseGenerator(200, "There aren't any unassigned tickets 🥳"),
+    });
+  }
 
-	const data = getMetadataFromTicket(tickets.results);
+  const data = getMetadataFromTicket(tickets.results);
 
-	return res.status(200).send({
-		...responseGenerator(200, "Here's todays tickets!"),
-		data,
-		hasNext: tickets.hasNext,
-		hasPrevious: tickets.hasPrevious,
-		nextHash: tickets.next,
-		previousHash: tickets.previous,
-	});
+  return res.status(200).send({
+    ...responseGenerator(200, "Here's todays tickets!"),
+    data,
+    hasNext: tickets.hasNext,
+    hasPrevious: tickets.hasPrevious,
+    nextHash: tickets.next,
+    previousHash: tickets.previous,
+  });
 };
 
 export { getUnassignedTickets };

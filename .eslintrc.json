@@ -38,7 +38,10 @@
 				"no-dupe-class-members": "off",
 				"require-atomic-updates": "off",
 				"newline-per-chained-call": "off",
-				"@typescript-eslint/indent": ["off", 4]
+				"no-tabs": 1,
+				"no-mixed-spaces-and-tabs": 1,
+				"@typescript-eslint/indent": ["error", 2],
+				"indent": "off"
 			}
 		}
 	]

@@ -10,40 +10,40 @@ import { setupSlackStrategy } from '@lib/strategies/slack';
 import { setupLocalStrategy } from './strategies/local';
 
 function initializeAuth(app: Application): void {
-	const redisStore: RedisStore = connectRedis(session);
-	const IS_PROD = process.env.NODE_ENV === 'production';
+  const redisStore: RedisStore = connectRedis(session);
+  const IS_PROD = process.env.NODE_ENV === 'production';
 
-	// Sessions, auth, and redis setup
-	const redisSettings: ClientOpts = {
-		url: process.env.REDIS_URI,
-	};
+  // Sessions, auth, and redis setup
+  const redisSettings: ClientOpts = {
+    url: process.env.REDIS_URI,
+  };
 
-	const redisClient: RedisClient = redis.createClient(redisSettings);
-	app.use(
-		session({
-			name: process.env.INSTANCE_NAME,
-			store: new redisStore({ client: redisClient }),
-			secret: process.env.SESSION_SECRET,
-			resave: false,
-			saveUninitialized: true,
-			cookie: {
-				maxAge: parseInt(process.env.SESSION_LIFETIME, 10) * 60 * 60 * 60,
-				sameSite: IS_PROD,
-				secure: IS_PROD,
-			},
-			genid() {
-				return uuid();
-			},
-		}),
-	);
+  const redisClient: RedisClient = redis.createClient(redisSettings);
+  app.use(
+    session({
+      name: process.env.INSTANCE_NAME,
+      store: new redisStore({ client: redisClient }),
+      secret: process.env.SESSION_SECRET,
+      resave: false,
+      saveUninitialized: true,
+      cookie: {
+        maxAge: parseInt(process.env.SESSION_LIFETIME, 10) * 60 * 60 * 60,
+        sameSite: IS_PROD,
+        secure: IS_PROD,
+      },
+      genid() {
+        return uuid();
+      },
+    }),
+  );
 
-	passport.use(setupGoogleStrategy());
-	passport.use(setupSlackStrategy());
-	passport.use(setupLocalStrategy());
-	passport.serializeUser(serialize);
-	passport.deserializeUser(deserialize);
-	app.use(passport.initialize());
-	app.use(passport.session());
+  passport.use(setupGoogleStrategy());
+  passport.use(setupSlackStrategy());
+  passport.use(setupLocalStrategy());
+  passport.serializeUser(serialize);
+  passport.deserializeUser(deserialize);
+  app.use(passport.initialize());
+  app.use(passport.session());
 }
 
 export default initializeAuth;

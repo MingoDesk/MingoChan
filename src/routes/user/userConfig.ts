@@ -9,11 +9,11 @@ import { createLocalUser } from './controllers/createLocalUser';
 const router = Router();
 
 router.patch(
-	'/update',
-	validateSession,
-	validateSysAdminPerms,
-	validate('update'),
-	updateUserPermissions,
+  '/update',
+  validateSession,
+  validateSysAdminPerms,
+  validate('update'),
+  updateUserPermissions,
 );
 router.get('/', validateSession, getUser);
 router.post('/new', validate('create-local'), createLocalUser);
