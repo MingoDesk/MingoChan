@@ -5,7 +5,7 @@ import { TicketStatus } from './ticketController';
 import { getMetadataFromTicket } from '../util/getMetadataFromTicket';
 
 const getUserAuthoredTickets = async (req, res) => {
-  if (!req.query.userId) {
+  if (!req.params.userId) {
     return res.status(400).send({ success: false, error: 'Bad request', msg: 'You must provide a userId!' });
   }
 
@@ -15,7 +15,17 @@ const getUserAuthoredTickets = async (req, res) => {
 
   const tickets = await find(getDB().tickets, {
     limit: parseInt(process.env.PAGINATION_LIMIT, 10),
-    query: { authorId: req.query.userId, status: TicketStatus.open },
+    query: {
+      authorId: req.params.userId,
+      $or: [
+        {
+          status: TicketStatus.open
+        },
+        {
+          status: TicketStatus.updated
+        }
+      ]
+    },
     next: hasNext ? req.params.nextHash : null,
     previous: hasPrevious ? req.params.nextHash : null,
   });
@@ -26,7 +36,8 @@ const getUserAuthoredTickets = async (req, res) => {
     });
   }
 
-  const data = getMetadataFromTicket(tickets);
+  const data = getMetadataFromTicket(tickets.results);
+
 
   return res.status(200).send({
     ...responseGenerator(200, 'Here are your tickets!'),

@@ -18,7 +18,7 @@ const createTicket = async (req, res): Promise<ITicket> => {
   const messageId = uuid();
 
   const newTicket = await getDB().tickets.insertOne({
-    authorId: req.user._id,
+    authorId: req.user.providerId,
     author: req.user.name,
     subject: data.subject,
     authorOrganisationId: req.user!.organisationId || null,
@@ -31,7 +31,10 @@ const createTicket = async (req, res): Promise<ITicket> => {
     isUpdated: true,
     messages: [
       {
-        text: data.text,
+        bodyType: data.type,
+        bodyContent: data.content,
+        subjectType: data.type,
+        subjectContent: data.content,
         author: req.user.name,
         authorId: req.user._id,
         createdAt,

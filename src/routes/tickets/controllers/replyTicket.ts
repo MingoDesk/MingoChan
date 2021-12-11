@@ -22,7 +22,7 @@ const replyTicket = async (req, res): Promise<ITicket> => {
     { _id },
     {
       $set: {
-        status: TicketStatus.updated,
+        status: TicketStatus.open,
       },
       $push: {
         messages: {

@@ -8,10 +8,29 @@ export enum TicketStatus {
   closed,
 }
 
+export interface JSONContent {
+  type?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  attrs?: Record<string, any>;
+  content?: JSONContent[];
+  marks?: {
+    type: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    attrs?: Record<string, any>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [key: string]: any;
+  }[];
+  text?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
+}
+
+
 export interface IMessage {
   authorId: string;
   author: string;
-  text: string;
+  type: 'doc';
+  content: JSONContent;
   createdAt: Date;
   id: string;
 }
@@ -59,8 +78,10 @@ const validate = (method: IValidationMethods['method']): RequestHandler[] => {
   switch (method) {
     case 'createTicket': {
       return [
-        body('text', 'Field text failed validation').exists().isString().notEmpty().escape(),
-        body('subject', 'Field subject failed validation').exists().isString().notEmpty().escape(),
+        body('subjectType', 'Field text failed validation').exists().isString().notEmpty().escape(),
+        body('subjectContent', 'Field subject failed validation').exists().notEmpty().custom(data => {
+
+        })
       ];
     }
     case 'replyTicket': {
