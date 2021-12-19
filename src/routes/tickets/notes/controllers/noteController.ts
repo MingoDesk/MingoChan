@@ -8,7 +8,7 @@ const validate = (method: string): RequestHandler[] => {
         body('ticketId').exists().isString()
           .notEmpty()
           .escape(),
-        body('text', 'Field text failed validation').exists().isString()
+        body('body', 'Field text failed validation').exists().isObject()
           .notEmpty()
           .escape(),
       ];
@@ -21,7 +21,7 @@ const validate = (method: string): RequestHandler[] => {
         body('noteId', 'Field noteId failed validation').exists().isString()
           .notEmpty()
           .escape(),
-        body('text', 'Field text failed validation').exists().isString()
+        body('body', 'Field text failed validation').exists().isObject()
           .notEmpty()
           .escape(),
       ];

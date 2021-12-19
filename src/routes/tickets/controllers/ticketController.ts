@@ -29,8 +29,8 @@ export interface JSONContent {
 export interface IMessage {
   authorId: string;
   author: string;
-  type: 'doc';
-  content: JSONContent;
+  subject: JSONContent;
+  body: JSONContent;
   createdAt: Date;
   id: string;
 }
@@ -78,10 +78,8 @@ const validate = (method: IValidationMethods['method']): RequestHandler[] => {
   switch (method) {
     case 'createTicket': {
       return [
-        body('subjectType', 'Field text failed validation').exists().isString().notEmpty().escape(),
-        body('subjectContent', 'Field subject failed validation').exists().notEmpty().custom(data => {
-
-        })
+        body('body', 'Field body failed validation').exists().isObject().notEmpty(),
+        body('subject', 'Field subject failed validation').exists().isObject().notEmpty(),
       ];
     }
     case 'replyTicket': {
@@ -91,7 +89,8 @@ const validate = (method: IValidationMethods['method']): RequestHandler[] => {
           .isMongoId()
           .notEmpty()
           .escape(),
-        body('text', 'Field text failed validation').exists().isString().notEmpty().escape(),
+        body('body', 'Field body failed validation').exists().isObject().notEmpty(),
+        body('subject', 'Field subject failed validation').exists().isObject().notEmpty(),
       ];
     }
     case 'assignTicket': {
