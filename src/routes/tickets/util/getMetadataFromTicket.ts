@@ -13,14 +13,12 @@ export const getMetadataFromTicket = (data: ITicket[]): ITicketMetaData[] => {
     message.content?.forEach(content => {
       if (flattenedMessage.length >= 50) return;
       if (content.type === 'text' && typeof content.text === 'string') {
-        flattenedMessage = `${flattenedMessage} ${content.text}`;
+        flattenedMessage += " " + content.text;
       }
     });
   });
 
-  const newMessageArr = flattenedMessage.slice(0, 50).split('');
-  newMessageArr.push('...');
-  metadata[0].previewText = newMessageArr.join('');
+  metadata[0].previewText = flattenedMessage.slice(0, 50) + "..."
 
   // Map out all the parameters I don't want to return to the FE
   const retunMetaData = metadata.map(({ rating, personnelView, notes, messages, ...metaData }) => metaData);
