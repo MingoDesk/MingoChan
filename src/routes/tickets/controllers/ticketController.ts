@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express';
-import { body } from 'express-validator';
+import { body, check } from 'express-validator';
 
 export enum TicketStatus {
   open = 1,
@@ -85,9 +85,9 @@ const validate = (method: IValidationMethods['method']): RequestHandler[] => {
     }
     case 'getUserAuthoredTickets': {
       return [
-        body('userId', 'Field userId failed validation').exists().isString().escape().isLength({ min: 0, max: 100 }),
-        body('hasNext', 'Field hasNext failed validation').optional().isBoolean(),
-        body('hasPrevious', 'Field hasPrevious failed validation').optional().isBoolean(),
+        check('userId', 'Field userId failed validation').exists().isString().escape().isLength({ min: 0, max: 100 }),
+        check('hasNext', 'Field hasNext failed validation').optional().isBoolean(),
+        check('hasPrevious', 'Field hasPrevious failed validation').optional().isBoolean(),
       ];
     }
     case 'replyTicket': {
