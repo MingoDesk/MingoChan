@@ -71,6 +71,7 @@ interface IValidationMethods {
   | 'replyTicket'
   | 'assignTicket'
   | 'ticketSatisfaction'
+  | 'getUserAuthoredTickets'
   | 'updateTicketStatus';
 }
 
@@ -80,6 +81,11 @@ const validate = (method: IValidationMethods['method']): RequestHandler[] => {
       return [
         body('body', 'Field body failed validation').exists().isObject().notEmpty(),
         body('subject', 'Field subject failed validation').exists().isObject().notEmpty(),
+      ];
+    }
+    case 'getUserAuthoredTickets': {
+      return [
+        body('userId', 'Field userId failed validation').exists().isString().escape().isLength({ min: 0, max: 100 }),
       ];
     }
     case 'replyTicket': {

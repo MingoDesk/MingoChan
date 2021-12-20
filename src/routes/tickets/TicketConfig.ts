@@ -42,7 +42,13 @@ router.patch(
 );
 router.get('/unassigned/feed', validateSession, validateStaffPerms, getUnassignedTickets);
 router.get('/assigned/feed', validateSession, validateStaffPerms, getAssignedTickets);
-router.get('/authored/feed/:userId', validateSession, validateUserPerms, getUserAuthoredTickets);
+router.get(
+  '/authored/feed/:userId',
+  validateSession,
+  validateUserPerms,
+  validate('getUserAuthoredTickets'),
+  getUserAuthoredTickets
+);
 router.use('/notes', noteRouter);
 
 export default router;
