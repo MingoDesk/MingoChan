@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express';
-import { body } from 'express-validator';
+import { body, check } from 'express-validator';
 
 export enum TicketStatus {
   open = 1,
@@ -8,10 +8,29 @@ export enum TicketStatus {
   closed,
 }
 
+export interface TipTapContent {
+  type?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  attrs?: Record<string, any>;
+  content?: TipTapContent[];
+  marks?: {
+    type: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    attrs?: Record<string, any>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [key: string]: any;
+  }[];
+  text?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
+}
+
+
 export interface IMessage {
   authorId: string;
   author: string;
-  text: string;
+  subject: TipTapContent;
+  body: TipTapContent;
   createdAt: Date;
   id: string;
 }
@@ -52,6 +71,7 @@ interface IValidationMethods {
   | 'replyTicket'
   | 'assignTicket'
   | 'ticketSatisfaction'
+  | 'getUserAuthoredTickets'
   | 'updateTicketStatus';
 }
 
@@ -59,8 +79,15 @@ const validate = (method: IValidationMethods['method']): RequestHandler[] => {
   switch (method) {
     case 'createTicket': {
       return [
-        body('text', 'Field text failed validation').exists().isString().notEmpty().escape(),
-        body('subject', 'Field subject failed validation').exists().isString().notEmpty().escape(),
+        body('body', 'Field body failed validation').exists().isObject().notEmpty(),
+        body('subject', 'Field subject failed validation').exists().isObject().notEmpty(),
+      ];
+    }
+    case 'getUserAuthoredTickets': {
+      return [
+        check('userId', 'Field userId failed validation').exists().isString().escape().isLength({ min: 0, max: 100 }),
+        check('hasNext', 'Field hasNext failed validation').optional().isBoolean(),
+        check('hasPrevious', 'Field hasPrevious failed validation').optional().isBoolean(),
       ];
     }
     case 'replyTicket': {
@@ -70,7 +97,8 @@ const validate = (method: IValidationMethods['method']): RequestHandler[] => {
           .isMongoId()
           .notEmpty()
           .escape(),
-        body('text', 'Field text failed validation').exists().isString().notEmpty().escape(),
+        body('body', 'Field body failed validation').exists().isObject().notEmpty(),
+        body('subject', 'Field subject failed validation').exists().isObject().notEmpty(),
       ];
     }
     case 'assignTicket': {

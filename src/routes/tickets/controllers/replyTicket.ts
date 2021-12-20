@@ -4,9 +4,10 @@ import { ObjectId } from 'mongodb';
 import { v4 as uuid } from 'uuid';
 import { responseGenerator } from '@util/responseGenerator';
 import { populatePersonnelView } from '../util/populatePersonnelView';
-import { ITicket, TicketStatus } from './ticketController';
+import { TicketStatus } from './ticketController';
+import { Request, Response } from 'express';
 
-const replyTicket = async (req, res): Promise<ITicket> => {
+const replyTicket = async (req: Request, res: Response) => {
   const errors = validationResult(req);
   const data = matchedData(req);
 
@@ -27,9 +28,9 @@ const replyTicket = async (req, res): Promise<ITicket> => {
       $push: {
         messages: {
           id: replyId,
-          authorId: req.user.sub,
-          author: req.user.name,
-          text: data.text,
+          authorId: req.user!.providerId,
+          author: req.user!.name,
+          body: data.body,
           createdAt: now,
         },
         personnelView: {

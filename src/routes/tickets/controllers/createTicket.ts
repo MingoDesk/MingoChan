@@ -2,11 +2,12 @@ import { getDB } from '@database/db';
 import { matchedData, validationResult } from 'express-validator';
 import { v4 as uuid } from 'uuid';
 import { responseGenerator } from '@util/responseGenerator';
-import { ITicket, TicketStatus } from './ticketController';
+import { TicketStatus } from './ticketController';
+import { Request, Response } from 'express';
 
 // TODO: Make sure to incorporate diffirent callbacks depending on user permissions
 
-const createTicket = async (req, res): Promise<ITicket> => {
+const createTicket = async (req: Request, res: Response) => {
   const errors = validationResult(req);
   const data = matchedData(req);
 
@@ -18,10 +19,10 @@ const createTicket = async (req, res): Promise<ITicket> => {
   const messageId = uuid();
 
   const newTicket = await getDB().tickets.insertOne({
-    authorId: req.user._id,
-    author: req.user.name,
+    authorId: req.user!.providerId,
+    author: req.user!.name,
     subject: data.subject,
-    authorOrganisationId: req.user!.organisationId || null,
+    authorOrganisationId: req.user!.organisationId ?? null,
     status: TicketStatus.updated,
     createdAt,
     // TODO: Check if customer group is marked as "starred"
@@ -31,9 +32,10 @@ const createTicket = async (req, res): Promise<ITicket> => {
     isUpdated: true,
     messages: [
       {
-        text: data.text,
-        author: req.user.name,
-        authorId: req.user._id,
+        body: data.body,
+        subject: data.subject,
+        author: req.user!.name,
+        authorId: req.user!._id,
         createdAt,
         id: messageId,
       },

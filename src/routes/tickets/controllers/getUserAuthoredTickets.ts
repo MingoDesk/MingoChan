@@ -3,9 +3,17 @@ import { find } from '@tadashi/mongo-cursor-pagination';
 import { responseGenerator } from '@util/responseGenerator';
 import { TicketStatus } from './ticketController';
 import { getMetadataFromTicket } from '../util/getMetadataFromTicket';
+import { validationResult, matchedData } from 'express-validator';
+import { Request, Response } from 'express';
 
-const getUserAuthoredTickets = async (req, res) => {
-  if (!req.query.userId) {
+const getUserAuthoredTickets = async (req: Request, res: Response) => {
+  const errors = validationResult(req);
+  const data = matchedData(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).send({ success: false, msg: 'Bad request', errors: errors.array() });
+  }
+  if (!req.params.userId) {
     return res.status(400).send({ success: false, error: 'Bad request', msg: 'You must provide a userId!' });
   }
 
@@ -15,7 +23,17 @@ const getUserAuthoredTickets = async (req, res) => {
 
   const tickets = await find(getDB().tickets, {
     limit: parseInt(process.env.PAGINATION_LIMIT, 10),
-    query: { authorId: req.query.userId, status: TicketStatus.open },
+    query: {
+      authorId: data.userId,
+      $or: [
+        {
+          status: TicketStatus.open
+        },
+        {
+          status: TicketStatus.updated
+        }
+      ]
+    },
     next: hasNext ? req.params.nextHash : null,
     previous: hasPrevious ? req.params.nextHash : null,
   });
@@ -26,11 +44,12 @@ const getUserAuthoredTickets = async (req, res) => {
     });
   }
 
-  const data = getMetadataFromTicket(tickets);
+  const metadata = getMetadataFromTicket(tickets.results);
+
 
   return res.status(200).send({
     ...responseGenerator(200, 'Here are your tickets!'),
-    data,
+    metadata,
     hasNext: tickets.hasNext,
     hasPrevious: tickets.hasPrevious,
   });

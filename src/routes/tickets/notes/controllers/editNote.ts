@@ -28,9 +28,9 @@ const editNote = async (req, res) => {
     { _id, 'notes.id': data.noteId },
     {
       $set: {
-        'notes.$.text': data.text,
+        'notes.$.body': data.body,
       },
-      $push: { 'notes.$.history': { createdAt: now, text: data.text } },
+      $push: { 'notes.$.history': { createdAt: now, body: data.body } },
     },
     {
       returnOriginal: false,

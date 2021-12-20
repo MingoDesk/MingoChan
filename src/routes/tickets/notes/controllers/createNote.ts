@@ -29,9 +29,14 @@ const createNote = async (req: Request, res: Response) => {
           id: noteId,
           authorId: req.user!.providerId,
           author: req.user!.name,
-          text: data.text,
+          body: data.body,
           isNote: true,
-          history: [{ text: data.text, createdAt: date }],
+          history: [{
+            bodyType: data.type,
+            bodyContent: data.content,
+            subjectType: data.type,
+            subjectContent: data.content, createdAt: date
+          }],
         },
       },
     },
