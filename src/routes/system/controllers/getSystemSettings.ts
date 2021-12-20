@@ -1,30 +1,31 @@
 import { getDB } from '@database/db';
-import { Request, Response } from 'express';
-import { updateSystemSettings } from '../util/updateSystemSettings';
+import { Response } from 'express';
 import { systemConfigdefaults } from '@config/config';
 import { responseGenerator } from '@util/responseGenerator';
+import { updateSystemSettings } from '../util/updateSystemSettings';
 
-const getSystemSettings = async (req: Request, res: Response) => {
-	const getSettings = await getDB().settings.findOne({});
+const getSystemSettings = async ({ res }: { res: Response }) => {
+  const settings = await getDB().settings.findOne({});
 
-	if (!getSettings) {
-		const createDefaults = await updateSystemSettings(systemConfigdefaults);
+  if (!settings) {
+    const createDefaults = await updateSystemSettings(systemConfigdefaults);
 
-		if (!createDefaults)
-			return res.status(500).send({
-				...responseGenerator(500, 'Something went horribly wrong! Please try to reload the application.'),
-			});
+    if (!createDefaults) {
+      return res.status(500).send({
+        ...responseGenerator(500, 'Something went horribly wrong! Please try to reload the application.'),
+      });
+    }
 
-		return res.status(200).send({
-			...responseGenerator(200, 'Success'),
-			data: { ...createDefaults },
-		});
-	}
+    return res.status(200).send({
+      ...responseGenerator(200, 'Success'),
+      data: { ...createDefaults },
+    });
+  }
 
-	return res.status(200).send({
-		...responseGenerator(200, 'Sucess, the settings was updated!'),
-		data: { ...getSettings },
-	});
+  return res.status(200).send({
+    ...responseGenerator(200, 'Sucess, the settings was updated!'),
+    data: { ...settings },
+  });
 };
 
 export { getSystemSettings };

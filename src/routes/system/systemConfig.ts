@@ -1,9 +1,9 @@
 import { Router } from 'express';
+import { secured as validateSession } from '@middleware/validateSession';
+import { validateSysAdminPerms } from '@middleware/validatePermissions';
 import { updateSystemSettingsRoute } from './controllers/updateSystemSettings';
 import { getSystemSettings } from './controllers/getSystemSettings';
 import { validate } from './controllers/systemsController';
-import { secured as validateSession } from '@middleware/validateSession';
-import { validateSysAdminPerms } from '@middleware/validatePermissions';
 
 const router = Router();
 

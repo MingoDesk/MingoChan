@@ -1,12 +1,8 @@
-import { Profile } from 'passport-auth0';
 import { IUserPermissions } from '@user/controllers/userController';
 import express from 'express';
-
-interface ISessionUser extends Profile {
-	permissions: IUserPermissions['permissions'];
-	systemOrganisationId: string;
-	organisationId: string | null;
-}
+import { Profile } from 'passport-auth0';
+import { ObjectId } from 'mongodb';
+import { ISessionUser } from './user';
 
 declare module 'express-session' {
 	interface session {

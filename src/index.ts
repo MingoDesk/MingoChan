@@ -1,12 +1,14 @@
 import express, { Application } from 'express';
 import dotenv from 'dotenv';
 import { init } from './app';
+
 dotenv.config();
 
 const app: Application = express();
 
 const start = async () => {
-	await init(app);
+  await init(app);
 };
 
-start().catch((err) => console.error(err));
+// eslint-disable-next-line no-console
+start().catch(err => console.error(err));

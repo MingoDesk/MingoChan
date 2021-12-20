@@ -10,21 +10,21 @@ import { IPersonnelView, INote, IMessage } from '../controllers/ticketController
  */
 
 const populatePersonnelView = (
-	notes: INote[],
-	personnelView: IPersonnelView[],
-	messages: IMessage[],
+  notes: INote[],
+  personnelView: IPersonnelView[],
+  messages: IMessage[],
 ): IPersonnelView[] => {
-	const map = {};
+  const map = {};
 
-	notes.forEach((note) => {
-		map[note.id] = note;
-	});
+  notes.forEach(note => {
+    map[note.id] = note;
+  });
 
-	messages.forEach((message) => {
-		map[message.id] = message;
-	});
+  messages.forEach(message => {
+    map[message.id] = message;
+  });
 
-	return personnelView.map((v) => map[v.id] || v.id);
+  return personnelView.map(v => map[v.id] || v.id);
 };
 
 export { populatePersonnelView };

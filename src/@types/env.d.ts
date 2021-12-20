@@ -1,3 +1,5 @@
+// This declaration file simply implies that we expect these node-env's to be ready for runtime.
+// Make sure all the below env vars are set in a .env in the MingoWhale project.
 declare namespace NodeJS {
 	export interface ProcessEnv {
 		PORT: string;
@@ -7,16 +9,18 @@ declare namespace NodeJS {
 		SESSION_SECRET: string;
 		INSTANCE_NAME: string;
 		NODE_ENV: string;
-		CLIENT_ID: string;
-		SECRET: string;
-		ISSUER_BASEURL: string;
+		GOOGLE_CLIENT_ID: string;
+		GOOGLE_SECRET: string;
+		SLACK_CLIENT_ID: string;
+		SLACK_SECRET: string;
+		OFFICE365_CLIENT_ID: string;
+		OFFICE365_SECRET: string;
 		SESSION_LIFETIME: string;
 		BASE_REDIRECT_URL: string;
 		PAGINATION_LIMIT: string;
-		AUTH0_AUDIENCE: string;
-		AUTH0_DOMAIN: string;
-		ORGANISATIONID: string;
-		CORS: string;
-		BASEURL: string;
+		ORGANISATION_ID: string;
+		CORS: string; // IP's and domains are split by | (pipes)
+		BASE_URL: string;
+		SIGNING_SECRET: string;
 	}
 }
