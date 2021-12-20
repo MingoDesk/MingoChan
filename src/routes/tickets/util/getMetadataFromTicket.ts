@@ -13,7 +13,7 @@ export const getMetadataFromTicket = (data: ITicket[]): ITicketMetaData[] => {
     message.content?.forEach(content => {
       if (flattenedMessage.length >= 50) return;
       if (content.type === 'text' && typeof content.text === 'string') {
-        flattenedMessage = `${flattenedMessage} ${content.text}`;
+        flattenedMessage += " " + content.text;
       }
     });
   });
