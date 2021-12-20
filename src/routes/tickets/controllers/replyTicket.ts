@@ -23,7 +23,7 @@ const replyTicket = async (req: Request, res: Response) => {
     { _id },
     {
       $set: {
-        status: TicketStatus.open,
+        status: TicketStatus.updated,
       },
       $push: {
         messages: {
