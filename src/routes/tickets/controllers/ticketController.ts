@@ -8,11 +8,11 @@ export enum TicketStatus {
   closed,
 }
 
-export interface JSONContent {
+export interface TipTapContent {
   type?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   attrs?: Record<string, any>;
-  content?: JSONContent[];
+  content?: TipTapContent[];
   marks?: {
     type: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -29,8 +29,8 @@ export interface JSONContent {
 export interface IMessage {
   authorId: string;
   author: string;
-  subject: JSONContent;
-  body: JSONContent;
+  subject: TipTapContent;
+  body: TipTapContent;
   createdAt: Date;
   id: string;
 }
