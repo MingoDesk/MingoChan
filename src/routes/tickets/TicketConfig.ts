@@ -16,8 +16,19 @@ import { updateTicketStatus } from './controllers/updateTicketStatus';
 const router = Router();
 
 router.post('/new', validateSession, validateUserPerms, validate('createTicket'), createTicket);
-router.patch('/reply', validateSession, validateUserPerms, validate('replyTicket'), replyTicket);
+
 router.get('/:id', validateSession, validateUserPerms, getTicket);
+router.get('/unassigned/feed', validateSession, validateStaffPerms, getUnassignedTickets);
+router.get('/assigned/feed', validateSession, validateStaffPerms, getAssignedTickets);
+router.get(
+  '/authored/feed/:userId',
+  validateSession,
+  validateUserPerms,
+  validate('getUserAuthoredTickets'),
+  getUserAuthoredTickets
+);
+
+router.patch('/reply', validateSession, validateUserPerms, validate('replyTicket'), replyTicket);
 router.patch(
   '/assignee',
   validateSession,
@@ -32,7 +43,6 @@ router.patch(
   validate('updateTicketStatus'),
   updateTicketStatus,
 );
-
 router.patch(
   '/satisfaction',
   validateSession,
@@ -40,15 +50,7 @@ router.patch(
   validate('ticketSatisfaction'),
   leaveTicketSatisfaction,
 );
-router.get('/unassigned/feed', validateSession, validateStaffPerms, getUnassignedTickets);
-router.get('/assigned/feed', validateSession, validateStaffPerms, getAssignedTickets);
-router.get(
-  '/authored/feed/:userId',
-  validateSession,
-  validateUserPerms,
-  validate('getUserAuthoredTickets'),
-  getUserAuthoredTickets
-);
+
 router.use('/notes', noteRouter);
 
 export default router;
