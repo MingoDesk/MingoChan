@@ -49,7 +49,7 @@ const getUserAuthoredTickets = async (req: Request, res: Response) => {
 
   return res.status(200).send({
     ...responseGenerator(200, 'Here are your tickets!'),
-    metadata,
+    data: metadata,
     hasNext: tickets.hasNext,
     hasPrevious: tickets.hasPrevious,
   });
