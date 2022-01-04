@@ -28,7 +28,7 @@ function initializeAuth(app: Application): void {
       saveUninitialized: true,
       cookie: {
         maxAge: parseInt(process.env.SESSION_LIFETIME, 10) * 60 * 60 * 60,
-        sameSite: IS_PROD,
+        sameSite: IS_PROD ? 'strict' : 'none',
         secure: IS_PROD,
       },
       genid() {
