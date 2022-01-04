@@ -29,7 +29,8 @@ function initializeAuth(app: Application): void {
       cookie: {
         maxAge: parseInt(process.env.SESSION_LIFETIME, 10) * 60 * 60 * 60,
         sameSite: IS_PROD ? 'strict' : 'none',
-        secure: true,
+        secure: IS_PROD,
+        domain: process.env.BASE_REDIRECT_URL
       },
       genid() {
         return uuid();
