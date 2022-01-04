@@ -30,7 +30,7 @@ function initializeAuth(app: Application): void {
         maxAge: parseInt(process.env.SESSION_LIFETIME, 10) * 60 * 60 * 60,
         sameSite: IS_PROD ? 'strict' : 'none',
         secure: IS_PROD,
-        domain: process.env.BASE_REDIRECT_URL
+        domain: IS_PROD ? process.env.BASE_REDIRECT_URL : undefined
       },
       genid() {
         return uuid();
