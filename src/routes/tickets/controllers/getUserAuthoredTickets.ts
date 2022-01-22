@@ -6,6 +6,10 @@ import { getMetadataFromTicket } from '../util/getMetadataFromTicket';
 import { validationResult, matchedData } from 'express-validator';
 import { Request, Response } from 'express';
 
+interface StatusBody {
+  status: TicketStatus;
+}
+
 const getUserAuthoredTickets = async (req: Request, res: Response) => {
   const errors = validationResult(req);
   const data = matchedData(req);
@@ -17,22 +21,33 @@ const getUserAuthoredTickets = async (req: Request, res: Response) => {
     return res.status(400).send({ success: false, error: 'Bad request', msg: 'You must provide a userId!' });
   }
 
-  // Get all tickets that aren't assigned to anyone and that has an open status
   const hasNext = Boolean(req.query.hasNext);
   const hasPrevious = Boolean(req.query.hasPrevious);
+  const reqStatus = String(req.query.status);
+  let statusBody: StatusBody[] = [];
+
+  if (reqStatus.length && !Object.values(TicketStatus).includes(reqStatus)) {
+    return res.status(400).send({
+      ...responseGenerator(400,
+        `Status was not valid. Valid statuses are: ${Object.values(TicketStatus).toString()}`)
+    });
+  } else if (reqStatus.length && Object.values(TicketStatus).includes(reqStatus)) {
+    if (reqStatus === TicketStatus.open.toString() || reqStatus === TicketStatus.updated.toString()) {
+      statusBody = [{
+        status: TicketStatus.open
+      },
+      {
+        status: TicketStatus.updated
+      }];
+    }
+    statusBody = [{ status: parseInt(reqStatus, 10) }];
+  }
 
   const tickets = await find(getDB().tickets, {
     limit: parseInt(process.env.PAGINATION_LIMIT, 10),
     query: {
       authorId: data.userId,
-      $or: [
-        {
-          status: TicketStatus.open
-        },
-        {
-          status: TicketStatus.updated
-        }
-      ]
+      $or: [...statusBody]
     },
     next: hasNext ? req.params.nextHash : null,
     previous: hasPrevious ? req.params.nextHash : null,
