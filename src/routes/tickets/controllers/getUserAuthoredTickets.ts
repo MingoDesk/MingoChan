@@ -37,8 +37,7 @@ const getUserAuthoredTickets = async (req: Request, res: Response) => {
       {
         status: TicketStatus.updated
       }];
-    }
-    statusBody = [{ status: reqStatus }];
+    } else { statusBody = [{ status: reqStatus }]; }
   }
 
   const tickets = await find(getDB().tickets, {
