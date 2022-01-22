@@ -3,9 +3,9 @@ import { body, check } from 'express-validator';
 
 export enum TicketStatus {
   open = 1,
-  updated,
-  snoozed,
-  closed,
+  updated = 2,
+  snoozed = 3,
+  closed = 4,
 }
 
 export interface TipTapContent {
