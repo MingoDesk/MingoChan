@@ -26,7 +26,7 @@ const getUserAuthoredTickets = async (req: Request, res: Response) => {
   const reqStatus = String(req.query.status);
   let statusBody: StatusBody[] = [];
 
-  if (reqStatus.length && !Object.values(TicketStatus).includes(reqStatus)) {
+  if (reqStatus.length && !Object.values(TicketStatus).includes(parseInt(reqStatus, 10))) {
     return res.status(400).send({
       ...responseGenerator(400,
         `Status was not valid. Valid statuses are: ${Object.values(TicketStatus).toString()}`)
