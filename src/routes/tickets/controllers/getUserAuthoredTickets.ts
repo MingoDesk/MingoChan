@@ -17,9 +17,7 @@ const getUserAuthoredTickets = async (req: Request, res: Response) => {
   if (!errors.isEmpty()) {
     return res.status(400).send({ success: false, msg: 'Bad request', errors: errors.array() });
   }
-  if (!req.params.userId) {
-    return res.status(400).send({ success: false, error: 'Bad request', msg: 'You must provide a userId!' });
-  }
+
 
   const hasNext = Boolean(req.query.hasNext);
   const hasPrevious = Boolean(req.query.hasPrevious);
@@ -47,11 +45,15 @@ const getUserAuthoredTickets = async (req: Request, res: Response) => {
     limit: parseInt(process.env.PAGINATION_LIMIT, 10),
     query: {
       authorId: data.userId,
-      $or: [...statusBody]
+      $or: statusBody
     },
     next: hasNext ? req.params.nextHash : null,
     previous: hasPrevious ? req.params.nextHash : null,
   });
+
+  console.log(tickets.result);
+  console.log(statusBody);
+  console.log(data.userId);
 
   if (!Array.isArray(tickets.results) || !tickets.results.length) {
     return res.status(200).send({
