@@ -23,16 +23,16 @@ const getUserAuthoredTickets = async (req: Request, res: Response) => {
 
   const hasNext = Boolean(req.query.hasNext);
   const hasPrevious = Boolean(req.query.hasPrevious);
-  const reqStatus = String(req.query.status);
+  const reqStatus = Number(req.query.status);
   let statusBody: StatusBody[] = [];
 
-  if (reqStatus.length && !Object.values(TicketStatus).includes(parseInt(reqStatus, 10))) {
+  if (reqStatus && !Object.values(TicketStatus).includes(reqStatus)) {
     return res.status(400).send({
       ...responseGenerator(400,
         `Status was not valid. Valid statuses are: ${Object.values(TicketStatus).toString()}`)
     });
-  } else if (reqStatus.length && Object.values(TicketStatus).includes(reqStatus)) {
-    if (reqStatus === TicketStatus.open.toString() || reqStatus === TicketStatus.updated.toString()) {
+  } else if (reqStatus && Object.values(TicketStatus).includes(reqStatus)) {
+    if (reqStatus === TicketStatus.open || reqStatus === TicketStatus.updated) {
       statusBody = [{
         status: TicketStatus.open
       },
@@ -40,7 +40,7 @@ const getUserAuthoredTickets = async (req: Request, res: Response) => {
         status: TicketStatus.updated
       }];
     }
-    statusBody = [{ status: parseInt(reqStatus, 10) }];
+    statusBody = [{ status: reqStatus }];
   }
 
   const tickets = await find(getDB().tickets, {
