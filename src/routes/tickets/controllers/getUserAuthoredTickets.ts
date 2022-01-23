@@ -50,10 +50,6 @@ const getUserAuthoredTickets = async (req: Request, res: Response) => {
     previous: hasPrevious ? req.params.nextHash : null,
   });
 
-  console.log(tickets.result);
-  console.log(statusBody);
-  console.log(data.userId);
-
   if (!Array.isArray(tickets.results) || !tickets.results.length) {
     return res.status(200).send({
       ...responseGenerator(200, "You don't have any tickets 🥳"),

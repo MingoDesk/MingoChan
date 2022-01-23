@@ -5,6 +5,7 @@ import { populatePersonnelView } from '../util/populatePersonnelView';
 
 const getTicket = async (req, res) => {
   if (!req.params.id) return res.status(400).send({ ...responseGenerator(400, 'Bad ticket id') });
+  console.log(req.params.id);
 
   const id = new ObjectId(req.params.id);
   const data = await getDB().tickets.findOne({ _id: id });
