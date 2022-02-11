@@ -29,7 +29,7 @@ export interface TipTapContent {
 export interface IMessage {
   authorId: string;
   author: string;
-  subject: TipTapContent;
+  subject: string;
   body: TipTapContent;
   createdAt: Date;
   id: string;
@@ -80,7 +80,7 @@ const validate = (method: IValidationMethods['method']): RequestHandler[] => {
     case 'createTicket': {
       return [
         body('body', 'Field body failed validation').exists().isObject().notEmpty(),
-        body('subject', 'Field subject failed validation').exists().isObject().notEmpty(),
+        body('subject', 'Field subject failed validation').exists().isString().notEmpty().escape(),
       ];
     }
     case 'getUserAuthoredTickets': {
@@ -98,7 +98,6 @@ const validate = (method: IValidationMethods['method']): RequestHandler[] => {
           .notEmpty()
           .escape(),
         body('body', 'Field body failed validation').exists().isObject().notEmpty(),
-        body('subject', 'Field subject failed validation').exists().isObject().notEmpty(),
       ];
     }
     case 'assignTicket': {
