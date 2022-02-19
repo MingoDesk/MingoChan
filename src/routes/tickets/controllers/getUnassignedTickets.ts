@@ -29,16 +29,8 @@ const getUnassignedTickets = async (req: Request, res: Response) => {
           status: TicketStatus.open
         },
         {
-          assignee: { $type: 'null' },
-          status: TicketStatus.updated
-        },
-        {
           assignee: { $exists: false },
           status: TicketStatus.open
-        },
-        {
-          assignee: { $exists: false },
-          status: TicketStatus.updated
         },
       ],
     },

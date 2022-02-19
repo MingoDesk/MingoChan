@@ -23,13 +23,13 @@ const createTicket = async (req: Request, res: Response) => {
     author: req.user!.name,
     subject: data.subject,
     authorOrganisationId: req.user!.organisationId ?? null,
-    status: TicketStatus.updated,
+    status: TicketStatus.open,
     createdAt,
     // TODO: Check if customer group is marked as "starred"
     isStarred: false,
     tags: [],
     labels: [],
-    isUpdated: true,
+    updated: true,
     messages: [
       {
         body: data.body,
