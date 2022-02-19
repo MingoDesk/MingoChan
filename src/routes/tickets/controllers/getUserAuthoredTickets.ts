@@ -22,7 +22,7 @@ const getUserAuthoredTickets = async (req: Request, res: Response) => {
     limit: parseInt(process.env.PAGINATION_LIMIT, 10),
     query: {
       authorId: data.userId,
-      status: data.status
+      status: parseInt(data.status, 10)
     },
     next: hasNext ? req.params.nextHash : null,
     previous: hasPrevious ? req.params.nextHash : null,
