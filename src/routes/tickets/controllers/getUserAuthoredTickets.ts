@@ -13,8 +13,6 @@ const getUserAuthoredTickets = async (req: Request, res: Response) => {
     return res.status(400).send({ success: false, msg: 'Bad request', errors: errors.array() });
   }
 
-  console.log(data);
-
   const hasNext = Boolean(req.query.hasNext);
   const hasPrevious = Boolean(req.query.hasPrevious);
 
