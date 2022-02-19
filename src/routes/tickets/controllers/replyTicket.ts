@@ -23,7 +23,7 @@ const replyTicket = async (req: Request, res: Response) => {
     { _id },
     {
       $set: {
-        status: TicketStatus.updated,
+        updated: true,
       },
       $push: {
         messages: {
