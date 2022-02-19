@@ -3,9 +3,8 @@ import { body, check } from 'express-validator';
 
 export enum TicketStatus {
   open = 1,
-  updated,
-  snoozed,
-  closed,
+  snoozed = 2,
+  closed = 3,
 }
 
 export interface TipTapContent {
@@ -56,6 +55,7 @@ export interface ITicketMetaData {
   labels: string[];
   previewText: string;
   subject: string;
+  updated: boolean;
 }
 
 export interface ITicket extends ITicketMetaData {
@@ -88,6 +88,7 @@ const validate = (method: IValidationMethods['method']): RequestHandler[] => {
         check('userId', 'Field userId failed validation').exists().isString().escape().isLength({ min: 0, max: 100 }),
         check('hasNext', 'Field hasNext failed validation').optional().isBoolean(),
         check('hasPrevious', 'Field hasPrevious failed validation').optional().isBoolean(),
+        check('status', 'Field hasPrevious failed validation').optional().isInt({ min: TicketStatus.open, max: TicketStatus.closed }),
       ];
     }
     case 'replyTicket': {
