@@ -1,4 +1,4 @@
-FROM node:14.15.4 as builder
+FROM node:16.14 as builder
 WORKDIR /app
 
 # Install dev dependencies
@@ -12,14 +12,14 @@ COPY src ./src
 RUN yarn build
 
 
-FROM node:14.15.4 as runner
+FROM node:16.14 as runner
 WORKDIR /app
 
 # Installs prod dependencies
 
 COPY package*.json ./
 COPY yarn.lock ./
-RUN yarn install --frozen-lockfile --production=true
+RUN npm_config_build_from_source=true yarn install --frozen-lockfile --production=true
 
 # Copy compiled from builder
 

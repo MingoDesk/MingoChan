@@ -1,10 +1,3 @@
-import {
-  ISystemSettings,
-  Themes,
-  PrefDataType,
-  AvgUserSatisfaction,
-} from '@system/controllers/systemsController';
-
 interface IDatabaseCollections {
   users: string;
   tickets: string;
@@ -17,13 +10,14 @@ const datbaseCollections: IDatabaseCollections = {
   settings: 'Settings',
 };
 
-const envFilter: string[] = [
+const ENV_FILTER: string[] = [
   'PORT',
   'DB_NAME',
   'MONGO_URI',
   'REDIS_URI',
+  'JWT_EXP',
+  'JWT_SECRET',
   'SESSION_SECRET',
-  'INSTANCE_NAME',
   'NODE_ENV',
   'BASE_URL',
   'BASE_REDIRECT_URL',
@@ -35,16 +29,8 @@ const envFilter: string[] = [
   'GOOGLE_CLIENT_ID',
   'GOOGLE_SECRET',
   'SIGNING_SECRET',
+  'LOG_LEVEL'
 ];
 
-const systemConfigdefaults: ISystemSettings = {
-  ratings: true,
-  snoozing: true,
-  allowNotesEdit: true,
-  allowUserSeeTicketStatus: true,
-  defaultTheme: Themes.light,
-  avgUserSatisfaction: AvgUserSatisfaction.awesome,
-  prefDataType: PrefDataType.json,
-};
 
-export { datbaseCollections, envFilter, systemConfigdefaults };
+export { datbaseCollections, ENV_FILTER };

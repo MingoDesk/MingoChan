@@ -1,33 +1,47 @@
-export const responseGenerator = (httpCode: number, msg?: string) => {
-  switch (httpCode) {
-    case 200:
-    case 201:
-      return { success: true, msg, errors: null };
-    case 400:
-      return { success: false, msg: msg ?? 'Please check and validate the parameters', errors: 'ERR_BAD_REQUEST' };
-    case 401:
-      return { success: false, msg: msg ?? "You're not logged in!", errors: 'ERR_NOT_AUTHORIZED' };
-    case 403:
-      return { success: false, msg, errors: 'ERR_FORBIDDEN' };
-    case 415:
+import { MingoChanError } from '@errors/MingoChanError';
+import { HTTP_STATUS } from './httpStatus';
+
+interface HttpResponse {
+  success: boolean;
+  msg: string;
+  error_code: string | null;
+}
+
+export const responseGenerator = (status: number, msg?: string): HttpResponse => {
+  switch (status) {
+    case HTTP_STATUS.SUCCESS.code:
+      return {
+        success: true,
+        msg: msg ?? 'Success',
+        error_code: null
+      };
+    case HTTP_STATUS.BAD_REQUEST.code:
       return {
         success: false,
-        msg: 'This media format is not supported, please try another',
-        errors: 'ERR_UNSUPPORTED_MEDIA_TYPE',
+        msg: msg ?? 'Bad reuqest',
+        error_code: HTTP_STATUS.BAD_REQUEST.name
       };
-    case 429:
+    case HTTP_STATUS.UNATHORIZED.code:
       return {
         success: false,
-        msg: msg ?? "You're beeing ratelimited, please don't spam :)",
-        errors: 'ERR_TOO_MANY_REQUESTS',
+        msg: msg ?? 'Unathorized',
+        error_code: HTTP_STATUS.UNATHORIZED.name
       };
-    case 500:
+    case HTTP_STATUS.NOT_FOUND.code:
       return {
         success: false,
-        msg,
-        errors: 'ERR_INTERNAL_SERVER_ERROR',
+        msg: msg ?? 'Not found',
+        error_code: HTTP_STATUS.NOT_FOUND.name
       };
-    default:
-      throw new Error('No such HTTP method configured');
+    case HTTP_STATUS.INTERNAL_SERVER_ERROR.code:
+      return {
+        success: false,
+        msg: msg ?? 'Interal server error',
+        error_code: HTTP_STATUS.INTERNAL_SERVER_ERROR.name
+      };
+    default: throw new MingoChanError(
+      HTTP_STATUS.INTERNAL_SERVER_ERROR.code,
+      'No such HTTP status configured in responseGenerator'
+    );
   }
 };

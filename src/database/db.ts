@@ -1,13 +1,13 @@
 import { MongoClient, Db as mongoDb, Collection } from 'mongodb';
 import { datbaseCollections } from '@config/config';
-
+import { logger } from '@util/logger';
 interface IConfig {
   uri: string;
   name: string;
 }
 
 export class Db {
-  private readonly dbName: string;
+  private readonly dbName: IConfig['name'];
   private readonly uri?: IConfig['uri'];
   private readonly rootClient: MongoClient;
   public db!: mongoDb;
@@ -27,16 +27,14 @@ export class Db {
   public async connect(): Promise<this> {
     return new Promise<this>((resolve, reject) => {
       this.rootClient.connect((err, client) => {
-        // eslint-disable-next-line
-				if (err) return reject(err);
-        // eslint-disable-next-line no-console
-        console.info(`Connected to databse: ${this.dbName}`);
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (err) return reject(err);
+        logger.info(`Connected to databse: ${this.dbName}`);
 
         this.db = client.db(this.dbName);
         this.users = this.db.collection(datbaseCollections.users);
         this.tickets = this.db.collection(datbaseCollections.tickets);
         this.settings = this.db.collection(datbaseCollections.settings);
-        this.organisations = this.db.collection(datbaseCollections.settings);
         resolve(this);
       });
     });

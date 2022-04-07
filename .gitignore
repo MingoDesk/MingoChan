@@ -142,3 +142,5 @@ dist
 # Temps
 
 _temp_
+.*temp.*
+temp.*

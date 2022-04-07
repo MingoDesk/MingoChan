@@ -1,8 +1,8 @@
-import { envFilter as filter } from '@config/config';
-import { MissingEnvError } from './envError';
+import { ENV_FILTER as filter } from '@config/config';
+import { MissingEnvError } from '../errors/envError';
 
 const checkEnvVars = (): void => {
-  filter.forEach(key => {
+  filter.forEach((key: string) => {
     if (!process.env.hasOwnProperty(key)) throw new MissingEnvError(`Missing environment variable: ${key}`);
   });
 };

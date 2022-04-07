@@ -1,6 +1,7 @@
 import express, { Application } from 'express';
 import dotenv from 'dotenv';
 import { init } from './app';
+import { logger } from './util/logger';
 
 dotenv.config();
 
@@ -11,4 +12,6 @@ const start = async () => {
 };
 
 // eslint-disable-next-line no-console
-start().catch(err => console.error(err));
+start().catch(err => {
+  logger.error(err);
+});

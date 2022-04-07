@@ -7,8 +7,9 @@ declare namespace NodeJS {
 		MONGO_URI: string;
 		REDIS_URI: string;
 		SESSION_SECRET: string;
-		INSTANCE_NAME: string;
-		NODE_ENV: string;
+		JWT_EXP: string; // Eg: 60, "2 days", "10h", "7d"
+		JWT_SECRET: string; // Should be long
+		NODE_ENV: string; // production or anything else
 		GOOGLE_CLIENT_ID: string;
 		GOOGLE_SECRET: string;
 		SLACK_CLIENT_ID: string;
@@ -22,5 +23,6 @@ declare namespace NodeJS {
 		CORS: string; // IP's and domains are split by | (pipes)
 		BASE_URL: string;
 		SIGNING_SECRET: string;
+		LOG_LEVEL: string;
 	}
 }
