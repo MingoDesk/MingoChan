@@ -1,7 +1,7 @@
-import { HTTP_STATUS } from '@util/httpStatus';
-import { responseGenerator } from '@util/responseGenerator';
+import { HTTP_STATUS } from '@util/http-status';
+import { responseGenerator } from '@util/response-generator';
 import { NextFunction, Request, Response } from 'express';
-import * as jsonwebtoken from 'jsonwebtoken';
+import jsonwebtoken, { JwtPayload } from 'jsonwebtoken';
 
 
 export const verifySession = (req: Request, res: Response, next: NextFunction) => {
@@ -19,7 +19,7 @@ export const verifySession = (req: Request, res: Response, next: NextFunction) =
       });
     }
 
-    req.user = payload;
+    req.user = (payload as JwtPayload).data;
     next();
   });
 };

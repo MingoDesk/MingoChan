@@ -1,7 +1,7 @@
 import { getDB } from '@database/db';
 import { MingoChanError } from '@errors/MingoChanError';
-import { User } from '../../@types/user';
-import { HTTP_STATUS } from '@util/httpStatus';
+import { User } from '../../types/user';
+import { HTTP_STATUS } from '@util/http-status';
 import argon2 from 'argon2';
 import { InsertOneWriteOpResult } from 'mongodb';
 import { v4 as uuid } from 'uuid';

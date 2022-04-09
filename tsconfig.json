@@ -39,7 +39,8 @@
 			"@auth/*": ["routes/auth/*"],
 			"@system/*": ["routes/system/*"],
 			"@user/*": ["routes/user/*"],
-			"@security/*": ["security/*"]
+			"@security/*": ["security/*"],
+			"@@types/*": ["types/*"],
 		}
 	},
 	"exclude": ["node_modules", "dist"],

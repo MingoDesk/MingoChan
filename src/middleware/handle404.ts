@@ -1,4 +1,4 @@
-import { HTTP_STATUS } from '../util/httpStatus';
+import { HTTP_STATUS } from '../util/http-status';
 import { MingoChanError } from '../errors/MingoChanError';
 import { NextFunction } from 'express';
 import { handleError } from '@errors/handleError';

@@ -6,7 +6,7 @@ import { Request, Response } from 'express-serve-static-core';
 import cookieParser from 'cookie-parser';
 import pinoHttp from 'pino-http';
 import { setupDB } from '@database/db';
-import { checkEnvVars } from '@util/checkEnvVars';
+import { checkEnvVars } from '@util/check-env-vars';
 import { handleError } from '@errors/handleError';
 import { logger } from './util/logger';
 import { MingoChanError } from '@errors/MingoChanError';

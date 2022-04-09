@@ -1,12 +1,12 @@
-import { User } from '../@types/user';
+import { User } from '../types/user';
 
 export interface SafeUser {
   // permissions: string[];
   providerId: string;
   email: string;
   isVerified: boolean;
-  name: string;
-  picture: string;
+  name?: string;
+  picture?: string;
 }
 
 // TODO: get user permissions
@@ -16,6 +16,6 @@ export const getSafeUser = (userData: User): SafeUser => ({
   providerId: userData.providerId,
   email: userData.email,
   isVerified: userData.isVerified ?? false,
-  name: userData.name ?? '',
-  picture: userData.picture ?? ''
+  name: userData.name ?? undefined,
+  picture: userData.picture ?? undefined
 });

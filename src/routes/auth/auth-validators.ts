@@ -1,15 +1,9 @@
-import { emailExists } from '@util/emailExists';
-import { Request, RequestHandler } from 'express';
+import { emailExists } from '@util/email-exists';
+import { RequestHandler } from 'express';
 import { check } from 'express-validator';
 
-interface BasicAuthRequestBody {
-  email: string;
-  password: string;
-}
-
-export type BasicAuthRequest = Request<{}, {}, BasicAuthRequestBody>;
 interface Methods {
-  method: 'signUpWithBasicAuth';
+  method: 'signUpWithBasicAuth' | 'loginWithBasicAuth';
 }
 
 export const validate = (method: Methods['method']): RequestHandler[] => {
@@ -26,6 +20,18 @@ export const validate = (method: Methods['method']): RequestHandler[] => {
           .exists()
           .isString()
           .isStrongPassword()
+          .escape()
+      ];
+    case 'loginWithBasicAuth':
+      return [
+        check('email', 'email failed validation')
+          .exists()
+          .normalizeEmail()
+          .isEmail()
+          .escape(),
+        check('password', 'password must contain at least 6 characters')
+          .exists()
+          .isString()
           .escape()
       ];
     default: return [];

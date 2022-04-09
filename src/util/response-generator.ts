@@ -1,5 +1,5 @@
 import { MingoChanError } from '@errors/MingoChanError';
-import { HTTP_STATUS } from './httpStatus';
+import { HTTP_STATUS } from './http-status';
 
 interface HttpResponse {
   success: boolean;

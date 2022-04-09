@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { validate } from './auth-validators';
-import { signUpBasicAuth } from './signUpBasicAuth';
+import { signUpBasicAuth } from './register/basic-auth';
+
 
 const router = Router();
 
