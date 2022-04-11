@@ -1,4 +1,4 @@
-import express, { Application, NextFunction } from 'express';
+import express, { Application } from 'express';
 import helmet from 'helmet';
 import 'reflect-metadata';
 import cors from 'cors';
@@ -7,9 +7,7 @@ import cookieParser from 'cookie-parser';
 import pinoHttp from 'pino-http';
 import { setupDB } from '@database/db';
 import { checkEnvVars } from '@util/check-env-vars';
-import { handleError } from '@errors/handleError';
 import { logger } from './util/logger';
-import { MingoChanError } from '@errors/MingoChanError';
 import { handle404 } from '@middleware/handle404';
 import { setupRoutes } from '@routes/router';
 import { v4 as uuid } from 'uuid';
@@ -23,7 +21,6 @@ const init = async (app: Application): Promise<void> => {
   app.use(pinoHttp({
     name: process.env.DB_NAME,
     level: process.env.LOG_LEVEL,
-    redact: ['req.headers.authorization'],
     genReqId: () => uuid()
   }));
   app.use(cookieParser());
@@ -39,18 +36,16 @@ const init = async (app: Application): Promise<void> => {
 
   setupRoutes(app);
 
-  app.use((err: MingoChanError, req: Request, res: Response) => {
-    handleError(err, req, res);
+  app.use((req: Request, res: Response) => {
+    logger.warn('About to handle 404');
+    handle404(req, res);
   });
 
-  app.use((err: MingoChanError, req: Request, res: Response, next: NextFunction) => handle404(req, res, next, err));
+  await setupDB({ uri: process.env.MONGO_URI, name: process.env.DB_NAME });
 
   process.on('uncaughtException', error => {
     logger.error(error);
   });
-
-
-  await setupDB({ uri: process.env.MONGO_URI, name: process.env.DB_NAME });
 
   app.listen(process.env.PORT, () => logger.info(`Listening on PORT:${process.env.PORT}`));
 };

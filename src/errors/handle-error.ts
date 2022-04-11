@@ -1,5 +1,5 @@
 import { Response, Request } from 'express';
-import { MingoChanError } from './MingoChanError';
+import { MingoChanError } from './mingochan-error';
 
 export const handleError = (err: MingoChanError, req: Request, res: Response) => {
   req.log.error(err);

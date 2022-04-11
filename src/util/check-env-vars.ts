@@ -1,5 +1,5 @@
 import { ENV_FILTER as filter } from '@config/config';
-import { MissingEnvError } from '../errors/envError';
+import { MissingEnvError } from '../errors/env-error';
 
 const checkEnvVars = (): void => {
   filter.forEach((key: string) => {

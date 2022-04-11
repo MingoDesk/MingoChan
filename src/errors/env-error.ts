@@ -1,5 +1,5 @@
 import { HTTP_STATUS } from '@util/http-status';
-import { MingoChanError } from './MingoChanError';
+import { MingoChanError } from './mingochan-error';
 
 export class MissingEnvError extends MingoChanError {
   public constructor(type: string, msg = 'Missing environment variable') {

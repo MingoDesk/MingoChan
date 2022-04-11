@@ -14,6 +14,7 @@ declare namespace NodeJS {
 		GOOGLE_SECRET: string;
 		SLACK_CLIENT_ID: string;
 		SLACK_SECRET: string;
+		SLACK_AUTHORIZE_URL: string;
 		OFFICE365_CLIENT_ID: string;
 		OFFICE365_SECRET: string;
 		SESSION_LIFETIME: string;
