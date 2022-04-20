@@ -37,6 +37,11 @@ export class Db {
       });
     });
   }
+
+  public async disconnect(): Promise<void> {
+    await this.rootClient.close().catch(err => logger.error(err));
+    logger.info('Disconected from DB');
+  }
 }
 
 let database: Db;

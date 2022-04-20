@@ -11,8 +11,10 @@ import { logger } from './util/logger';
 import { handle404 } from '@middleware/handle404';
 import { setupRoutes } from '@routes/router';
 import { v4 as uuid } from 'uuid';
+import dotenv from 'dotenv';
 
 const init = async (app: Application): Promise<void> => {
+  dotenv.config();
   // Check that all env variables are set
   checkEnvVars();
 
@@ -37,7 +39,6 @@ const init = async (app: Application): Promise<void> => {
   setupRoutes(app);
 
   app.use((req: Request, res: Response) => {
-    logger.warn('About to handle 404');
     handle404(req, res);
   });
 

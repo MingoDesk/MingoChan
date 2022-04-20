@@ -144,3 +144,11 @@ dist
 _temp_
 .*temp.*
 temp.*
+
+# testing
+
+lcov-report
+lcov.info
+coverage
+clover.xml
+coverage-final.json

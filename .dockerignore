@@ -3,3 +3,9 @@ LICENSE
 readme.md
 dist
 .vscode
+coverage
+lcov-report
+lcov.info
+coverage
+clover.xml
+coverage-final.json
